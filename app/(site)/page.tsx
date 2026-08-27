@@ -10,7 +10,6 @@ import GalleryGrid from "@/components/GalleryGrid";
 import EventCard from "@/components/EventCard";
 import HoursWidget from "@/components/HoursWidget";
 import AnnouncementBanner from "@/components/AnnouncementBanner";
-import WhatsAppButton from "@/components/WhatsAppButton";
 import {
   getActiveSpecials,
   getEvents,
@@ -19,6 +18,14 @@ import {
   getOpeningHours,
   getSiteSettings,
 } from "@/lib/queries";
+import {
+  DEFAULT_ADDRESS,
+  DEFAULT_MAP_LINK,
+  DEFAULT_PHONE,
+  WA_BOOKING_DEFAULT,
+  waLink,
+  withDefault,
+} from "@/lib/site-defaults";
 
 export const metadata: Metadata = {
   title: "Zaba's Shisanyama — Meat. Fire. Family.",
@@ -151,33 +158,25 @@ export default async function HomePage() {
           <div>
             <SectionHeading eyebrow="Find Us" title="Pull up" />
             <div className="space-y-4 text-ash" data-reveal-group>
+              <p data-reveal>{withDefault(settings?.address, DEFAULT_ADDRESS)}</p>
               <p data-reveal>
-                {settings?.address && settings.address !== "TODO"
-                  ? settings.address
-                  : "Address: TODO"}
+                <a
+                  href={withDefault(settings?.mapLink, DEFAULT_MAP_LINK)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-bone underline decoration-gold underline-offset-4 transition-colors hover:text-flame"
+                >
+                  Open in Maps
+                </a>
               </p>
-              {settings?.mapLink && settings.mapLink !== "TODO" && (
-                <p data-reveal>
-                  <a
-                    href={settings.mapLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-bone underline decoration-gold underline-offset-4 transition-colors hover:text-flame"
-                  >
-                    Open in Maps
-                  </a>
-                </p>
-              )}
-              {settings?.phone && settings.phone !== "TODO" && (
-                <p data-reveal>
-                  <a
-                    href={`tel:${settings.phone}`}
-                    className="transition-colors hover:text-flame"
-                  >
-                    {settings.phone}
-                  </a>
-                </p>
-              )}
+              <p data-reveal>
+                <a
+                  href={`tel:${withDefault(settings?.phone, DEFAULT_PHONE).replace(/\s/g, "")}`}
+                  className="transition-colors hover:text-flame"
+                >
+                  {withDefault(settings?.phone, DEFAULT_PHONE)}
+                </a>
+              </p>
             </div>
           </div>
         </div>
@@ -198,17 +197,21 @@ export default async function HomePage() {
             </h2>
           </div>
           <div className="mt-10 flex flex-wrap justify-center gap-4" data-reveal>
-            <Link
-              href="/contact"
+            <a
+              href={waLink(WA_BOOKING_DEFAULT, settings?.whatsapp)}
+              target="_blank"
+              rel="noopener noreferrer"
               data-cursor="Book"
               className="bg-char px-8 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:bg-smoke"
             >
-              Book a Table
-            </Link>
-            <WhatsAppButton
-              number={settings?.whatsapp}
+              Book on WhatsApp
+            </a>
+            <Link
+              href="/contact"
               className="inline-block border border-bone px-8 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:bg-bone/10"
-            />
+            >
+              Contact Us
+            </Link>
           </div>
         </div>
       </Section>

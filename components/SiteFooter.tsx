@@ -2,10 +2,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { getOpeningHours, getSiteSettings } from "@/lib/queries";
 import { dayName, formatTime } from "@/lib/hours";
-
-function isTodo(v: string | null | undefined): boolean {
-  return !v || v === "TODO";
-}
+import {
+  DEFAULT_ADDRESS,
+  DEFAULT_FACEBOOK,
+  DEFAULT_INSTAGRAM,
+  DEFAULT_MAP_LINK,
+  DEFAULT_PHONE,
+  DEFAULT_TIKTOK,
+  WA_BOOKING_DEFAULT,
+  waLink,
+  withDefault,
+} from "@/lib/site-defaults";
 
 export default async function SiteFooter() {
   const [settings, hours] = await Promise.all([
@@ -14,10 +21,14 @@ export default async function SiteFooter() {
   ]);
 
   const socials = [
-    { label: "Instagram", href: settings?.instagram },
-    { label: "Facebook", href: settings?.facebook },
-    { label: "TikTok", href: settings?.tiktok },
-  ].filter((s) => !isTodo(s.href));
+    { label: "Instagram", href: withDefault(settings?.instagram, DEFAULT_INSTAGRAM) },
+    { label: "Facebook", href: withDefault(settings?.facebook, DEFAULT_FACEBOOK) },
+    { label: "TikTok", href: withDefault(settings?.tiktok, DEFAULT_TIKTOK) },
+  ];
+
+  const address = withDefault(settings?.address, DEFAULT_ADDRESS);
+  const phone = withDefault(settings?.phone, DEFAULT_PHONE);
+  const mapLink = withDefault(settings?.mapLink, DEFAULT_MAP_LINK);
 
   return (
     <footer className="border-t border-hair bg-smoke text-bone">
@@ -47,22 +58,20 @@ export default async function SiteFooter() {
               Flame-grilled meat, cold drinks and good people. Real fire, real
               flavour.
             </p>
-            {socials.length > 0 && (
-              <ul className="mt-6 flex gap-6">
-                {socials.map((s) => (
-                  <li key={s.label}>
-                    <a
-                      href={s.href!}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[0.75rem] uppercase tracking-[0.18em] text-ash transition-colors hover:text-flame"
-                    >
-                      {s.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <ul className="mt-6 flex gap-6">
+              {socials.map((s) => (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[0.75rem] uppercase tracking-[0.18em] text-ash transition-colors hover:text-flame"
+                  >
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div>
@@ -93,38 +102,34 @@ export default async function SiteFooter() {
           <div>
             <p className="eyebrow mb-5">Find Us</p>
             <ul className="space-y-3 text-sm text-ash">
-              <li>{isTodo(settings?.address) ? "Address: TODO" : settings!.address}</li>
+              <li>{address}</li>
               <li>
-                {isTodo(settings?.phone) ? (
-                  "Phone: TODO"
-                ) : (
-                  <a
-                    href={`tel:${settings!.phone}`}
-                    className="transition-colors hover:text-flame"
-                  >
-                    {settings!.phone}
-                  </a>
-                )}
+                <a
+                  href={`tel:${phone.replace(/\s/g, "")}`}
+                  className="transition-colors hover:text-flame"
+                >
+                  {phone}
+                </a>
               </li>
-              {!isTodo(settings?.mapLink) && (
-                <li>
-                  <a
-                    href={settings!.mapLink!}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-bone underline decoration-gold underline-offset-4 transition-colors hover:text-flame"
-                  >
-                    Open in Maps
-                  </a>
-                </li>
-              )}
+              <li>
+                <a
+                  href={mapLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-bone underline decoration-gold underline-offset-4 transition-colors hover:text-flame"
+                >
+                  Open in Maps
+                </a>
+              </li>
             </ul>
-            <Link
-              href="/contact"
+            <a
+              href={waLink(WA_BOOKING_DEFAULT, settings?.whatsapp)}
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-6 inline-block bg-ember px-6 py-3 text-[0.75rem] uppercase tracking-[0.18em] text-bone transition-colors hover:bg-flame"
             >
-              Book a Table
-            </Link>
+              Book on WhatsApp
+            </a>
           </div>
         </div>
 

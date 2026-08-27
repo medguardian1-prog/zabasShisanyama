@@ -1,23 +1,20 @@
-/** Builds a wa.me deep link from site_settings.whatsapp. Renders nothing when unset. */
+import { waLink, WA_BOOKING_DEFAULT } from "@/lib/site-defaults";
+
+/** WhatsApp deep link. Uses site_settings.whatsapp when set, else the client's number. */
 export default function WhatsAppButton({
   number,
-  message = "Hi Zaba's! I'd like to make a booking.",
+  message = WA_BOOKING_DEFAULT,
   label = "WhatsApp Us",
   className,
 }: {
-  number: string | null | undefined;
+  number?: string | null | undefined;
   message?: string;
   label?: string;
   className?: string;
 }) {
-  if (!number || number === "TODO") return null;
-  const digits = number.replace(/[^\d]/g, "");
-  if (!digits) return null;
-  const href = `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
-
   return (
     <a
-      href={href}
+      href={waLink(message, number)}
       target="_blank"
       rel="noopener noreferrer"
       className={

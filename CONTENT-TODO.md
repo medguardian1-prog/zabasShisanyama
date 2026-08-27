@@ -33,3 +33,16 @@ into the **staff dashboard → Settings**, the rest are code/env edits.
 ## Nice to have
 - [ ] A wider landscape hero-quality photo shot in low light would upgrade the
       homepage hero (currently `food-05.jpg` with a heavy scrim).
+
+## Researched online 2026-08-27 (now live as code fallbacks — confirm with Zaba's)
+- WhatsApp / bookings: **+27 62 085 8961** (client-supplied, authoritative)
+- Address: **Johannes Nkosi Avenue, Mayville, Durban, 4091** — sources disagree
+  on the street number: Zaba's own TikTok says **1**, Waze/Restaurant Guru say
+  **2**. Site currently shows 1 — CONFIRM.
+- Socials: instagram.com/zabas_shisanyama · facebook.com/zabashisanyama ·
+  tiktok.com/@zabasshisanyama
+- Other phone numbers seen online (NOT used on the site — verify before adding):
+  031 261 1762 (Yellow Pages), 073 356 0184 / 064 023 9488 (durbanwest.co.za),
+  +27 76 345 4791 (Restaurant Guru)
+- Hours seen on Restaurant Guru (NOT entered — punch into /admin/hours if right):
+  Mon–Thu 9:00–21:00 · Fri 9:00–22:00 · Sat–Sun 9:00–23:00

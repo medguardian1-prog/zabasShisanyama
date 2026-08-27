@@ -9,6 +9,7 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
+import { waLink, WA_BOOKING_DEFAULT } from "@/lib/site-defaults";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -136,13 +137,15 @@ export default function Hero() {
               >
                 View the Menu
               </Link>
-              <Link
-                href="/contact"
+              <a
+                href={waLink(WA_BOOKING_DEFAULT)}
+                target="_blank"
+                rel="noopener noreferrer"
                 data-cursor="Book"
                 className="border border-bone/50 px-8 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone backdrop-blur-sm transition-colors duration-300 hover:border-flame hover:text-flame"
               >
                 Book a Table
-              </Link>
+              </a>
             </motion.div>
           </motion.div>
 
