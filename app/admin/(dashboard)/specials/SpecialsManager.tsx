@@ -30,7 +30,7 @@ export default function SpecialsManager({ specials }: { specials: Special[] }) {
       <button
         type="button"
         onClick={() => setEditing("new")}
-        className="w-full rounded bg-ember px-6 py-4 text-base font-semibold text-bone"
+        className="btn-ember w-full px-6 py-4 text-base"
       >
         + Add a special
       </button>
@@ -40,8 +40,8 @@ export default function SpecialsManager({ specials }: { specials: Special[] }) {
           <li
             key={s.id}
             className={cn(
-              "rounded border bg-smoke p-4",
-              s.active ? "border-ember" : "border-hair"
+              "admin-card p-4",
+              s.active && "ring-1 ring-ember/70"
             )}
           >
             <div className="flex items-center gap-3">
@@ -79,7 +79,7 @@ export default function SpecialsManager({ specials }: { specials: Special[] }) {
                       else toast(res.error, true);
                     })
                   }
-                  className="rounded bg-ember px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-bone disabled:opacity-50"
+                  className="btn-ember px-4 py-2.5 text-xs uppercase tracking-wider"
                 >
                   Set as today&rsquo;s special
                 </button>
@@ -170,7 +170,7 @@ function SpecialDialog({
               name="title"
               required
               defaultValue={special?.title}
-              className="w-full rounded border border-hair bg-char px-4 py-3.5 text-base text-bone focus:border-ember focus:outline-none"
+              className="admin-input"
             />
           </Field>
           <Field label="Price in rands (optional)">
@@ -181,14 +181,14 @@ function SpecialDialog({
                 special?.price != null ? String(special.price / 100) : ""
               }
               placeholder="e.g. 99"
-              className="w-full rounded border border-hair bg-char px-4 py-3.5 text-base text-bone focus:border-ember focus:outline-none"
+              className="admin-input"
             />
           </Field>
           <Field label="Description (optional)">
             <textarea
               name="description"
               defaultValue={special?.description ?? ""}
-              className="min-h-20 w-full rounded border border-hair bg-char px-4 py-3.5 text-base text-bone focus:border-ember focus:outline-none"
+              className="min-h-20 admin-input"
             />
           </Field>
           <div className="grid grid-cols-2 gap-3">
@@ -197,7 +197,7 @@ function SpecialDialog({
                 name="startsAt"
                 type="date"
                 defaultValue={toLocalInput(special?.startsAt ?? null)}
-                className="w-full rounded border border-hair bg-char px-4 py-3.5 text-base text-bone focus:border-ember focus:outline-none"
+                className="admin-input"
               />
             </Field>
             <Field label="Ends (optional)">
@@ -205,7 +205,7 @@ function SpecialDialog({
                 name="endsAt"
                 type="date"
                 defaultValue={toLocalInput(special?.endsAt ?? null)}
-                className="w-full rounded border border-hair bg-char px-4 py-3.5 text-base text-bone focus:border-ember focus:outline-none"
+                className="admin-input"
               />
             </Field>
           </div>
@@ -214,11 +214,11 @@ function SpecialDialog({
             <button
               type="submit"
               disabled={pending}
-              className="flex-1 rounded bg-ember px-4 py-3.5 text-sm font-semibold text-bone disabled:opacity-50"
+              className="btn-ember flex-1 px-4 py-3.5 text-sm"
             >
               {pending ? "Saving…" : "Save"}
             </button>
-            <DialogClose className="flex-1 rounded border border-hair px-4 py-3.5 text-sm text-bone">
+            <DialogClose className="btn-quiet flex-1 px-4 py-3.5 text-sm">
               Cancel
             </DialogClose>
           </div>

@@ -17,7 +17,7 @@ export const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        "animate-fade-in fixed left-1/2 top-1/2 z-[71] w-[calc(100vw-2.5rem)] max-w-md -translate-x-1/2 -translate-y-1/2 border border-hair bg-smoke p-6 sm:p-8",
+        "animate-fade-in admin-card fixed left-1/2 top-1/2 z-[71] w-[calc(100vw-2.5rem)] max-w-md -translate-x-1/2 -translate-y-1/2 p-6 sm:p-8",
         className
       )}
       {...props}

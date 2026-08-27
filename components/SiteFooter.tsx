@@ -22,6 +22,12 @@ export default async function SiteFooter() {
   return (
     <footer className="border-t border-hair bg-smoke text-bone">
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
+        <p
+          aria-hidden="true"
+          className="pointer-events-none mb-14 select-none whitespace-nowrap font-display text-[clamp(2.6rem,9vw,7.5rem)] uppercase leading-none tracking-[0.02em] text-bone/[0.06]"
+        >
+          Zaba&rsquo;s Shisanyama
+        </p>
         <div className="grid gap-12 md:grid-cols-3">
           <div>
             <Link href="/" className="inline-flex items-center gap-3">

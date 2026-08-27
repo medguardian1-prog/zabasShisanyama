@@ -39,7 +39,7 @@ export default function MenuManager({
       <button
         type="button"
         onClick={() => setEditing("new")}
-        className="w-full rounded bg-ember px-6 py-4 text-base font-semibold text-bone"
+        className="btn-ember w-full px-6 py-4 text-base"
       >
         + Add a menu item
       </button>
@@ -124,7 +124,7 @@ function ItemRow({
   return (
     <li
       className={cn(
-        "rounded border border-hair bg-smoke p-4",
+        "admin-card p-4",
         !item.visible && "opacity-60"
       )}
     >
@@ -300,7 +300,7 @@ function ItemDialog({
               name="name"
               required
               defaultValue={item?.name}
-              className="w-full rounded border border-hair bg-char px-4 py-3.5 text-base text-bone focus:border-ember focus:outline-none"
+              className="admin-input"
             />
           </Field>
           <Field label="Category">
@@ -322,14 +322,14 @@ function ItemDialog({
               inputMode="decimal"
               defaultValue={item?.price != null ? String(item.price / 100) : ""}
               placeholder="e.g. 120"
-              className="w-full rounded border border-hair bg-char px-4 py-3.5 text-base text-bone focus:border-ember focus:outline-none"
+              className="admin-input"
             />
           </Field>
           <Field label="Description (optional)">
             <textarea
               name="description"
               defaultValue={item?.description ?? ""}
-              className="min-h-20 w-full rounded border border-hair bg-char px-4 py-3.5 text-base text-bone focus:border-ember focus:outline-none"
+              className="min-h-20 admin-input"
             />
           </Field>
           <Field label="Tags — comma separated (optional)">
@@ -337,7 +337,7 @@ function ItemDialog({
               name="tags"
               defaultValue={item?.tags.join(", ")}
               placeholder="spicy, sharing"
-              className="w-full rounded border border-hair bg-char px-4 py-3.5 text-base text-bone focus:border-ember focus:outline-none"
+              className="admin-input"
             />
           </Field>
           <ImageInput existingUrl={item?.image} onFile={setPhoto} />
@@ -354,11 +354,11 @@ function ItemDialog({
             <button
               type="submit"
               disabled={pending}
-              className="flex-1 rounded bg-ember px-4 py-3.5 text-sm font-semibold text-bone disabled:opacity-50"
+              className="btn-ember flex-1 px-4 py-3.5 text-sm"
             >
               {pending ? "Saving…" : "Save"}
             </button>
-            <DialogClose className="flex-1 rounded border border-hair px-4 py-3.5 text-sm text-bone">
+            <DialogClose className="btn-quiet flex-1 px-4 py-3.5 text-sm">
               Cancel
             </DialogClose>
           </div>

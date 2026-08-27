@@ -6,7 +6,7 @@ export default async function AdminSpecialsPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold text-bone">Specials</h1>
+      <h1 className="font-display text-2xl uppercase tracking-wide text-bone">Specials</h1>
       <p className="mt-1 text-sm text-ash">
         &ldquo;Set as today&rsquo;s special&rdquo; switches the others off
         automatically.

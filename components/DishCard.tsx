@@ -22,7 +22,7 @@ export default function DishCard({
   return (
     <article className="group" data-cursor="View">
       {image && (
-        <div className="relative aspect-[4/3] overflow-hidden bg-smoke">
+        <div className="photo-frame relative aspect-[4/3] border border-hair transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:border-gold/40 group-hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.9)]">
           <Image
             src={image}
             alt={alt}

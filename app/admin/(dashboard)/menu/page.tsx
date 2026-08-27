@@ -9,7 +9,7 @@ export default async function AdminMenuPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold text-bone">Menu</h1>
+      <h1 className="font-display text-2xl uppercase tracking-wide text-bone">Menu</h1>
       <p className="mt-1 text-sm text-ash">
         Tap the toggle to mark something sold out. Changes go live straight
         away.

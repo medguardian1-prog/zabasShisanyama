@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Hero from "@/components/Hero";
+import Marquee from "@/components/Marquee";
 import Section from "@/components/Section";
 import SectionHeading from "@/components/SectionHeading";
 import SignatureStrip from "@/components/SignatureStrip";
@@ -49,6 +50,8 @@ export default async function HomePage() {
       {settings?.announcementActive && settings.announcementText && (
         <AnnouncementBanner text={settings.announcementText} />
       )}
+
+      <Marquee />
 
       {/* intro */}
       <Section tone="char">

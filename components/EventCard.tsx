@@ -4,8 +4,8 @@ import { formatEventDate } from "@/lib/format";
 
 export default function EventCard({ event }: { event: SiteEvent }) {
   return (
-    <article className="group bg-smoke">
-      <div className="relative aspect-[16/10] overflow-hidden">
+    <article className="group border border-hair bg-smoke transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-gold/40 hover:shadow-[0_28px_70px_-30px_rgba(0,0,0,0.9)]">
+      <div className="photo-frame relative aspect-[16/10]">
         <Image
           src={event.image || "/images/event.jpg"}
           alt={

@@ -47,7 +47,7 @@ export default function AboutPage() {
       <Section tone="smoke">
         <div className="grid gap-8 md:grid-cols-2">
           <figure>
-            <div data-reveal-image className="relative aspect-[4/3] overflow-hidden bg-char">
+            <div data-reveal-image className="photo-frame relative aspect-[4/3] border border-hair">
               <Image
                 src="/images/food-06.jpg"
                 alt="Hands carving ribs and grilled meat on a shared wooden board"
@@ -61,7 +61,7 @@ export default function AboutPage() {
             </figcaption>
           </figure>
           <figure className="md:mt-16">
-            <div data-reveal-image className="relative aspect-[3/4] overflow-hidden bg-char">
+            <div data-reveal-image className="photo-frame relative aspect-[3/4] border border-hair">
               <Image
                 src="/images/food-01.webp"
                 alt="Friends sharing a pile of flame-grilled chicken and ribs on a wooden board"

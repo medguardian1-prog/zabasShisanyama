@@ -52,7 +52,7 @@ function DayRow({ row }: { row: OpeningHoursRow }) {
   }
 
   return (
-    <li className="rounded border border-hair bg-smoke p-4">
+    <li className="admin-card p-4">
       <form onSubmit={submit}>
         <div className="flex items-center justify-between gap-4">
           <p className="font-medium text-bone">{dayName(row.dayOfWeek)}</p>
@@ -75,7 +75,7 @@ function DayRow({ row }: { row: OpeningHoursRow }) {
                 name="opens"
                 type="time"
                 defaultValue={row.opens?.slice(0, 5) ?? ""}
-                className="w-full rounded border border-hair bg-char px-3 py-3 text-base text-bone focus:border-ember focus:outline-none"
+                className="admin-input"
               />
             </label>
             <label className="block">
@@ -86,7 +86,7 @@ function DayRow({ row }: { row: OpeningHoursRow }) {
                 name="closes"
                 type="time"
                 defaultValue={row.closes?.slice(0, 5) ?? ""}
-                className="w-full rounded border border-hair bg-char px-3 py-3 text-base text-bone focus:border-ember focus:outline-none"
+                className="admin-input"
               />
             </label>
           </div>
@@ -100,13 +100,13 @@ function DayRow({ row }: { row: OpeningHoursRow }) {
               name="note"
               defaultValue={row.note ?? ""}
               placeholder="e.g. Kitchen closes 21:00"
-              className="w-full rounded border border-hair bg-char px-3 py-3 text-base text-bone focus:border-ember focus:outline-none"
+              className="admin-input"
             />
           </label>
           <button
             type="submit"
             disabled={pending}
-            className="rounded bg-ember px-5 py-3 text-sm font-semibold text-bone disabled:opacity-50"
+            className="btn-ember px-5 py-3 text-sm"
           >
             {pending ? "…" : "Save"}
           </button>
@@ -132,7 +132,7 @@ function AnnouncementEditor({ settings }: { settings: SiteSettings | null }) {
   }
 
   return (
-    <section className="rounded border border-hair bg-smoke p-4">
+    <section className="admin-card p-4">
       <h2 className="font-medium text-bone">Announcement banner</h2>
       <p className="mt-1 text-sm text-ash">
         Shows at the top of the homepage while switched on.
@@ -142,7 +142,7 @@ function AnnouncementEditor({ settings }: { settings: SiteSettings | null }) {
           name="text"
           defaultValue={settings?.announcementText ?? ""}
           placeholder="e.g. Closed this Sunday for a private event"
-          className="w-full rounded border border-hair bg-char px-4 py-3.5 text-base text-bone focus:border-ember focus:outline-none"
+          className="admin-input"
         />
         <div className="flex items-center justify-between gap-4">
           <label className="flex items-center gap-2.5 text-sm text-ash">
@@ -156,7 +156,7 @@ function AnnouncementEditor({ settings }: { settings: SiteSettings | null }) {
           <button
             type="submit"
             disabled={pending}
-            className="rounded bg-ember px-5 py-3 text-sm font-semibold text-bone disabled:opacity-50"
+            className="btn-ember px-5 py-3 text-sm"
           >
             {pending ? "Saving…" : "Save"}
           </button>

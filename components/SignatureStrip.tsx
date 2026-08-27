@@ -152,7 +152,7 @@ function StripCard({
 }) {
   return (
     <article className="group w-[78vw] max-w-sm shrink-0 snap-start lg:w-[26vw]">
-      <div className="relative aspect-[3/4] overflow-hidden bg-char">
+      <div className="photo-frame relative aspect-[3/4] border border-hair transition-colors duration-500 group-hover:border-gold/40">
         <Image
           src={image}
           alt={alt}
@@ -160,8 +160,8 @@ function StripCard({
           sizes="(min-width: 1024px) 26vw, 78vw"
           className="object-cover transition-transform duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-char/85 via-transparent to-transparent" />
-        <span className="absolute left-4 top-4 text-[0.6875rem] tracking-[0.22em] text-gold">
+        <div className="absolute inset-0 z-[2] bg-gradient-to-t from-char/85 via-transparent to-transparent" />
+        <span className="absolute left-0 top-5 z-[3] border-l-2 border-gold bg-char/80 py-1.5 pl-3 pr-4 font-display text-sm tracking-[0.1em] text-gold">
           {String(index + 1).padStart(2, "0")}
         </span>
       </div>

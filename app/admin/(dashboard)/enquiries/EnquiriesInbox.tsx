@@ -63,7 +63,7 @@ function EnquiryCard({ enquiry }: { enquiry: Enquiry }) {
   const created = new Date(enquiry.createdAt);
 
   return (
-    <li className="rounded border border-hair bg-smoke p-4">
+    <li className="admin-card p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="font-medium text-bone">{enquiry.name}</p>
@@ -122,7 +122,7 @@ function EnquiryCard({ enquiry }: { enquiry: Enquiry }) {
           <>
             <a
               href={`tel:${enquiry.phone}`}
-              className="rounded bg-ember px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-bone"
+              className="btn-ember px-4 py-2.5 text-xs uppercase tracking-wider"
             >
               Call
             </a>
@@ -131,7 +131,7 @@ function EnquiryCard({ enquiry }: { enquiry: Enquiry }) {
                 href={`https://wa.me/${phoneDigits}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded border border-hair px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-bone"
+                className="btn-quiet px-4 py-2.5 text-xs font-semibold uppercase tracking-wider"
               >
                 WhatsApp
               </a>

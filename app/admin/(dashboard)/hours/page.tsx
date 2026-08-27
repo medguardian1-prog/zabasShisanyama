@@ -9,7 +9,7 @@ export default async function AdminHoursPage() {
 
   return (
     <div>
-      <h1 className="text-xl font-semibold text-bone">Hours & announcement</h1>
+      <h1 className="font-display text-2xl uppercase tracking-wide text-bone">Hours & announcement</h1>
       <p className="mt-1 text-sm text-ash">
         Set each day&rsquo;s times, or flip &ldquo;Closed&rdquo; for the whole
         day.

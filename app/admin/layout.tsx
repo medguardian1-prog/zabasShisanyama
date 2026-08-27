@@ -17,5 +17,15 @@ export default function AdminRootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="min-h-[100svh] bg-char text-bone">{children}</div>;
+  return (
+    <div
+      className="min-h-[100svh] bg-char text-bone"
+      style={{
+        backgroundImage:
+          "radial-gradient(80% 40% at 50% 0%, rgba(200,16,46,0.07) 0%, transparent 60%)",
+      }}
+    >
+      {children}
+    </div>
+  );
 }

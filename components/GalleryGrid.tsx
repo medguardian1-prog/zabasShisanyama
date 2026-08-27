@@ -62,7 +62,7 @@ export default function GalleryGrid({
             <div
               data-reveal-image
               className={cn(
-                "relative overflow-hidden bg-smoke",
+                "photo-frame relative border border-hair",
                 i % 3 === 0 ? "aspect-[3/4]" : "aspect-[4/3]"
               )}
             >
@@ -75,7 +75,8 @@ export default function GalleryGrid({
               />
             </div>
             {img.caption && (
-              <figcaption className="mt-3 text-[0.6875rem] uppercase tracking-[0.22em] text-ash">
+              <figcaption className="mt-3 flex items-center gap-3 text-[0.6875rem] uppercase tracking-[0.22em] text-ash">
+                <span className="h-px w-6 bg-gold/50" aria-hidden="true" />
                 {img.caption}
               </figcaption>
             )}

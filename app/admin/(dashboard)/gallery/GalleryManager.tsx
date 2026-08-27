@@ -41,7 +41,7 @@ export default function GalleryManager({ images }: { images: GalleryImage[] }) {
       <form
         ref={formRef}
         onSubmit={submit}
-        className="space-y-4 rounded border border-hair bg-smoke p-4"
+        className="space-y-4 admin-card p-4"
       >
         <ImageInput label="New photo" onFile={setPhoto} />
         <label className="block">
@@ -52,7 +52,7 @@ export default function GalleryManager({ images }: { images: GalleryImage[] }) {
             name="alt"
             required
             placeholder="e.g. Lamb chops on the grill on a Saturday"
-            className="w-full rounded border border-hair bg-char px-4 py-3.5 text-base text-bone focus:border-ember focus:outline-none"
+            className="admin-input"
           />
         </label>
         <label className="block">
@@ -61,13 +61,13 @@ export default function GalleryManager({ images }: { images: GalleryImage[] }) {
           </span>
           <input
             name="caption"
-            className="w-full rounded border border-hair bg-char px-4 py-3.5 text-base text-bone focus:border-ember focus:outline-none"
+            className="admin-input"
           />
         </label>
         <button
           type="submit"
           disabled={pending || !photo}
-          className="w-full rounded bg-ember px-4 py-4 text-sm font-semibold text-bone disabled:opacity-50"
+          className="btn-ember w-full px-4 py-4 text-sm"
         >
           {pending ? "Uploading…" : "Upload photo"}
         </button>
@@ -78,7 +78,7 @@ export default function GalleryManager({ images }: { images: GalleryImage[] }) {
           <li
             key={img.id}
             className={cn(
-              "rounded border border-hair bg-smoke p-2",
+              "admin-card p-2",
               !img.visible && "opacity-60"
             )}
           >

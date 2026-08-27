@@ -93,14 +93,14 @@ export default function SettingsForm({
             type={f.type ?? "text"}
             defaultValue={f.value}
             placeholder={f.placeholder}
-            className="w-full rounded border border-hair bg-smoke px-4 py-3.5 text-base text-bone placeholder:text-ash/50 focus:border-ember focus:outline-none"
+            className="admin-input"
           />
         </label>
       ))}
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded bg-ember px-4 py-4 text-sm font-semibold text-bone disabled:opacity-50 sm:w-auto sm:px-8"
+        className="btn-ember w-full px-4 py-4 text-sm sm:w-auto sm:px-8"
       >
         {pending ? "Saving…" : "Save settings"}
       </button>

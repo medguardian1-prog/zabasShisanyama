@@ -9,7 +9,7 @@ export default function LoginForm() {
   const [state, action, pending] = useActionState(login, initialState);
 
   return (
-    <form action={action} className="mt-8 w-full max-w-xs space-y-4">
+    <form action={action} className="mt-7 space-y-4 text-left">
       <label htmlFor="password" className="sr-only">
         Staff password
       </label>
@@ -21,17 +21,17 @@ export default function LoginForm() {
         autoFocus
         autoComplete="current-password"
         placeholder="Password"
-        className="w-full rounded border border-hair bg-smoke px-4 py-4 text-base text-bone placeholder:text-ash/60 focus:border-ember focus:outline-none"
+        className="admin-input py-4 text-center"
       />
       {state.error && (
-        <p className="text-sm text-flame" role="alert">
+        <p className="text-center text-sm text-flame" role="alert">
           {state.error}
         </p>
       )}
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded bg-ember px-4 py-4 text-sm font-semibold uppercase tracking-wider text-bone disabled:opacity-50"
+        className="btn-ember w-full px-4 py-4 text-sm uppercase tracking-wider"
       >
         {pending ? "Checking…" : "Log in"}
       </button>

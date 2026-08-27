@@ -47,3 +47,12 @@ Choices made without asking, with reasons.
 - Image uploads: client-side canvas compression to ≤1600px JPEG q0.8, stored in
   the public `media` bucket with a timestamp+uuid name; the public URL goes in the
   row's `image` column.
+
+## Image quality (2026-08-27 redesign)
+- The ibb.co source links served ~243px thumbnails, not originals. Originals
+  are unavailable; the user's media account has no AI-upscale credits.
+- Mitigation: `scripts/enhance-images.mjs` (sharp) enlarges `image-src/` 2.5x
+  with lanczos3 + denoise + sharpen into `public/images/`, and the design never
+  shows photos far above native size — blurred backdrop + small framed panel in
+  the hero, framed/grained cards elsewhere. Re-run the script if better
+  originals ever arrive in `image-src/`.

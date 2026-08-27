@@ -29,7 +29,7 @@ export default function EventsManager({ events }: { events: SiteEvent[] }) {
       <button
         type="button"
         onClick={() => setEditing("new")}
-        className="w-full rounded bg-ember px-6 py-4 text-base font-semibold text-bone"
+        className="btn-ember w-full px-6 py-4 text-base"
       >
         + Add an event
       </button>
@@ -39,7 +39,7 @@ export default function EventsManager({ events }: { events: SiteEvent[] }) {
           <li
             key={ev.id}
             className={cn(
-              "rounded border border-hair bg-smoke p-4",
+              "admin-card p-4",
               !ev.visible && "opacity-60"
             )}
           >
@@ -149,7 +149,7 @@ function EventDialog({
               name="title"
               required
               defaultValue={event?.title}
-              className="w-full rounded border border-hair bg-char px-4 py-3.5 text-base text-bone focus:border-ember focus:outline-none"
+              className="admin-input"
             />
           </label>
           <label className="block">
@@ -160,7 +160,7 @@ function EventDialog({
               name="eventDate"
               type="date"
               defaultValue={event?.eventDate ? event.eventDate.slice(0, 10) : ""}
-              className="w-full rounded border border-hair bg-char px-4 py-3.5 text-base text-bone focus:border-ember focus:outline-none"
+              className="admin-input"
             />
           </label>
           <label className="block">
@@ -170,7 +170,7 @@ function EventDialog({
             <textarea
               name="description"
               defaultValue={event?.description ?? ""}
-              className="min-h-20 w-full rounded border border-hair bg-char px-4 py-3.5 text-base text-bone focus:border-ember focus:outline-none"
+              className="min-h-20 admin-input"
             />
           </label>
           <ImageInput existingUrl={event?.image} onFile={setPhoto} />
@@ -178,11 +178,11 @@ function EventDialog({
             <button
               type="submit"
               disabled={pending}
-              className="flex-1 rounded bg-ember px-4 py-3.5 text-sm font-semibold text-bone disabled:opacity-50"
+              className="btn-ember flex-1 px-4 py-3.5 text-sm"
             >
               {pending ? "Saving…" : "Save"}
             </button>
-            <DialogClose className="flex-1 rounded border border-hair px-4 py-3.5 text-sm text-bone">
+            <DialogClose className="btn-quiet flex-1 px-4 py-3.5 text-sm">
               Cancel
             </DialogClose>
           </div>

@@ -65,7 +65,7 @@ export default function ImageInput({
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={busy}
-          className="rounded border border-hair px-4 py-3 text-sm text-bone disabled:opacity-50"
+          className="btn-quiet px-4 py-3 text-sm disabled:opacity-50"
         >
           {busy ? "Preparing photo…" : shown ? "Change photo" : "Choose photo"}
         </button>
