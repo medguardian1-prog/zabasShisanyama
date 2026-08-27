@@ -38,8 +38,8 @@ export default function Hero() {
       <motion.div
         className="absolute inset-0"
         style={reduced ? undefined : { scale: imageScale, y: imageY }}
-        initial={reduced ? false : { opacity: 0, scale: 1.08 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={reduced ? false : { scale: 1.08 }}
+        animate={{ scale: 1 }}
         transition={{ duration: 2, ease: EASE }}
       >
         <Image
@@ -60,6 +60,16 @@ export default function Hero() {
           }}
         />
       </motion.div>
+
+      {/* entrance fade: a cover that fades out, so the hero image itself
+          paints immediately (keeps LCP honest) while reading as a 2s fade-in */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-char"
+        initial={reduced ? { opacity: 0 } : { opacity: 1 }}
+        animate={{ opacity: 0 }}
+        transition={{ duration: 2, ease: EASE }}
+      />
 
       <motion.div
         className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-24 pt-40 sm:px-8 sm:pb-32"
