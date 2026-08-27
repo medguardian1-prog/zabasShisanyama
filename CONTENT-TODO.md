@@ -36,9 +36,8 @@ into the **staff dashboard → Settings**, the rest are code/env edits.
 
 ## Researched online 2026-08-27 (now live as code fallbacks — confirm with Zaba's)
 - WhatsApp / bookings: **+27 62 085 8961** (client-supplied, authoritative)
-- Address: **Johannes Nkosi Avenue, Mayville, Durban, 4091** — sources disagree
-  on the street number: Zaba's own TikTok says **1**, Waze/Restaurant Guru say
-  **2**. Site currently shows 1 — CONFIRM.
+- Address: **2 Johannes Nkosi Avenue, Mayville, Durban, 4091** — CONFIRMED by
+  the client 2026-08-27 (online sources disagreed; number 2 is correct).
 - Socials: instagram.com/zabas_shisanyama · facebook.com/zabashisanyama ·
   tiktok.com/@zabasshisanyama
 - Other phone numbers seen online (NOT used on the site — verify before adding):

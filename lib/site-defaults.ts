@@ -10,9 +10,9 @@
 export const WHATSAPP_NUMBER = "27620858961"; // +27 62 085 8961
 export const DEFAULT_PHONE = "+27 62 085 8961";
 export const DEFAULT_ADDRESS =
-  "1 Johannes Nkosi Avenue, Mayville, Durban, 4091";
+  "2 Johannes Nkosi Avenue, Mayville, Durban, 4091";
 export const DEFAULT_MAP_LINK =
-  "https://www.google.com/maps/search/?api=1&query=Zaba%27s+Shisanyama+Johannes+Nkosi+Avenue+Mayville+Durban";
+  "https://www.google.com/maps/search/?api=1&query=Zaba%27s+Shisanyama+2+Johannes+Nkosi+Avenue+Mayville+Durban";
 export const DEFAULT_INSTAGRAM = "https://www.instagram.com/zabas_shisanyama";
 export const DEFAULT_FACEBOOK = "https://www.facebook.com/zabashisanyama";
 export const DEFAULT_TIKTOK = "https://www.tiktok.com/@zabasshisanyama";
