@@ -38,8 +38,10 @@ into the **staff dashboard → Settings**, the rest are code/env edits.
 - WhatsApp / bookings: **+27 62 085 8961** (client-supplied, authoritative)
 - Address: **2 Johannes Nkosi Avenue, Mayville, Durban, 4091** — CONFIRMED by
   the client 2026-08-27 (online sources disagreed; number 2 is correct).
-- Socials: instagram.com/zabas_shisanyama · facebook.com/zabashisanyama ·
+- Socials: instagram.com/zabas_shisanyama · facebook.com/zabashisanyamaa ·
   tiktok.com/@zabasshisanyama
+  NOTE: the Facebook page is **zabashisanyamaa** (double a). The single-a
+  handle is a different business, Zaba's Pub and Grill — client-confirmed.
 - Other phone numbers seen online (NOT used on the site — verify before adding):
   031 261 1762 (Yellow Pages), 073 356 0184 / 064 023 9488 (durbanwest.co.za),
   +27 76 345 4791 (Restaurant Guru)

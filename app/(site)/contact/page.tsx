@@ -6,10 +6,14 @@ import ContactForm from "@/components/ContactForm";
 import HoursWidget from "@/components/HoursWidget";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { getOpeningHours, getSiteSettings } from "@/lib/queries";
+import SocialLinks from "@/components/SocialLinks";
 import {
   DEFAULT_ADDRESS,
+  DEFAULT_FACEBOOK,
+  DEFAULT_INSTAGRAM,
   DEFAULT_MAP_LINK,
   DEFAULT_PHONE,
+  DEFAULT_TIKTOK,
   withDefault,
 } from "@/lib/site-defaults";
 
@@ -60,6 +64,25 @@ export default async function ContactPage() {
             <div>
               <p className="eyebrow mb-5">Hours</p>
               <HoursWidget hours={hours} />
+            </div>
+            <div>
+              <p className="eyebrow mb-5">Follow the fire</p>
+              <SocialLinks
+                links={[
+                  {
+                    platform: "instagram",
+                    href: withDefault(settings?.instagram, DEFAULT_INSTAGRAM),
+                  },
+                  {
+                    platform: "facebook",
+                    href: withDefault(settings?.facebook, DEFAULT_FACEBOOK),
+                  },
+                  {
+                    platform: "tiktok",
+                    href: withDefault(settings?.tiktok, DEFAULT_TIKTOK),
+                  },
+                ]}
+              />
             </div>
             <div>
               <p className="eyebrow mb-5">Find Us</p>

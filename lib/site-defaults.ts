@@ -14,7 +14,11 @@ export const DEFAULT_ADDRESS =
 export const DEFAULT_MAP_LINK =
   "https://www.google.com/maps/search/?api=1&query=Zaba%27s+Shisanyama+2+Johannes+Nkosi+Avenue+Mayville+Durban";
 export const DEFAULT_INSTAGRAM = "https://www.instagram.com/zabas_shisanyama";
-export const DEFAULT_FACEBOOK = "https://www.facebook.com/zabashisanyama";
+/**
+ * Note the double "a". facebook.com/zabashisanyama is a different business
+ * ("Zaba's Pub and Grill") — confirmed with the client 2026-08-27.
+ */
+export const DEFAULT_FACEBOOK = "https://www.facebook.com/zabashisanyamaa";
 export const DEFAULT_TIKTOK = "https://www.tiktok.com/@zabasshisanyama";
 
 const isTodo = (v: string | null | undefined) => !v || v === "TODO";

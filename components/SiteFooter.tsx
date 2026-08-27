@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getOpeningHours, getSiteSettings } from "@/lib/queries";
 import { dayName, formatTime } from "@/lib/hours";
+import SocialLinks from "@/components/SocialLinks";
 import {
   DEFAULT_ADDRESS,
   DEFAULT_FACEBOOK,
@@ -21,9 +22,18 @@ export default async function SiteFooter() {
   ]);
 
   const socials = [
-    { label: "Instagram", href: withDefault(settings?.instagram, DEFAULT_INSTAGRAM) },
-    { label: "Facebook", href: withDefault(settings?.facebook, DEFAULT_FACEBOOK) },
-    { label: "TikTok", href: withDefault(settings?.tiktok, DEFAULT_TIKTOK) },
+    {
+      platform: "instagram" as const,
+      href: withDefault(settings?.instagram, DEFAULT_INSTAGRAM),
+    },
+    {
+      platform: "facebook" as const,
+      href: withDefault(settings?.facebook, DEFAULT_FACEBOOK),
+    },
+    {
+      platform: "tiktok" as const,
+      href: withDefault(settings?.tiktok, DEFAULT_TIKTOK),
+    },
   ];
 
   const address = withDefault(settings?.address, DEFAULT_ADDRESS);
@@ -73,20 +83,7 @@ export default async function SiteFooter() {
               Flame-grilled meat, cold drinks and good people. Real fire, real
               flavour.
             </p>
-            <ul className="mt-6 flex gap-6">
-              {socials.map((s) => (
-                <li key={s.label}>
-                  <a
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[0.75rem] uppercase tracking-[0.18em] text-ash transition-colors hover:text-flame"
-                  >
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <SocialLinks links={socials} className="mt-6" />
           </div>
 
           <div>
