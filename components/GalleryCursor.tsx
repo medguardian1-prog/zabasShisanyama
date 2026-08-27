@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
 
 /**
  * Desktop-only 72px pill cursor. Follows the pointer via gsap.quickTo and
@@ -26,36 +25,55 @@ export default function GalleryCursor() {
     if (!enabled || !ref.current) return;
     const el = ref.current;
 
-    const xTo = gsap.quickTo(el, "x", { duration: 0.35, ease: "power3.out" });
-    const yTo = gsap.quickTo(el, "y", { duration: 0.35, ease: "power3.out" });
+    let cancelled = false;
+    let teardown: (() => void) | null = null;
 
-    const onMove = (e: PointerEvent) => {
-      xTo(e.clientX);
-      yTo(e.clientY);
-    };
+    (async () => {
+      const { default: gsap } = await import("gsap");
+      if (cancelled) return;
 
-    const onOver = (e: PointerEvent) => {
-      const target = (e.target as HTMLElement).closest<HTMLElement>(
-        "[data-cursor]"
-      );
-      if (target) {
-        setLabel(target.dataset.cursor || "View");
-        gsap.to(el, {
-          scale: 1,
-          opacity: 1,
-          duration: 0.45,
-          ease: "back.out(1.6)",
-        });
-      } else {
-        gsap.to(el, { scale: 0, opacity: 0, duration: 0.3, ease: "power3.out" });
-      }
-    };
+      const xTo = gsap.quickTo(el, "x", { duration: 0.35, ease: "power3.out" });
+      const yTo = gsap.quickTo(el, "y", { duration: 0.35, ease: "power3.out" });
 
-    window.addEventListener("pointermove", onMove, { passive: true });
-    window.addEventListener("pointerover", onOver, { passive: true });
+      const onMove = (e: PointerEvent) => {
+        xTo(e.clientX);
+        yTo(e.clientY);
+      };
+
+      const onOver = (e: PointerEvent) => {
+        const target = (e.target as HTMLElement).closest<HTMLElement>(
+          "[data-cursor]"
+        );
+        if (target) {
+          setLabel(target.dataset.cursor || "View");
+          gsap.to(el, {
+            scale: 1,
+            opacity: 1,
+            duration: 0.45,
+            ease: "back.out(1.6)",
+          });
+        } else {
+          gsap.to(el, {
+            scale: 0,
+            opacity: 0,
+            duration: 0.3,
+            ease: "power3.out",
+          });
+        }
+      };
+
+      window.addEventListener("pointermove", onMove, { passive: true });
+      window.addEventListener("pointerover", onOver, { passive: true });
+
+      teardown = () => {
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerover", onOver);
+      };
+    })();
+
     return () => {
-      window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("pointerover", onOver);
+      cancelled = true;
+      teardown?.();
     };
   }, [enabled]);
 

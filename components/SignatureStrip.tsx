@@ -3,13 +3,9 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { MenuItem } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
 import Eyebrow from "@/components/Eyebrow";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /** Local fallbacks when no featured items carry uploaded photos yet. */
 const FALLBACK_IMAGES = [
@@ -33,27 +29,44 @@ export default function SignatureStrip({ items }: { items: MenuItem[] }) {
     const track = trackRef.current;
     if (!section || !track) return;
 
-    const mm = gsap.matchMedia();
-    mm.add(
-      "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
-      () => {
-        const distance = () => track.scrollWidth - window.innerWidth;
-        gsap.to(track, {
-          x: () => -distance(),
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: () => `+=${distance()}`,
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-        });
-      }
-    );
-    return () => mm.revert();
+    let cancelled = false;
+    let teardown: (() => void) | null = null;
+
+    (async () => {
+      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+      ]);
+      if (cancelled) return;
+      gsap.registerPlugin(ScrollTrigger);
+
+      const mm = gsap.matchMedia();
+      mm.add(
+        "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const distance = () => track.scrollWidth - window.innerWidth;
+          gsap.to(track, {
+            x: () => -distance(),
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top top",
+              end: () => `+=${distance()}`,
+              pin: true,
+              scrub: 1,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+            },
+          });
+        }
+      );
+      teardown = () => mm.revert();
+    })();
+
+    return () => {
+      cancelled = true;
+      teardown?.();
+    };
   }, [items.length]);
 
   const slides = items.length

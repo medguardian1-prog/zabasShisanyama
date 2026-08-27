@@ -2,10 +2,6 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Global scroll-reveal vocabulary. Page authors annotate markup with data
@@ -28,10 +24,21 @@ export default function RevealManager() {
       return;
     }
 
-    document.documentElement.classList.add("gsap-ready");
-    ScrollTrigger.config({ ignoreMobileResize: true });
+    let cancelled = false;
+    let teardown: (() => void) | null = null;
 
-    const ctx = gsap.context(() => {
+    (async () => {
+      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+      ]);
+      if (cancelled) return;
+
+      gsap.registerPlugin(ScrollTrigger);
+      document.documentElement.classList.add("gsap-ready");
+      ScrollTrigger.config({ ignoreMobileResize: true });
+
+      const ctx = gsap.context(() => {
       const grouped = new Set<Element>();
 
       document
@@ -119,9 +126,15 @@ export default function RevealManager() {
             }
           );
         });
-    });
+      });
 
-    return () => ctx.revert();
+      teardown = () => ctx.revert();
+    })();
+
+    return () => {
+      cancelled = true;
+      teardown?.();
+    };
   }, [pathname]);
 
   return null;
