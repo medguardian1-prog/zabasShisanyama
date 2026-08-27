@@ -20,6 +20,22 @@ const SCALE = HAS_UPSCALED ? 1 : 2.5;
 // The site serves .webp for food-01/alcohol and .jpg for the rest.
 const WEBP_TARGETS = new Set(["food-01", "alcohol"]);
 
+/**
+ * Per-image colour correction. Upscayl pushed a few shots into a neon
+ * magenta/orange cast; these pull them back to something appetising.
+ */
+const CORRECTIONS = {
+  "food-01": {
+    modulate: { saturation: 0.52, brightness: 0.99 },
+    recomb: [
+      [0.94, 0.06, 0.03],
+      [0.02, 0.99, 0.02],
+      [0.02, 0.08, 0.88],
+    ],
+  },
+  "food-03": { modulate: { saturation: 0.86 } },
+};
+
 for (const file of readdirSync(SRC)) {
   if (!/\.(png|jpe?g|webp)$/i.test(file)) continue;
   const base = file.replace(/\.\w+$/, "");
@@ -49,6 +65,10 @@ for (const file of readdirSync(SRC)) {
     });
   }
 
+  const fix = CORRECTIONS[base];
+  if (fix?.modulate) pipeline = pipeline.modulate(fix.modulate);
+  if (fix?.recomb) pipeline = pipeline.recomb(fix.recomb);
+
   if (outName.endsWith(".webp")) {
     pipeline = pipeline.webp({ quality: 84 });
   } else {
@@ -58,4 +78,20 @@ for (const file of readdirSync(SRC)) {
   await pipeline.toFile(output);
   const outMeta = await sharp(output).metadata();
   console.log(`${file} -> ${outName}: ${outMeta.width}x${outMeta.height}`);
+}
+
+/**
+ * Dedicated full-bleed hero asset. The banner is displayed far larger than
+ * any source photo, so upscale + unsharp once here rather than letting the
+ * browser do it crudely at paint time.
+ */
+const HERO_SOURCE = join(SRC, HAS_UPSCALED ? "food-07.png" : "food-07.jpg");
+if (existsSync(HERO_SOURCE)) {
+  await sharp(HERO_SOURCE)
+    .resize({ width: 1700, kernel: sharp.kernel.lanczos3 })
+    .sharpen({ sigma: 1.4, m1: 0.5, m2: 0.35 })
+    .jpeg({ quality: 80, mozjpeg: true })
+    .toFile(join(OUT, "hero.jpg"));
+  const m = await sharp(join(OUT, "hero.jpg")).metadata();
+  console.log(`hero.jpg: ${m.width}x${m.height}`);
 }

@@ -13,6 +13,7 @@ export default function SpecialCard({ special }: { special: Special }) {
             alt={`${special.title} — today's special at Zaba's Shisanyama`}
             fill
             sizes="(min-width: 768px) 50vw, 100vw"
+            quality={65}
             className="object-cover"
           />
         </div>

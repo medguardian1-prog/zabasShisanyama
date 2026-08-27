@@ -17,6 +17,7 @@ const FALLBACK_IMAGES = [
   "/images/food-02.jpg",
   "/images/food-03.jpg",
   "/images/food-04.jpg",
+  "/images/food-05.jpg",
 ];
 
 /**
@@ -108,21 +109,31 @@ export default function SignatureStrip({ items }: { items: MenuItem[] }) {
                 index={i}
                 name={
                   [
-                    "Lamb chops & steamed bread",
-                    "Boerewors & pap board",
+                    "Lamb chops & pap",
+                    "Boerewors board",
                     "Grilled wings tray",
                     "Chicken stew plate",
+                    "Mixed grill board",
                   ][i]
                 }
-                detail="Straight off the fire."
+                detail={
+                  [
+                    "Lamb chops, steamed bread, chilli relish.",
+                    "Wors, roast meat and pap on the board.",
+                    "Grilled wings, bread and fresh sides.",
+                    "Chicken stew, rice and chakalaka.",
+                    "Steak, wings and wors, straight off the coals.",
+                  ][i]
+                }
                 price=""
                 image={src}
                 alt={
                   [
-                    "Grilled lamb chops with steamed bread and chilli relish on a wooden board",
+                    "Grilled lamb chops with steamed pap and chilli relish on a wooden board",
                     "Boerewors coils, roast meat and pap on a wooden serving board",
                     "A takeaway tray of flame-grilled chicken wings with bread and fresh sides",
                     "A plate of chicken stew with rice and sides from the Zaba's kitchen",
+                    "A mixed braai board of steak, wings and boerewors on a red table",
                   ][i]
                 }
               />
@@ -158,6 +169,7 @@ function StripCard({
           alt={alt}
           fill
           sizes="(min-width: 1024px) 26vw, 78vw"
+          quality={62}
           className="object-cover transition-transform duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025]"
         />
         <div className="absolute inset-0 z-[2] bg-gradient-to-t from-char/85 via-transparent to-transparent" />

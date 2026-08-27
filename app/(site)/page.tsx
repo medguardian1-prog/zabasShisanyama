@@ -26,6 +26,7 @@ import {
   waLink,
   withDefault,
 } from "@/lib/site-defaults";
+import { getOpenStatus } from "@/lib/hours";
 
 export const metadata: Metadata = {
   title: "Zaba's Shisanyama — Meat. Fire. Family.",
@@ -49,10 +50,15 @@ export default async function HomePage() {
     ]);
 
   const todaysSpecial = specials[0];
+  const status = getOpenStatus(hours);
 
   return (
     <>
-      <Hero />
+      <Hero
+        statusLabel={status?.label}
+        address={withDefault(settings?.address, DEFAULT_ADDRESS)}
+        whatsappSetting={settings?.whatsapp}
+      />
 
       {settings?.announcementActive && settings.announcementText && (
         <AnnouncementBanner text={settings.announcementText} />
@@ -117,7 +123,7 @@ export default async function HomePage() {
             Full gallery →
           </Link>
         </div>
-        <GalleryGrid images={gallery} limit={4} />
+        <GalleryGrid images={gallery} variant="mosaic" />
       </Section>
 
       {/* events teaser */}

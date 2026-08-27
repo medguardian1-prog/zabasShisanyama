@@ -76,6 +76,7 @@ export default function SiteHeader() {
             width={44}
             height={44}
             sizes="44px"
+            priority
             className="h-10 w-10 object-cover sm:h-11 sm:w-11"
           />
           <span className="font-display text-lg uppercase tracking-wide text-bone">

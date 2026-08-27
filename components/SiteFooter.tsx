@@ -33,12 +33,27 @@ export default async function SiteFooter() {
   return (
     <footer className="border-t border-hair bg-smoke text-bone">
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
-        <p
+        {/* Decorative oversized wordmark. Rendered as SVG so it stays a
+            graphic rather than page text. */}
+        <svg
           aria-hidden="true"
-          className="pointer-events-none mb-14 select-none whitespace-nowrap font-display text-[clamp(2.6rem,9vw,7.5rem)] uppercase leading-none tracking-[0.02em] text-bone/[0.06]"
+          focusable="false"
+          viewBox="0 0 1000 100"
+          className="pointer-events-none mb-14 w-full select-none"
         >
-          Zaba&rsquo;s Shisanyama
-        </p>
+          <text
+            x="0"
+            y="78"
+            className="font-display"
+            fontSize="96"
+            letterSpacing="1"
+            fill="var(--color-bone)"
+            fillOpacity="0.07"
+            style={{ textTransform: "uppercase" }}
+          >
+            ZABA&rsquo;S SHISANYAMA
+          </text>
+        </svg>
         <div className="grid gap-12 md:grid-cols-3">
           <div>
             <Link href="/" className="inline-flex items-center gap-3">

@@ -15,6 +15,7 @@ export default function EventCard({ event }: { event: SiteEvent }) {
           }
           fill
           sizes="(min-width: 1024px) 50vw, 100vw"
+          quality={65}
           className="object-cover transition-transform duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-char/70 to-transparent" />

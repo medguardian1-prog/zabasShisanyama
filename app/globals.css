@@ -301,6 +301,61 @@ html.lenis body {
   background-color: rgba(255, 255, 255, 0.04);
 }
 
+/* ------------------------------ hero entrance ------------------------------- */
+/* CSS-driven so the reveal starts at first paint instead of waiting for React
+   to hydrate — keeping hero copy out of the LCP critical path.               */
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-mask {
+  from {
+    transform: translateY(112%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-settle {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.hero-rise {
+  animation: hero-rise 0.7s var(--ease-signature) both;
+}
+
+.hero-mask {
+  animation: hero-mask 0.95s var(--ease-signature) both;
+}
+
+.hero-settle {
+  animation: hero-settle 2.4s var(--ease-signature) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise,
+  .hero-mask,
+  .hero-settle {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* --------------------------------- scroll cue -------------------------------- */
 
 @keyframes scroll-cue {
