@@ -48,11 +48,11 @@ export default function ConfirmDelete({
                 }
               })
             }
-            className="btn-ember flex-1 px-4 py-3.5 text-sm"
+            className="btn-ember flex-1 px-4 py-2.5 text-sm"
           >
             {pending ? "Deleting…" : "Yes, delete"}
           </button>
-          <DialogClose className="btn-quiet flex-1 px-4 py-3.5 text-sm">
+          <DialogClose className="btn-quiet flex-1 px-4 py-2.5 text-sm">
             Cancel
           </DialogClose>
         </div>

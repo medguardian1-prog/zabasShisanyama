@@ -25,21 +25,21 @@ export default function EventsManager({ events }: { events: SiteEvent[] }) {
   const [, startTransition] = useTransition();
 
   return (
-    <div className="mt-6">
+    <div className="mt-4">
       <button
         type="button"
         onClick={() => setEditing("new")}
-        className="btn-ember w-full px-6 py-4 text-base"
+        className="btn-ember w-full px-4 py-2.5 text-sm"
       >
         + Add an event
       </button>
 
-      <ul className="mt-6 space-y-2">
+      <ul className="mt-3 space-y-2">
         {events.map((ev) => (
           <li
             key={ev.id}
             className={cn(
-              "admin-card p-4",
+              "admin-card p-3",
               !ev.visible && "opacity-60"
             )}
           >
@@ -70,7 +70,7 @@ export default function EventsManager({ events }: { events: SiteEvent[] }) {
               <button
                 type="button"
                 onClick={() => setEditing(ev)}
-                className="rounded px-3 py-2.5 text-xs uppercase tracking-wider text-ash hover:text-bone"
+                className="rounded px-2.5 py-2 text-xs text-ash transition-colors hover:text-bone"
               >
                 Edit
               </button>
@@ -83,7 +83,7 @@ export default function EventsManager({ events }: { events: SiteEvent[] }) {
                     else toast(res.error, true);
                   })
                 }
-                className="rounded px-3 py-2.5 text-xs uppercase tracking-wider text-ash hover:text-bone"
+                className="rounded px-2.5 py-2 text-xs text-ash transition-colors hover:text-bone"
               >
                 {ev.visible ? "Hide" : "Show"}
               </button>
@@ -142,7 +142,7 @@ function EventDialog({
         <DialogTitle>{event ? `Edit ${event.title}` : "Add an event"}</DialogTitle>
         <form onSubmit={submit} className="mt-5 space-y-4">
           <label className="block">
-            <span className="mb-2 block text-[0.6875rem] uppercase tracking-wider text-ash">
+            <span className="admin-label">
               Title
             </span>
             <input
@@ -153,7 +153,7 @@ function EventDialog({
             />
           </label>
           <label className="block">
-            <span className="mb-2 block text-[0.6875rem] uppercase tracking-wider text-ash">
+            <span className="admin-label">
               Date
             </span>
             <input
@@ -164,7 +164,7 @@ function EventDialog({
             />
           </label>
           <label className="block">
-            <span className="mb-2 block text-[0.6875rem] uppercase tracking-wider text-ash">
+            <span className="admin-label">
               Description (optional)
             </span>
             <textarea
@@ -178,11 +178,11 @@ function EventDialog({
             <button
               type="submit"
               disabled={pending}
-              className="btn-ember flex-1 px-4 py-3.5 text-sm"
+              className="btn-ember flex-1 px-4 py-2.5 text-sm"
             >
               {pending ? "Saving…" : "Save"}
             </button>
-            <DialogClose className="btn-quiet flex-1 px-4 py-3.5 text-sm">
+            <DialogClose className="btn-quiet flex-1 px-4 py-2.5 text-sm">
               Cancel
             </DialogClose>
           </div>

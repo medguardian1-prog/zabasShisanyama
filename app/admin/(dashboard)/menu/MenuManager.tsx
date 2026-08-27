@@ -35,11 +35,11 @@ export default function MenuManager({
   const [editing, setEditing] = useState<MenuItem | "new" | null>(null);
 
   return (
-    <div className="mt-6">
+    <div className="mt-4">
       <button
         type="button"
         onClick={() => setEditing("new")}
-        className="btn-ember w-full px-6 py-4 text-base"
+        className="btn-ember w-full px-4 py-2.5 text-sm"
       >
         + Add a menu item
       </button>
@@ -124,7 +124,7 @@ function ItemRow({
   return (
     <li
       className={cn(
-        "admin-card p-4",
+        "admin-card p-3",
         !item.visible && "opacity-60"
       )}
     >
@@ -211,7 +211,7 @@ function ItemRow({
         <button
           type="button"
           onClick={onEdit}
-          className="rounded px-3 py-2.5 text-xs uppercase tracking-wider text-ash hover:text-bone"
+          className="rounded px-2.5 py-2 text-xs text-ash transition-colors hover:text-bone"
         >
           Edit
         </button>
@@ -224,7 +224,7 @@ function ItemRow({
               else toast(res.error, true);
             })
           }
-          className="rounded px-3 py-2.5 text-xs uppercase tracking-wider text-ash hover:text-bone"
+          className="rounded px-2.5 py-2 text-xs text-ash transition-colors hover:text-bone"
         >
           {item.visible ? "Hide" : "Show"}
         </button>
@@ -354,11 +354,11 @@ function ItemDialog({
             <button
               type="submit"
               disabled={pending}
-              className="btn-ember flex-1 px-4 py-3.5 text-sm"
+              className="btn-ember flex-1 px-4 py-2.5 text-sm"
             >
               {pending ? "Saving…" : "Save"}
             </button>
-            <DialogClose className="btn-quiet flex-1 px-4 py-3.5 text-sm">
+            <DialogClose className="btn-quiet flex-1 px-4 py-2.5 text-sm">
               Cancel
             </DialogClose>
           </div>
@@ -377,7 +377,7 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-[0.6875rem] uppercase tracking-[0.18em] text-ash">
+      <span className="admin-label">
         {label}
       </span>
       {children}

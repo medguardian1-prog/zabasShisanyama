@@ -35,6 +35,19 @@ in `ADMIN_PASSWORD_HASH`:
 node scripts/hash-password.mjs 'the-staff-password'
 ```
 
+> **Gotcha — escape the `$` in `.env.local`.** Next.js expands `$VAR`
+> references inside `.env` files, and a bcrypt hash starts with `$2b$12$…`.
+> Pasted raw, the value is silently truncated and every login fails with
+> "Incorrect password". In `.env.local`, escape each `$`:
+>
+> ```
+> ADMIN_PASSWORD_HASH=\$2b\$12\$abc123…
+> ```
+>
+> Quoting does **not** help. This affects local development only — environment
+> variables set through the Vercel dashboard are injected directly and are not
+> expanded, so paste the hash unescaped there.
+
 Staff log in at `/admin/login` (linked quietly as “Staff” in the site footer).
 Sessions last 7 days.
 

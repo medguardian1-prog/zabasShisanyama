@@ -6,10 +6,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
 import { waLink } from "@/lib/site-defaults";
+import { cn } from "@/lib/utils";
 
 /**
- * Bookings always go through WhatsApp — the form composes a prefilled
- * message and opens the chat. Nothing is stored on the site.
+ * Bookings always go through WhatsApp — the form composes a prefilled message
+ * and the CTA is a plain anchor to wa.me. An anchor (rather than window.open
+ * from a submit handler) survives popup blockers and works even before the
+ * page has hydrated.
  */
 export default function BookingForm({
   whatsappSetting,
@@ -21,25 +24,23 @@ export default function BookingForm({
   const [date, setDate] = useState("");
   const [party, setParty] = useState("");
   const [note, setNote] = useState("");
+  const [touched, setTouched] = useState(false);
 
   const lines = [
-    `Hi Zaba's! ${type === "Large order / catering" ? "I'd like to place a large order." : "I'd like to book a table."}`,
+    type === "Large order / catering"
+      ? "Hi Zaba's! I'd like to place a large order."
+      : "Hi Zaba's! I'd like to book a table.",
     name && `Name: ${name}`,
     date && `Date: ${date}`,
-    party && `We are ${party} people.`,
+    party && `Party size: ${party}`,
     note && `Note: ${note}`,
   ].filter(Boolean);
 
   const href = waLink(lines.join("\n"), whatsappSetting);
+  const ready = name.trim().length > 0;
 
   return (
-    <form
-      className="space-y-6"
-      onSubmit={(e) => {
-        e.preventDefault();
-        window.open(href, "_blank", "noopener,noreferrer");
-      }}
-    >
+    <div className="space-y-6">
       <div>
         <Label htmlFor="booking-type">What&rsquo;s this for?</Label>
         <Select
@@ -57,12 +58,18 @@ export default function BookingForm({
           <Label htmlFor="booking-name">Name</Label>
           <Input
             id="booking-name"
-            required
             autoComplete="name"
             placeholder="Your name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            onBlur={() => setTouched(true)}
+            aria-describedby={!ready && touched ? "booking-name-error" : undefined}
           />
+          {!ready && touched && (
+            <p id="booking-name-error" className="mt-2 text-sm text-flame">
+              Please add your name so we know who&rsquo;s booking.
+            </p>
+          )}
         </div>
         <div>
           <Label htmlFor="booking-date">Date</Label>
@@ -99,18 +106,33 @@ export default function BookingForm({
         />
       </div>
 
-      <button
-        type="submit"
-        className="inline-flex w-full items-center justify-center gap-3 bg-[#25D366] px-8 py-4 text-[0.8125rem] font-semibold uppercase tracking-[0.18em] text-char transition-colors duration-300 hover:brightness-110 sm:w-auto"
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-disabled={!ready}
+        onClick={(e) => {
+          if (!ready) {
+            e.preventDefault();
+            setTouched(true);
+          }
+        }}
+        className={cn(
+          "inline-flex w-full items-center justify-center gap-3 px-8 py-4 text-[0.8125rem] font-semibold uppercase tracking-[0.18em] transition-all duration-300 sm:w-auto",
+          ready
+            ? "bg-[#25D366] text-char hover:brightness-110"
+            : "cursor-not-allowed bg-[#25D366]/35 text-char/70"
+        )}
       >
         <WhatsAppIcon />
         Book on WhatsApp
-      </button>
+      </a>
+
       <p className="text-xs leading-relaxed text-ash">
-        Tapping the button opens WhatsApp with your booking message ready to
-        send — we confirm every booking in the chat.
+        Opens WhatsApp with your booking details ready to send — we confirm
+        every booking in the chat.
       </p>
-    </form>
+    </div>
   );
 }
 

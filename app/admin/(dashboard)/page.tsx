@@ -18,7 +18,7 @@ export default async function AdminHomePage() {
   const soldOut = items.filter((i) => !i.available).length;
   const newEnquiries = enquiries.filter((e) => e.status === "new").length;
 
-  const now = new Intl.DateTimeFormat("en-ZA", {
+  const today = new Intl.DateTimeFormat("en-ZA", {
     weekday: "long",
     day: "numeric",
     month: "long",
@@ -27,100 +27,73 @@ export default async function AdminHomePage() {
 
   return (
     <div>
-      <p className="text-[0.6875rem] uppercase tracking-[0.22em] text-gold">
-        {now}
-      </p>
-      <h1 className="mt-1 font-display text-2xl uppercase tracking-wide text-bone">
-        Today at a glance
-      </h1>
+      <div className="flex items-baseline justify-between gap-4">
+        <h1 className="text-base font-semibold text-bone">Today at a glance</h1>
+        <p className="text-xs text-ash">{today}</p>
+      </div>
 
       {!connected && (
-        <p className="admin-card mt-5 p-4 text-sm text-ash">
+        <p className="admin-card mt-4 p-3 text-sm text-ash">
           The database isn&rsquo;t connected yet — ask whoever set up the site
           to add the Supabase keys.
         </p>
       )}
 
-      <dl className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-        <StatTile
-          label="Today's special"
-          value={activeSpecial ? activeSpecial.title : "None set"}
-          accent="gold"
-        />
-        <StatTile
-          label="Sold-out items"
-          value={String(soldOut)}
-          accent={soldOut > 0 ? "ember" : "ash"}
-        />
-        <StatTile
-          label="New enquiries"
-          value={String(newEnquiries)}
-          accent={newEnquiries > 0 ? "ember" : "ash"}
-        />
+      <dl className="admin-card mt-4 grid grid-cols-3 divide-x divide-hair">
+        <Stat label="Special" value={activeSpecial ? activeSpecial.title : "None"} />
+        <Stat label="Sold out" value={String(soldOut)} alert={soldOut > 0} />
+        <Stat label="Enquiries" value={String(newEnquiries)} alert={newEnquiries > 0} />
       </dl>
 
-      <h2 className="mt-10 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-ash">
+      <h2 className="mt-6 text-[0.6875rem] uppercase tracking-[0.14em] text-ash">
         Daily jobs
       </h2>
-      <div className="mt-3 grid gap-3">
-        <JobLink href="/admin/menu" primary>
-          Mark something sold out
-        </JobLink>
-        <JobLink href="/admin/specials">Set today&rsquo;s special</JobLink>
-        <JobLink href="/admin/hours">Change today&rsquo;s hours</JobLink>
-      </div>
+      <ul className="admin-card mt-2 divide-y divide-hair">
+        <Job href="/admin/menu" label="Mark something sold out" />
+        <Job href="/admin/specials" label="Set today's special" />
+        <Job href="/admin/hours" label="Change today's hours" />
+      </ul>
     </div>
   );
 }
 
-function StatTile({
+function Stat({
   label,
   value,
-  accent,
+  alert,
 }: {
   label: string;
   value: string;
-  accent: "ember" | "gold" | "ash";
+  alert?: boolean;
 }) {
-  const bar =
-    accent === "ember"
-      ? "bg-ember"
-      : accent === "gold"
-        ? "bg-gold"
-        : "bg-hair";
   return (
-    <div className="admin-card relative overflow-hidden p-5 pl-6">
-      <span className={`absolute inset-y-0 left-0 w-1 ${bar}`} aria-hidden="true" />
-      <dt className="text-[0.625rem] uppercase tracking-[0.2em] text-ash">
+    <div className="px-3 py-3">
+      <dt className="text-[0.625rem] uppercase tracking-[0.14em] text-ash">
         {label}
       </dt>
-      <dd className="mt-2 truncate text-xl font-semibold text-bone">{value}</dd>
+      <dd
+        className={`mt-1 truncate text-sm font-semibold ${
+          alert ? "text-ember" : "text-bone"
+        }`}
+      >
+        {value}
+      </dd>
     </div>
   );
 }
 
-function JobLink({
-  href,
-  children,
-  primary,
-}: {
-  href: string;
-  children: React.ReactNode;
-  primary?: boolean;
-}) {
+function Job({ href, label }: { href: string; label: string }) {
   return (
-    <Link
-      href={href}
-      className={
-        primary
-          ? "btn-ember justify-between px-6 py-5 text-base"
-          : "admin-card flex items-center justify-between px-6 py-5 text-base font-semibold text-bone transition-colors hover:border-ash/40"
-      }
-    >
-      {children}
-      <span aria-hidden="true" className={primary ? "" : "text-gold"}>
-        →
-      </span>
-    </Link>
+    <li>
+      <Link
+        href={href}
+        className="flex min-h-[46px] items-center justify-between px-4 py-3 text-sm text-bone transition-colors hover:bg-bone/[0.03]"
+      >
+        {label}
+        <span aria-hidden="true" className="text-ash">
+          ›
+        </span>
+      </Link>
+    </li>
   );
 }

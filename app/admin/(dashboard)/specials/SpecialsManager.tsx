@@ -26,21 +26,21 @@ export default function SpecialsManager({ specials }: { specials: Special[] }) {
   const [pending, startTransition] = useTransition();
 
   return (
-    <div className="mt-6">
+    <div className="mt-4">
       <button
         type="button"
         onClick={() => setEditing("new")}
-        className="btn-ember w-full px-6 py-4 text-base"
+        className="btn-ember w-full px-4 py-2.5 text-sm"
       >
         + Add a special
       </button>
 
-      <ul className="mt-6 space-y-2">
+      <ul className="mt-3 space-y-2">
         {specials.map((s) => (
           <li
             key={s.id}
             className={cn(
-              "admin-card p-4",
+              "admin-card p-3",
               s.active && "ring-1 ring-ember/70"
             )}
           >
@@ -79,7 +79,7 @@ export default function SpecialsManager({ specials }: { specials: Special[] }) {
                       else toast(res.error, true);
                     })
                   }
-                  className="btn-ember px-4 py-2.5 text-xs uppercase tracking-wider"
+                  className="btn-ember px-3 py-2 text-xs"
                 >
                   Set as today&rsquo;s special
                 </button>
@@ -94,7 +94,7 @@ export default function SpecialsManager({ specials }: { specials: Special[] }) {
                       else toast(res.error, true);
                     })
                   }
-                  className="rounded px-3 py-2.5 text-xs uppercase tracking-wider text-ash hover:text-bone"
+                  className="rounded px-2.5 py-2 text-xs text-ash transition-colors hover:text-bone"
                 >
                   Switch off
                 </button>
@@ -102,7 +102,7 @@ export default function SpecialsManager({ specials }: { specials: Special[] }) {
               <button
                 type="button"
                 onClick={() => setEditing(s)}
-                className="rounded px-3 py-2.5 text-xs uppercase tracking-wider text-ash hover:text-bone"
+                className="rounded px-2.5 py-2 text-xs text-ash transition-colors hover:text-bone"
               >
                 Edit
               </button>
@@ -214,11 +214,11 @@ function SpecialDialog({
             <button
               type="submit"
               disabled={pending}
-              className="btn-ember flex-1 px-4 py-3.5 text-sm"
+              className="btn-ember flex-1 px-4 py-2.5 text-sm"
             >
               {pending ? "Saving…" : "Save"}
             </button>
-            <DialogClose className="btn-quiet flex-1 px-4 py-3.5 text-sm">
+            <DialogClose className="btn-quiet flex-1 px-4 py-2.5 text-sm">
               Cancel
             </DialogClose>
           </div>
@@ -237,7 +237,7 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-[0.6875rem] uppercase tracking-[0.18em] text-ash">
+      <span className="admin-label">
         {label}
       </span>
       {children}

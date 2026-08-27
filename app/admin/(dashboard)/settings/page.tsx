@@ -6,8 +6,8 @@ export default async function AdminSettingsPage() {
 
   return (
     <div>
-      <h1 className="font-display text-2xl uppercase tracking-wide text-bone">Settings</h1>
-      <p className="mt-1 text-sm text-ash">
+      <h1 className="text-base font-semibold text-bone">Settings</h1>
+      <p className="mt-1 text-xs leading-relaxed text-ash">
         Contact details and social links shown across the site.
       </p>
       <SettingsForm settings={settings} />

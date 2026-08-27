@@ -18,7 +18,7 @@ export default function EnquiriesInbox({ enquiries }: { enquiries: Enquiry[] }) 
     filter === "all" ? enquiries : enquiries.filter((e) => e.status === filter);
 
   return (
-    <div className="mt-6">
+    <div className="mt-4">
       <div className="flex gap-1">
         {(["new", "handled", "archived", "all"] as const).map((f) => (
           <button
@@ -63,7 +63,7 @@ function EnquiryCard({ enquiry }: { enquiry: Enquiry }) {
   const created = new Date(enquiry.createdAt);
 
   return (
-    <li className="admin-card p-4">
+    <li className="admin-card p-3">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="font-medium text-bone">{enquiry.name}</p>
@@ -122,7 +122,7 @@ function EnquiryCard({ enquiry }: { enquiry: Enquiry }) {
           <>
             <a
               href={`tel:${enquiry.phone}`}
-              className="btn-ember px-4 py-2.5 text-xs uppercase tracking-wider"
+              className="btn-ember px-3 py-2 text-xs"
             >
               Call
             </a>
@@ -131,7 +131,7 @@ function EnquiryCard({ enquiry }: { enquiry: Enquiry }) {
                 href={`https://wa.me/${phoneDigits}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-quiet px-4 py-2.5 text-xs font-semibold uppercase tracking-wider"
+                className="btn-quiet px-3 py-2 text-xs"
               >
                 WhatsApp
               </a>
@@ -143,7 +143,7 @@ function EnquiryCard({ enquiry }: { enquiry: Enquiry }) {
             type="button"
             disabled={pending}
             onClick={() => setStatus("handled")}
-            className="rounded px-4 py-2.5 text-xs uppercase tracking-wider text-ash hover:text-bone disabled:opacity-50"
+            className="rounded px-2.5 py-2 text-xs text-ash transition-colors hover:text-bone disabled:opacity-50"
           >
             Mark handled
           </button>
@@ -153,7 +153,7 @@ function EnquiryCard({ enquiry }: { enquiry: Enquiry }) {
             type="button"
             disabled={pending}
             onClick={() => setStatus("archived")}
-            className="rounded px-4 py-2.5 text-xs uppercase tracking-wider text-ash hover:text-bone disabled:opacity-50"
+            className="rounded px-2.5 py-2 text-xs text-ash transition-colors hover:text-bone disabled:opacity-50"
           >
             Archive
           </button>

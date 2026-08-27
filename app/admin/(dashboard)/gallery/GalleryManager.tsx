@@ -37,15 +37,15 @@ export default function GalleryManager({ images }: { images: GalleryImage[] }) {
   }
 
   return (
-    <div className="mt-6">
+    <div className="mt-4">
       <form
         ref={formRef}
         onSubmit={submit}
-        className="space-y-4 admin-card p-4"
+        className="space-y-4 admin-card p-3"
       >
         <ImageInput label="New photo" onFile={setPhoto} />
         <label className="block">
-          <span className="mb-2 block text-[0.6875rem] uppercase tracking-wider text-ash">
+          <span className="admin-label">
             What&rsquo;s in the photo? (required)
           </span>
           <input
@@ -56,7 +56,7 @@ export default function GalleryManager({ images }: { images: GalleryImage[] }) {
           />
         </label>
         <label className="block">
-          <span className="mb-2 block text-[0.6875rem] uppercase tracking-wider text-ash">
+          <span className="admin-label">
             Caption shown on the site (optional)
           </span>
           <input
@@ -67,13 +67,13 @@ export default function GalleryManager({ images }: { images: GalleryImage[] }) {
         <button
           type="submit"
           disabled={pending || !photo}
-          className="btn-ember w-full px-4 py-4 text-sm"
+          className="btn-ember w-full px-4 py-2.5 text-sm"
         >
           {pending ? "Uploading…" : "Upload photo"}
         </button>
       </form>
 
-      <ul className="mt-6 grid grid-cols-2 gap-3">
+      <ul className="mt-3 grid grid-cols-2 gap-2">
         {images.map((img, idx) => (
           <li
             key={img.id}
@@ -131,7 +131,7 @@ export default function GalleryManager({ images }: { images: GalleryImage[] }) {
                     else toast(res.error, true);
                   })
                 }
-                className="rounded px-2.5 py-2 text-xs uppercase tracking-wider text-ash hover:text-bone"
+                className="rounded px-2.5 py-2 text-xs text-ash transition-colors hover:text-bone"
               >
                 {img.visible ? "Hide" : "Show"}
               </button>

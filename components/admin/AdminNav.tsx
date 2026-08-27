@@ -83,36 +83,31 @@ export default function AdminNav() {
 
   return (
     <div className="sticky top-0 z-40 border-b border-hair bg-char/95 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-4xl items-center justify-between px-4">
-        <Link href="/admin" className="flex items-center gap-3">
+      <div className="mx-auto flex h-12 max-w-4xl items-center justify-between px-4">
+        <Link href="/admin" className="flex items-center gap-2.5">
           <Image
             src="/images/logo.jpg"
             alt="Zaba's Shisanyama logo"
-            width={36}
-            height={36}
-            sizes="36px"
-            className="h-9 w-9 rounded-full object-cover ring-1 ring-hair"
+            width={26}
+            height={26}
+            sizes="26px"
+            className="h-[26px] w-[26px] rounded-full object-cover"
           />
-          <span className="flex flex-col leading-tight">
-            <span className="font-display text-base uppercase tracking-wide text-bone">
-              Zaba&rsquo;s
-            </span>
-            <span className="text-[0.625rem] uppercase tracking-[0.22em] text-gold">
-              Staff dashboard
-            </span>
+          <span className="text-sm font-semibold text-bone">
+            Zaba&rsquo;s <span className="text-ash">Staff</span>
           </span>
         </Link>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center">
           <Link
             href="/"
-            className="btn-quiet hidden px-3.5 py-2 text-xs uppercase tracking-wider sm:inline-flex"
+            className="hidden px-3 py-2 text-xs text-ash transition-colors hover:text-bone sm:inline-flex"
           >
             View site ↗
           </Link>
           <form action={logout}>
             <button
               type="submit"
-              className="rounded-lg px-3.5 py-2 text-xs uppercase tracking-wider text-ash hover:text-bone"
+              className="px-3 py-2 text-xs text-ash transition-colors hover:text-bone"
             >
               Log out
             </button>
@@ -121,7 +116,7 @@ export default function AdminNav() {
       </div>
       <nav
         aria-label="Admin"
-        className="no-scrollbar mx-auto flex max-w-4xl gap-1.5 overflow-x-auto px-3 pb-2.5"
+        className="no-scrollbar mx-auto flex max-w-4xl gap-0.5 overflow-x-auto px-3"
       >
         {links.map((l) => {
           const active =
@@ -132,11 +127,12 @@ export default function AdminNav() {
             <Link
               key={l.href}
               href={l.href}
+              aria-current={active ? "page" : undefined}
               className={cn(
-                "flex shrink-0 items-center gap-2 rounded-lg px-3.5 py-2.5 text-sm font-medium transition-colors",
+                "flex shrink-0 items-center gap-1.5 border-b-2 px-3 py-2.5 text-[0.8125rem] transition-colors",
                 active
-                  ? "bg-gradient-to-b from-[#d91634] to-[#b00e28] text-bone shadow-[0_8px_20px_-8px_rgba(200,16,46,0.6)]"
-                  : "text-ash hover:bg-bone/[0.04] hover:text-bone"
+                  ? "border-ember text-bone"
+                  : "border-transparent text-ash hover:text-bone"
               )}
             >
               {l.icon}

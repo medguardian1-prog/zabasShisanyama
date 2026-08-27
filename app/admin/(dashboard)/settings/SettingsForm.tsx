@@ -82,10 +82,10 @@ export default function SettingsForm({
   ];
 
   return (
-    <form onSubmit={submit} className="mt-6 space-y-4">
+    <form onSubmit={submit} className="mt-4 space-y-3">
       {fields.map((f) => (
         <label key={f.name} className="block">
-          <span className="mb-2 block text-[0.6875rem] uppercase tracking-wider text-ash">
+          <span className="admin-label">
             {f.label}
           </span>
           <input
@@ -100,7 +100,7 @@ export default function SettingsForm({
       <button
         type="submit"
         disabled={pending}
-        className="btn-ember w-full px-4 py-4 text-sm sm:w-auto sm:px-8"
+        className="btn-ember w-full px-4 py-2.5 text-sm sm:w-auto sm:px-8"
       >
         {pending ? "Saving…" : "Save settings"}
       </button>

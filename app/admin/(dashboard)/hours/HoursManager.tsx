@@ -18,7 +18,7 @@ export default function HoursManager({
   settings: SiteSettings | null;
 }) {
   return (
-    <div className="mt-6 space-y-8">
+    <div className="mt-4 space-y-6">
       <ul className="space-y-2">
         {hours.map((h) => (
           <DayRow key={h.id} row={h} />
@@ -52,7 +52,7 @@ function DayRow({ row }: { row: OpeningHoursRow }) {
   }
 
   return (
-    <li className="admin-card p-4">
+    <li className="admin-card p-3">
       <form onSubmit={submit}>
         <div className="flex items-center justify-between gap-4">
           <p className="font-medium text-bone">{dayName(row.dayOfWeek)}</p>
@@ -68,7 +68,7 @@ function DayRow({ row }: { row: OpeningHoursRow }) {
         {!closed && (
           <div className="mt-3 grid grid-cols-2 gap-3">
             <label className="block">
-              <span className="mb-1.5 block text-[0.6875rem] uppercase tracking-wider text-ash">
+              <span className="admin-label">
                 Opens
               </span>
               <input
@@ -79,7 +79,7 @@ function DayRow({ row }: { row: OpeningHoursRow }) {
               />
             </label>
             <label className="block">
-              <span className="mb-1.5 block text-[0.6875rem] uppercase tracking-wider text-ash">
+              <span className="admin-label">
                 Closes
               </span>
               <input
@@ -93,7 +93,7 @@ function DayRow({ row }: { row: OpeningHoursRow }) {
         )}
         <div className="mt-3 flex items-end gap-3">
           <label className="block flex-1">
-            <span className="mb-1.5 block text-[0.6875rem] uppercase tracking-wider text-ash">
+            <span className="admin-label">
               Note (optional)
             </span>
             <input
@@ -106,7 +106,7 @@ function DayRow({ row }: { row: OpeningHoursRow }) {
           <button
             type="submit"
             disabled={pending}
-            className="btn-ember px-5 py-3 text-sm"
+            className="btn-ember px-4 py-2.5 text-sm"
           >
             {pending ? "…" : "Save"}
           </button>
@@ -132,7 +132,7 @@ function AnnouncementEditor({ settings }: { settings: SiteSettings | null }) {
   }
 
   return (
-    <section className="admin-card p-4">
+    <section className="admin-card p-3">
       <h2 className="font-medium text-bone">Announcement banner</h2>
       <p className="mt-1 text-sm text-ash">
         Shows at the top of the homepage while switched on.
@@ -156,7 +156,7 @@ function AnnouncementEditor({ settings }: { settings: SiteSettings | null }) {
           <button
             type="submit"
             disabled={pending}
-            className="btn-ember px-5 py-3 text-sm"
+            className="btn-ember px-4 py-2.5 text-sm"
           >
             {pending ? "Saving…" : "Save"}
           </button>
