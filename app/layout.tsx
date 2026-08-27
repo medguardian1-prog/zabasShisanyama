@@ -15,10 +15,20 @@ const sans = Inter({
   display: "swap",
 });
 
+function siteUrl(): URL {
+  const raw = process.env.NEXT_PUBLIC_SITE_URL;
+  if (raw && raw.startsWith("http")) {
+    try {
+      return new URL(raw);
+    } catch {
+      // fall through to localhost
+    }
+  }
+  return new URL("http://localhost:3000");
+}
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-  ),
+  metadataBase: siteUrl(),
   title: {
     default: "Zaba's Shisanyama",
     template: "%s · Zaba's Shisanyama",

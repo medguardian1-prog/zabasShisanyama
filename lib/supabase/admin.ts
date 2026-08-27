@@ -12,7 +12,7 @@ export function getAdminClient(): SupabaseClient | null {
   if (client !== undefined) return client;
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) {
+  if (!url || !key || !url.startsWith("http")) {
     client = null;
     return client;
   }

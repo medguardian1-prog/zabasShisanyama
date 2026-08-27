@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Zaba's Shisanyama
 
-## Getting Started
+Production website + staff admin dashboard for Zaba's Shisanyama.
+Next.js 15 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · GSAP +
+Lenis + Framer Motion · Supabase.
 
-First, run the development server:
+## Setup
 
 ```bash
+npm install
+cp .env.example .env.local   # then fill in the values below
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | What it is |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key (public reads, RLS-restricted) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Service-role key — server only, used by admin mutations |
+| `ADMIN_PASSWORD_HASH` | bcrypt hash of the shared staff password (see below) |
+| `ADMIN_SESSION_SECRET` | Long random string used to sign staff session JWTs |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site URL, e.g. `https://zabas.example` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The app builds and the public pages render (with empty states) even when the
+Supabase variables are absent.
 
-## Learn More
+## Staff password
 
-To learn more about Next.js, take a look at the following resources:
+The staff password is never stored in plaintext. Generate the hash and put it
+in `ADMIN_PASSWORD_HASH`:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+node scripts/hash-password.mjs 'the-staff-password'
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Staff log in at `/admin/login` (linked quietly as “Staff” in the site footer).
+Sessions last 7 days.
 
-## Deploy on Vercel
+## Data
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The Supabase schema (categories, menu_items, specials, gallery_images,
+opening_hours, events, enquiries, site_settings) already exists — this repo
+contains no migrations. Staff photo uploads go to the public `media` storage
+bucket.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploy (Vercel)
+
+1. Import the repo into Vercel.
+2. Add all six environment variables above in Project → Settings →
+   Environment Variables.
+3. Deploy. Admin edits go live immediately via cache tag revalidation.
+
+## Scripts
+
+- `npm run dev` — local dev server
+- `npm run build` — production build
+- `npm run start` — serve the production build
+- `npm run lint` — ESLint
+- `node scripts/hash-password.mjs '<password>'` — print a bcrypt hash
