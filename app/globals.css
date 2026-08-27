@@ -1,26 +1,183 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-char: #0b0a0a; /* primary background — near-black charcoal */
+  --color-smoke: #171412; /* secondary surface / cards — warm dark grey */
+  --color-bone: #f5f1ea; /* text on dark */
+  --color-ash: #a39a90; /* muted / secondary text */
+  --color-ember: #c8102e; /* primary accent — logo red. CTAs, prices, active states */
+  --color-flame: #e8541f; /* hover / gradient partner to ember */
+  --color-gold: #c9a227; /* eyebrows, hairline rules, small accents */
+  --color-hair: #2a2523; /* hairline borders */
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+
+  --tracking-eyebrow: 0.22em;
+  --ease-signature: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ---------------------------------- base ---------------------------------- */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background-color: var(--color-char);
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-char);
+  color: var(--color-bone);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-ember);
+  color: var(--color-bone);
+}
+
+/* ------------------------------- lenis rules ------------------------------- */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* -------------------------------- utilities -------------------------------- */
+
+.eyebrow {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-gold);
+}
+
+.rule {
+  height: 1px;
+  width: 100%;
+  background-color: var(--color-hair);
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* --------------------- gated reveal states (progressive) -------------------- */
+/* Hidden initial states exist ONLY when JS has added .gsap-ready to <html>.   */
+/* No-JS and reduced-motion visitors always see full content.                  */
+
+@media (prefers-reduced-motion: no-preference) {
+  html.gsap-ready [data-reveal] {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  html.gsap-ready [data-mask] {
+    transform: translateY(112%);
+  }
+  html.gsap-ready [data-reveal-image] {
+    clip-path: inset(0 0 100% 0);
+  }
+  html.gsap-ready [data-reveal-image] img {
+    transform: scale(1.14);
+  }
+}
+
+/* --------------------------- reduced-motion switch -------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------ focus visibility ---------------------------- */
+
+:focus-visible {
+  outline: 2px solid var(--color-ember);
+  outline-offset: 3px;
+}
+
+/* ------------------------------ radix keyframes ----------------------------- */
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-accordion-down {
+  animation: accordion-down 0.3s var(--ease-signature);
+}
+.animate-accordion-up {
+  animation: accordion-up 0.3s var(--ease-signature);
+}
+.animate-fade-in {
+  animation: fade-in 0.5s var(--ease-signature);
+}
+
+/* --------------------------------- scroll cue -------------------------------- */
+
+@keyframes scroll-cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+.scroll-cue-line {
+  animation: scroll-cue 1.8s var(--ease-signature) infinite;
 }
