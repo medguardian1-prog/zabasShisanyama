@@ -49,22 +49,22 @@ export default function Hero({
         <div className="hero-settle absolute inset-0">
           <Image
             src="/images/hero.jpg"
-            alt="Flame-grilled lamb chops with steamed pap and chilli relish on a wooden board at Zaba's Shisanyama"
+            alt="A wooden board of flame-grilled pork chops with pap, steamed bread, chakalaka and tomato relish at Zaba's Shisanyama"
             fill
             priority
             quality={82}
             sizes="100vw"
-            className="object-cover object-center brightness-[0.78] contrast-[1.1] saturate-[1.12]"
+            className="object-cover object-center brightness-[0.92] contrast-[1.06] saturate-[1.08]"
           />
         </div>
-        {/* legibility + mood scrims */}
-        <div className="absolute inset-0 bg-gradient-to-t from-char via-char/70 to-char/25" />
-        <div className="absolute inset-0 bg-gradient-to-r from-char/85 via-char/35 to-transparent" />
+        {/* legibility + mood scrims — kept light, the source is already dark */}
+        <div className="absolute inset-0 bg-gradient-to-t from-char via-char/45 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-char via-char/40 to-transparent" />
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(75% 60% at 18% 82%, rgba(200,16,46,0.26) 0%, transparent 60%), radial-gradient(55% 45% at 88% 18%, rgba(232,84,31,0.14) 0%, transparent 62%)",
+              "radial-gradient(70% 55% at 15% 80%, rgba(200,16,46,0.2) 0%, transparent 62%)",
           }}
         />
       </motion.div>

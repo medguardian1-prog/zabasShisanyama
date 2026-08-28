@@ -68,3 +68,13 @@ into the **staff dashboard → Settings**, the rest are code/env edits.
 - Breakfast + raw-meat photos RECEIVED and added to the gallery.
 - [ ] Breakfast is shown as a photo only — it is not on the printed menu.
       Still need the breakfast items and prices before listing it.
+
+## Hero image (2026-08-28)
+- New hero: the pork-chop board shot, rotated 90 deg to landscape. Source kept
+  at image-src/upscaled/hero-source.jpg. Regenerate via the rotate+sharpen step
+  if a better original arrives.
+- [ ] The file came through WhatsApp compressed (587x953). Ask the client to
+      resend this one as a **Document** for the full-resolution original — the
+      hero is the largest image on the site and would benefit most.
+- [ ] Same for the remaining food photos: everything except the logo, breakfast,
+      raw-meat and hero shots is still upscaled from ~243px thumbnails.

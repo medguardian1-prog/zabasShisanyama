@@ -44,7 +44,22 @@ export default function SignatureStrip({ items }: { items: MenuItem[] }) {
       mm.add(
         "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
         () => {
-          const distance = () => track.scrollWidth - window.innerWidth;
+          /**
+           * Measure from the children's layout boxes, not track.scrollWidth:
+           * the track is `overflow: visible` on desktop, and scrollWidth does
+           * not include flex content overflowing it — which left the pin
+           * ending ~160px short and clipping the last card's price.
+           * offsetLeft/offsetWidth are layout-based, so the running x
+           * transform does not skew them.
+           */
+          const distance = () => {
+            const first = track.firstElementChild as HTMLElement | null;
+            const last = track.lastElementChild as HTMLElement | null;
+            if (!first || !last) return 0;
+            const content =
+              last.offsetLeft + last.offsetWidth - first.offsetLeft;
+            return Math.max(0, content - window.innerWidth);
+          };
           gsap.to(track, {
             x: () => -distance(),
             ease: "none",
@@ -60,7 +75,28 @@ export default function SignatureStrip({ items }: { items: MenuItem[] }) {
           });
         }
       );
-      teardown = () => mm.revert();
+      // Card images settle after the trigger is created; re-measure so the
+      // pin scrolls far enough to clear the last card.
+      const images = Array.from(track.querySelectorAll("img"));
+      const pending = images.filter((img) => !img.complete);
+      let remaining = pending.length;
+      const recheck = () => {
+        remaining -= 1;
+        if (remaining <= 0 && !cancelled) ScrollTrigger.refresh();
+      };
+      pending.forEach((img) => {
+        img.addEventListener("load", recheck, { once: true });
+        img.addEventListener("error", recheck, { once: true });
+      });
+      if (!pending.length) ScrollTrigger.refresh();
+
+      teardown = () => {
+        pending.forEach((img) => {
+          img.removeEventListener("load", recheck);
+          img.removeEventListener("error", recheck);
+        });
+        mm.revert();
+      };
     })();
 
     return () => {
@@ -81,7 +117,7 @@ export default function SignatureStrip({ items }: { items: MenuItem[] }) {
     >
       <div
         ref={trackRef}
-        className="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto px-5 sm:px-8 lg:h-screen lg:snap-none lg:items-center lg:overflow-visible lg:px-0"
+        className="no-scrollbar flex snap-x snap-mandatory items-start gap-6 overflow-x-auto px-5 sm:px-8 lg:h-screen lg:snap-none lg:items-center lg:overflow-visible lg:px-0"
       >
         {/* intro text panel */}
         <div className="flex w-[80vw] max-w-md shrink-0 snap-start flex-col justify-center lg:w-[38vw] lg:pl-24">
@@ -152,8 +188,9 @@ export default function SignatureStrip({ items }: { items: MenuItem[] }) {
               />
             ))}
 
-        {/* end spacer so the last card clears the pin */}
-        <div className="w-6 shrink-0 lg:w-24" aria-hidden="true" />
+        {/* end spacer so the last card is fully clear of the right edge
+            before the pin releases and vertical scrolling resumes */}
+        <div className="w-6 shrink-0 lg:w-[10vw]" aria-hidden="true" />
       </div>
     </section>
   );
@@ -175,7 +212,7 @@ function StripCard({
   alt: string;
 }) {
   return (
-    <article className="group w-[78vw] max-w-sm shrink-0 snap-start lg:w-[26vw]">
+    <article className="group flex w-[78vw] max-w-sm shrink-0 snap-start flex-col lg:w-[26vw]">
       <div className="photo-frame relative aspect-[3/4] border border-hair transition-colors duration-500 group-hover:border-gold/40">
         <Image
           src={image}
@@ -190,12 +227,19 @@ function StripCard({
           {String(index + 1).padStart(2, "0")}
         </span>
       </div>
-      <div className="mt-4 flex items-start justify-between gap-4">
+      {/* fixed-height caption so every card's title and price line up */}
+      <div className="mt-4 flex min-h-[6.5rem] items-start justify-between gap-4">
         <div>
-          <h3 className="font-display text-lg uppercase text-bone">{name}</h3>
-          {detail && <p className="mt-1 text-sm text-ash">{detail}</p>}
+          <h3 className="font-display text-lg uppercase leading-tight text-bone">
+            {name}
+          </h3>
+          {detail && (
+            <p className="mt-1.5 text-sm leading-snug text-ash">{detail}</p>
+          )}
         </div>
-        {price && <p className="shrink-0 text-sm font-semibold text-ember">{price}</p>}
+        {price && (
+          <p className="shrink-0 text-sm font-semibold text-ember">{price}</p>
+        )}
       </div>
     </article>
   );
