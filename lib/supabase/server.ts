@@ -1,4 +1,5 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { normaliseSupabaseUrl } from "@/lib/supabase/url";
 
 /**
  * Anon-key client for server components. Read-only in practice — RLS
@@ -10,9 +11,9 @@ let client: SupabaseClient | null | undefined;
 
 export function getServerClient(): SupabaseClient | null {
   if (client !== undefined) return client;
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const url = normaliseSupabaseUrl(process.env.NEXT_PUBLIC_SUPABASE_URL);
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key || !url.startsWith("http")) {
+  if (!url || !key || key === "TODO") {
     client = null;
     return client;
   }

@@ -4,19 +4,19 @@ import {
   adminMenuItems,
   adminSpecials,
 } from "@/app/admin/queries";
-import { getAdminClient } from "@/lib/supabase/admin";
-import { adminOpeningHours } from "@/app/admin/queries";
+import { adminConnectionCheck, adminOpeningHours } from "@/app/admin/queries";
 import FirstRunImport from "@/components/admin/FirstRunImport";
 
 export default async function AdminHomePage() {
-  const connected = !!getAdminClient();
-  const [items, specials, enquiries, hours] = await Promise.all([
+  const [connection, items, specials, enquiries, hours] = await Promise.all([
+    adminConnectionCheck(),
     adminMenuItems(),
     adminSpecials(),
     adminEnquiries(),
     adminOpeningHours(),
   ]);
 
+  const connected = connection.ok;
   const needsMenu = connected && items.length === 0;
   const needsHours =
     connected && hours.length > 0 && hours.every((h) => !h.opens && !h.closed);
@@ -40,10 +40,20 @@ export default async function AdminHomePage() {
       </div>
 
       {!connected && (
-        <p className="admin-card mt-4 p-3 text-sm text-ash">
-          The database isn&rsquo;t connected yet — ask whoever set up the site
-          to add the Supabase keys.
-        </p>
+        <div className="admin-card mt-4 border-ember/50 p-4">
+          <p className="text-sm font-semibold text-ember">
+            The database isn&rsquo;t connected
+          </p>
+          <p className="mt-1 text-xs leading-relaxed text-ash">
+            Nothing saved here will stick until this is fixed. The website
+            itself is fine — it&rsquo;s showing the printed menu and hours.
+          </p>
+          {connection.error && (
+            <p className="mt-2 break-words rounded bg-char/60 px-3 py-2 font-mono text-[0.6875rem] text-ash">
+              {connection.error}
+            </p>
+          )}
+        </div>
       )}
 
       <FirstRunImport needsMenu={needsMenu} needsHours={needsHours} />

@@ -28,6 +28,29 @@ import {
   type SpecialRow,
 } from "@/lib/types";
 
+/**
+ * Lightweight connection probe. The read helpers below fall back to empty
+ * arrays on failure, which makes a broken connection look like an empty
+ * database — this surfaces the real reason on the dashboard instead.
+ */
+export async function adminConnectionCheck(): Promise<{
+  ok: boolean;
+  error: string | null;
+}> {
+  const sb = getAdminClient();
+  if (!sb) {
+    return {
+      ok: false,
+      error:
+        "Supabase environment variables are missing or still set to TODO.",
+    };
+  }
+  const { error } = await sb
+    .from("categories")
+    .select("id", { count: "exact", head: true });
+  return error ? { ok: false, error: error.message } : { ok: true, error: null };
+}
+
 /** Admin reads — service-role, uncached, include hidden rows. */
 
 export async function adminCategories(): Promise<Category[]> {
