@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     "Book a table at Zaba's Shisanyama on WhatsApp, place a large order, or get in touch.",
   openGraph: {
     title: "Contact & Bookings · Zaba's Shisanyama",
-    images: ["/images/logo.jpg"],
+    images: ["/images/logo.png"],
   },
 };
 

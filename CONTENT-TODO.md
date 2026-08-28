@@ -62,7 +62,9 @@ into the **staff dashboard → Settings**, the rest are code/env edits.
 - Address CONFIRMED by the client: 1 Johannes Nkosi Avenue, SPCA Access Rd,
       Cato Manor, 4091. (The printed menu spells it "Cator Manor"; the site
       uses the correct "Cato Manor" so map searches resolve.)
-- [ ] New logo (the flame/script version on the printed menu) — need the
-      original file, ideally PNG with a transparent background.
-- [ ] Breakfast: the client sent a breakfast photo, but breakfast is not on
-      the printed menu. Ask for the items and prices before adding.
+- Logo RECEIVED and live: the flame/script version. Supplied as a JPEG on
+      solid black; the black is cut to transparency in the import step so it
+      sits cleanly on every surface. Source kept at image-src/upscaled/logo-source.jpg.
+- Breakfast + raw-meat photos RECEIVED and added to the gallery.
+- [ ] Breakfast is shown as a photo only — it is not on the printed menu.
+      Still need the breakfast items and prices before listing it.

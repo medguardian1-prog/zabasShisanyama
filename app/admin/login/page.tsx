@@ -20,12 +20,12 @@ export default function AdminLoginPage() {
 
       <div className="admin-card w-full max-w-sm p-8 text-center sm:p-10">
         <Image
-          src="/images/logo.jpg"
+          src="/images/logo.png"
           alt="Zaba's Shisanyama logo"
           width={72}
           height={72}
           sizes="72px"
-          className="mx-auto h-18 w-18 rounded-full object-cover ring-2 ring-hair"
+          className="mx-auto h-20 w-20 object-contain"
         />
         <h1 className="mt-6 font-display text-xl uppercase tracking-wide text-bone">
           Staff login

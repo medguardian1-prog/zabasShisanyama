@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "The food, the fire and the people — a look inside Zaba's Shisanyama.",
   openGraph: {
     title: "Gallery · Zaba's Shisanyama",
-    images: ["/images/logo.jpg"],
+    images: ["/images/logo.png"],
   },
 };
 

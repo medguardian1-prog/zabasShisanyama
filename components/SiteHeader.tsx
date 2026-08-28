@@ -71,13 +71,13 @@ export default function SiteHeader() {
           aria-label="Zaba's Shisanyama — home"
         >
           <Image
-            src="/images/logo.jpg"
+            src="/images/logo.png"
             alt="Zaba's Shisanyama logo"
             width={44}
             height={44}
             sizes="44px"
             priority
-            className="h-10 w-10 object-cover sm:h-11 sm:w-11"
+            className="h-10 w-10 object-contain sm:h-11 sm:w-11"
           />
           <span className="font-display text-lg uppercase tracking-wide text-bone">
             Zaba&rsquo;s

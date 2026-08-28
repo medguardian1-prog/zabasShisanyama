@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "Live nights, specials and what's on at Zaba's Shisanyama.",
   openGraph: {
     title: "Events · Zaba's Shisanyama",
-    images: ["/images/logo.jpg"],
+    images: ["/images/logo.png"],
   },
 };
 

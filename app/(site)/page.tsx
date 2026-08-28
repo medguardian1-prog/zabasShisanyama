@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     "Flame-grilled meat, cold drinks and township energy at Zaba's Shisanyama. View the menu, see what's on, and book a table.",
   openGraph: {
     title: "Zaba's Shisanyama — Meat. Fire. Family.",
-    images: ["/images/logo.jpg"],
+    images: ["/images/logo.png"],
   },
 };
 

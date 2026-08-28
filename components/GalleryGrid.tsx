@@ -15,9 +15,19 @@ export const LOCAL_GALLERY: Pick<GalleryImage, "image" | "alt" | "caption">[] = 
     caption: "The full board",
   },
   {
+    image: "/images/food-08.jpg",
+    alt: "Fresh lamb chops, boerewors coils and marinated chicken laid out on a wooden block, ready for the fire",
+    caption: "Pick your cut",
+  },
+  {
     image: "/images/food-05.jpg",
     alt: "A braai board of steak, wings and boerewors on a red slatted table",
     caption: "Order 22, up",
+  },
+  {
+    image: "/images/breakfast.jpg",
+    alt: "A full breakfast of eggs, bacon, sausage, toast and grilled tomato with beans and onions on the side",
+    caption: "Breakfast too",
   },
   {
     image: "/images/food-06.jpg",

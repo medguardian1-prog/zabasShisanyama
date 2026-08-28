@@ -19,6 +19,9 @@ const SCALE = HAS_UPSCALED ? 1 : 2.5;
 
 // The site serves .webp for food-01/alcohol and .jpg for the rest.
 const WEBP_TARGETS = new Set(["food-01", "alcohol"]);
+// Client-supplied originals (already full resolution) and the logo source are
+// handled separately, so the bulk loop skips them.
+const SKIP = new Set(["logo-source", "breakfast", "food-08"]);
 
 /**
  * Per-image colour correction. Upscayl pushed a few shots into a neon
@@ -39,6 +42,7 @@ const CORRECTIONS = {
 for (const file of readdirSync(SRC)) {
   if (!/\.(png|jpe?g|webp)$/i.test(file)) continue;
   const base = file.replace(/\.\w+$/, "");
+  if (SKIP.has(base)) continue;
   const outName = WEBP_TARGETS.has(base) ? `${base}.webp` : `${base}.jpg`;
   const input = join(SRC, file);
   const output = join(OUT, outName);

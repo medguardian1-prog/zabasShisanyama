@@ -35,10 +35,10 @@ export const metadata: Metadata = {
   },
   description:
     "Zaba's Shisanyama — flame-grilled meat, township energy, and good times around the fire.",
-  icons: { icon: "/images/logo.jpg" },
+  icons: { icon: "/images/logo.png" },
   openGraph: {
     siteName: "Zaba's Shisanyama",
-    images: ["/images/logo.jpg"],
+    images: ["/images/logo.png"],
   },
 };
 

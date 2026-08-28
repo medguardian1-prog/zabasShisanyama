@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Menu",
   description:
     "The full Zaba's Shisanyama menu — flame-grilled meat, platters, kotas, sides and drinks.",
-  openGraph: { title: "Menu · Zaba's Shisanyama", images: ["/images/logo.jpg"] },
+  openGraph: { title: "Menu · Zaba's Shisanyama", images: ["/images/logo.png"] },
 };
 
 export default async function MenuPage() {

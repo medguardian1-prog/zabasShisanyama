@@ -69,12 +69,12 @@ export default async function SiteFooter() {
           <div>
             <Link href="/" className="inline-flex items-center gap-3">
               <Image
-                src="/images/logo.jpg"
+                src="/images/logo.png"
                 alt="Zaba's Shisanyama logo"
                 width={56}
                 height={56}
                 sizes="56px"
-                className="h-14 w-14 object-cover"
+                className="h-14 w-14 object-contain"
               />
               <span className="font-display text-xl uppercase">
                 Zaba&rsquo;s Shisanyama

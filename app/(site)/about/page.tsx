@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "Shisanyama culture at Zaba's — real wood fire, shared boards, and the community around the braai.",
   openGraph: {
     title: "Our Story · Zaba's Shisanyama",
-    images: ["/images/logo.jpg"],
+    images: ["/images/logo.png"],
   },
 };
 

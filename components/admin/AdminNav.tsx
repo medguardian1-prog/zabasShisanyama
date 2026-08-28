@@ -86,12 +86,12 @@ export default function AdminNav() {
       <div className="mx-auto flex h-12 max-w-4xl items-center justify-between px-4">
         <Link href="/admin" className="flex min-h-[44px] items-center gap-2.5">
           <Image
-            src="/images/logo.jpg"
+            src="/images/logo.png"
             alt="Zaba's Shisanyama logo"
             width={26}
             height={26}
             sizes="26px"
-            className="h-[26px] w-[26px] rounded-full object-cover"
+            className="h-[26px] w-[26px] object-contain"
           />
           <span className="text-sm font-semibold text-bone">
             Zaba&rsquo;s <span className="text-ash">Staff</span>
