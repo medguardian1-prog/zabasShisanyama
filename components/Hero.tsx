@@ -54,17 +54,30 @@ export default function Hero({
             priority
             quality={82}
             sizes="100vw"
-            className="object-cover object-center brightness-[0.92] contrast-[1.06] saturate-[1.08]"
+            className="object-cover object-center brightness-[1.06] contrast-[1.08] saturate-[1.12]"
           />
         </div>
-        {/* legibility + mood scrims — kept light, the source is already dark */}
-        <div className="absolute inset-0 bg-gradient-to-t from-char via-char/45 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-char via-char/40 to-transparent" />
+        {/* Scrims shaped to darken only where the type sits, so the board
+            stays bright. Explicit stops beat Tailwind's even thirds here. */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(70% 55% at 15% 80%, rgba(200,16,46,0.2) 0%, transparent 62%)",
+              "linear-gradient(to right, #0B0A0A 0%, rgba(11,10,10,0.82) 26%, rgba(11,10,10,0.35) 48%, rgba(11,10,10,0.05) 68%, transparent 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to top, #0B0A0A 0%, rgba(11,10,10,0.55) 14%, rgba(11,10,10,0.12) 34%, transparent 55%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(60% 50% at 12% 78%, rgba(200,16,46,0.18) 0%, transparent 62%)",
           }}
         />
       </motion.div>

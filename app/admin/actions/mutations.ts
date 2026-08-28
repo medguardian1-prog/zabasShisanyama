@@ -4,6 +4,8 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 import { getAdminClient } from "@/lib/supabase/admin";
 import { requireStaffSession } from "@/lib/auth";
+import { DEFAULT_MENU } from "@/lib/default-menu";
+import { DEFAULT_HOURS as CLIENT_HOURS } from "@/lib/hours";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 export type ActionResult = { ok: true } | { ok: false; error: string };
@@ -598,6 +600,103 @@ export async function setEnquiryStatus(
   const { error } = await g.sb.from("enquiries").update({ status }).eq("id", id);
   if (error) return fail("Couldn't update — please try again.");
   revalidatePath("/admin", "layout");
+  return OK;
+}
+
+/* ------------------------------ first-run import ---------------------------- */
+
+/**
+ * Copies the printed menu and trading hours (currently shown on the public
+ * site as code fallbacks) into the database, so staff can edit them here.
+ * Refuses to run if menu items already exist, so it cannot duplicate.
+ */
+export async function importPrintedMenu(): Promise<ActionResult> {
+  const g = await guard();
+  if ("error" in g) return g.error;
+
+  const { count } = await g.sb
+    .from("menu_items")
+    .select("id", { count: "exact", head: true });
+  if ((count ?? 0) > 0) {
+    return fail("There are already menu items here — nothing was imported.");
+  }
+
+  const { data: existing } = await g.sb.from("categories").select("id, slug");
+  const bySlug = new Map(
+    ((existing as { id: string; slug: string }[]) ?? []).map((c) => [
+      c.slug,
+      c.id,
+    ])
+  );
+
+  let sort = 0;
+  for (const group of DEFAULT_MENU) {
+    let categoryId = bySlug.get(group.slug);
+
+    if (!categoryId) {
+      const { data: created, error } = await g.sb
+        .from("categories")
+        .insert({
+          name: group.name,
+          slug: group.slug,
+          sort_order: sort,
+          visible: true,
+        })
+        .select("id")
+        .single();
+      if (error || !created) return fail("Couldn't create the categories.");
+      categoryId = created.id as string;
+      bySlug.set(group.slug, categoryId);
+    }
+
+    const rows = group.items.map((item, i) => ({
+      category_id: categoryId,
+      name: item.name,
+      slug: `${group.slug}-${i}-${Date.now().toString(36)}`,
+      description: item.description,
+      price: item.price,
+      image: null,
+      tags: [],
+      featured: !!item.featured,
+      available: true,
+      visible: true,
+      sort_order: i,
+    }));
+
+    const { error } = await g.sb.from("menu_items").insert(rows);
+    if (error) return fail("Couldn't import the menu items.");
+    sort += 1;
+  }
+
+  revalidatePublic("menu");
+  return OK;
+}
+
+export async function importTradingHours(): Promise<ActionResult> {
+  const g = await guard();
+  if ("error" in g) return g.error;
+
+  const { data: rows } = await g.sb
+    .from("opening_hours")
+    .select("id, day_of_week");
+  if (!rows?.length) return fail("No opening-hours rows to update.");
+
+  for (const row of rows as { id: string; day_of_week: number }[]) {
+    const t = CLIENT_HOURS[row.day_of_week];
+    if (!t) continue;
+    const { error } = await g.sb
+      .from("opening_hours")
+      .update({
+        opens: t.opens,
+        closes: t.closes,
+        closed: false,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", row.id);
+    if (error) return fail("Couldn't save the hours.");
+  }
+
+  revalidatePublic("hours");
   return OK;
 }
 

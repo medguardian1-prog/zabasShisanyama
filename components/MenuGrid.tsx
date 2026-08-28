@@ -3,35 +3,17 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Category, MenuItem } from "@/lib/types";
-import DishCard from "@/components/DishCard";
+import { formatPrice } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-/** Category slug → local fallback image when an item has no uploaded photo. */
-const CATEGORY_FALLBACKS: Record<string, { src: string; alt: string }> = {
-  "from-the-grill": {
-    src: "/images/food-07.jpg",
-    alt: "Grilled lamb chops with steamed bread and chilli relish on a wooden board",
-  },
-  platters: {
-    src: "/images/food-02.jpg",
-    alt: "Boerewors coils, roast meat and pap on a wooden serving board",
-  },
-  kotas: {
-    src: "/images/food-03.jpg",
-    alt: "A takeaway tray of flame-grilled chicken wings, bread and fresh sides",
-  },
-  sides: {
-    src: "/images/food-04.jpg",
-    alt: "A plate of chicken stew with rice and fresh sides",
-  },
-  drinks: {
-    src: "/images/alcohol.webp",
-    alt: "Shelves of spirits and drinks behind the bar at Zaba's",
-  },
-};
-
+/**
+ * Type-led menu. Deliberately image-free: the photo library cannot cover
+ * every dish, and repeating the same few shots across rows looked cheap.
+ * Clarity and price legibility win here — the photography lives in the
+ * gallery and the homepage strip.
+ */
 export default function MenuGrid({
   categories,
   items,
@@ -41,14 +23,15 @@ export default function MenuGrid({
 }) {
   const [active, setActive] = useState<string | null>(null);
 
-  const filtered = useMemo(
-    () => (active ? items.filter((i) => i.categoryId === active) : items),
-    [active, items]
+  const visibleCategories = useMemo(
+    () =>
+      categories.filter((c) => items.some((i) => i.categoryId === c.id)),
+    [categories, items]
   );
 
-  const slugById = useMemo(
-    () => new Map(categories.map((c) => [c.id, c.slug])),
-    [categories]
+  const shown = useMemo(
+    () => (active ? visibleCategories.filter((c) => c.id === active) : visibleCategories),
+    [active, visibleCategories]
   );
 
   if (!items.length) {
@@ -63,7 +46,7 @@ export default function MenuGrid({
   return (
     <div>
       <div
-        className="no-scrollbar -mx-5 mb-12 flex gap-6 overflow-x-auto px-5 sm:mx-0 sm:flex-wrap sm:px-0"
+        className="no-scrollbar -mx-5 mb-14 flex gap-6 overflow-x-auto px-5 sm:mx-0 sm:flex-wrap sm:px-0"
         role="group"
         aria-label="Filter menu by category"
       >
@@ -72,7 +55,7 @@ export default function MenuGrid({
           active={active === null}
           onClick={() => setActive(null)}
         />
-        {categories.map((c) => (
+        {visibleCategories.map((c) => (
           <FilterButton
             key={c.id}
             label={c.name}
@@ -82,34 +65,99 @@ export default function MenuGrid({
         ))}
       </div>
 
-      <motion.ul
-        layout
-        className="grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3"
-      >
+      <motion.div layout className="space-y-16 sm:space-y-20">
         <AnimatePresence mode="popLayout">
-          {filtered.map((item, i) => {
-            const fallback = CATEGORY_FALLBACKS[slugById.get(item.categoryId) ?? ""];
+          {shown.map((category) => {
+            const list = items.filter((i) => i.categoryId === category.id);
             return (
-              <motion.li
+              <motion.section
                 layout
-                key={item.id}
+                key={category.id}
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 8 }}
                 transition={{ duration: 0.5, ease: EASE }}
+                aria-labelledby={`cat-${category.id}`}
               >
-                <DishCard
-                  item={item}
-                  index={i}
-                  fallbackImage={fallback?.src}
-                  fallbackAlt={fallback?.alt}
-                />
-              </motion.li>
+                <div className="mb-8 flex items-center gap-5">
+                  <h2
+                    id={`cat-${category.id}`}
+                    className="font-display text-2xl uppercase leading-none text-bone sm:text-3xl"
+                  >
+                    {category.name}
+                  </h2>
+                  <span className="h-px flex-1 bg-hair" aria-hidden="true" />
+                  <span className="text-[0.6875rem] uppercase tracking-[0.22em] text-gold">
+                    {String(list.length).padStart(2, "0")}
+                  </span>
+                </div>
+
+                <ul className="grid gap-x-14 gap-y-1 lg:grid-cols-2">
+                  {list.map((item) => (
+                    <MenuRow key={item.id} item={item} />
+                  ))}
+                </ul>
+              </motion.section>
             );
           })}
         </AnimatePresence>
-      </motion.ul>
+      </motion.div>
     </div>
+  );
+}
+
+function MenuRow({ item }: { item: MenuItem }) {
+  return (
+    <li className="border-b border-hair/70 py-5">
+      <div className="flex items-baseline gap-4">
+        <h3
+          className={cn(
+            "font-display text-lg uppercase leading-tight sm:text-xl",
+            item.available ? "text-bone" : "text-ash"
+          )}
+        >
+          {item.name}
+        </h3>
+
+        {/* dotted leader keeps the eye travelling to the price */}
+        <span
+          aria-hidden="true"
+          className="mb-1 min-w-6 flex-1 border-b border-dotted border-hair"
+        />
+
+        <p
+          className={cn(
+            "shrink-0 whitespace-nowrap font-display text-lg tracking-wide sm:text-xl",
+            item.available ? "text-ember" : "text-ash line-through"
+          )}
+        >
+          {formatPrice(item.price)}
+        </p>
+      </div>
+
+      {(item.description || !item.available || item.tags.length > 0) && (
+        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2 pr-16">
+          {!item.available && (
+            <span className="border border-flame/60 px-2 py-0.5 text-[0.625rem] uppercase tracking-[0.18em] text-flame">
+              Sold out
+            </span>
+          )}
+          {item.description && (
+            <p className="text-sm leading-relaxed text-ash">
+              {item.description}
+            </p>
+          )}
+          {item.tags.map((t) => (
+            <span
+              key={t}
+              className="border border-hair px-2 py-0.5 text-[0.625rem] uppercase tracking-[0.14em] text-ash"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      )}
+    </li>
   );
 }
 

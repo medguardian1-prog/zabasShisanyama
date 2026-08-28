@@ -5,14 +5,21 @@ import {
   adminSpecials,
 } from "@/app/admin/queries";
 import { getAdminClient } from "@/lib/supabase/admin";
+import { adminOpeningHours } from "@/app/admin/queries";
+import FirstRunImport from "@/components/admin/FirstRunImport";
 
 export default async function AdminHomePage() {
   const connected = !!getAdminClient();
-  const [items, specials, enquiries] = await Promise.all([
+  const [items, specials, enquiries, hours] = await Promise.all([
     adminMenuItems(),
     adminSpecials(),
     adminEnquiries(),
+    adminOpeningHours(),
   ]);
+
+  const needsMenu = connected && items.length === 0;
+  const needsHours =
+    connected && hours.length > 0 && hours.every((h) => !h.opens && !h.closed);
 
   const activeSpecial = specials.find((s) => s.active);
   const soldOut = items.filter((i) => !i.available).length;
@@ -38,6 +45,8 @@ export default async function AdminHomePage() {
           to add the Supabase keys.
         </p>
       )}
+
+      <FirstRunImport needsMenu={needsMenu} needsHours={needsHours} />
 
       <dl className="admin-card mt-4 grid grid-cols-3 divide-x divide-hair">
         <Stat label="Special" value={activeSpecial ? activeSpecial.title : "None"} />

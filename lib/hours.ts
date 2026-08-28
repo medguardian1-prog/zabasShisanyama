@@ -20,7 +20,7 @@ export function dayName(dayOfWeek: number): string {
  * Indexed 0 = Sunday .. 6 = Saturday. Saturday and Sunday close at midnight,
  * which getOpenStatus treats as spilling into the next day.
  */
-const DEFAULT_HOURS: Record<number, { opens: string; closes: string }> = {
+export const DEFAULT_HOURS: Record<number, { opens: string; closes: string }> = {
   0: { opens: "09:00", closes: "00:00" }, // Sunday
   1: { opens: "09:00", closes: "21:00" },
   2: { opens: "09:00", closes: "21:00" },
