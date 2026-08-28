@@ -78,6 +78,22 @@ html.lenis body {
   display: none;
 }
 
+/* ------------------------------- tap targets -------------------------------- */
+/* Inline text links sit at ~18px tall, well under the 44px touch guideline.
+   On touch devices only, extend the hit area with a pseudo-element so the
+   link is comfortably tappable without shifting any layout.               */
+
+@media (pointer: coarse) {
+  .tap-target {
+    position: relative;
+  }
+  .tap-target::after {
+    content: "";
+    position: absolute;
+    inset: -0.75rem -0.5rem;
+  }
+}
+
 /* ------------------------- photo treatment & grain -------------------------- */
 /* The source photos are small; a film-grain overlay plus a slight grade makes
    soft imagery read as deliberate and moody instead of low-res.               */

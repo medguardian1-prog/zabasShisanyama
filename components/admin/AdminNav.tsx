@@ -84,7 +84,7 @@ export default function AdminNav() {
   return (
     <div className="sticky top-0 z-40 border-b border-hair bg-char/95 backdrop-blur-md">
       <div className="mx-auto flex h-12 max-w-4xl items-center justify-between px-4">
-        <Link href="/admin" className="flex items-center gap-2.5">
+        <Link href="/admin" className="flex min-h-[44px] items-center gap-2.5">
           <Image
             src="/images/logo.jpg"
             alt="Zaba's Shisanyama logo"
@@ -100,14 +100,14 @@ export default function AdminNav() {
         <div className="flex items-center">
           <Link
             href="/"
-            className="hidden px-3 py-2 text-xs text-ash transition-colors hover:text-bone sm:inline-flex"
+            className="hidden min-h-[44px] items-center px-3 text-xs text-ash transition-colors hover:text-bone sm:inline-flex"
           >
             View site ↗
           </Link>
           <form action={logout}>
             <button
               type="submit"
-              className="px-3 py-2 text-xs text-ash transition-colors hover:text-bone"
+              className="inline-flex min-h-[44px] items-center px-3 text-xs text-ash transition-colors hover:text-bone"
             >
               Log out
             </button>

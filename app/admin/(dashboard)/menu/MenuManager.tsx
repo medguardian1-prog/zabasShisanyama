@@ -346,7 +346,7 @@ function ItemDialog({
               type="checkbox"
               name="featured"
               defaultChecked={item?.featured}
-              className="h-5 w-5 accent-[#c8102e]"
+              className="tap-target h-5 w-5 accent-[#c8102e]"
             />
             Show in the &ldquo;From the Fire&rdquo; strip on the homepage
           </label>

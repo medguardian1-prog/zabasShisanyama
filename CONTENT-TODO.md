@@ -56,13 +56,12 @@ into the **staff dashboard → Settings**, the rest are code/env edits.
 - **Hours**: Mon–Thu 09:00–21:00 · Fri 09:00–22:00 · Sat & Sun 09:00–00:00,
   in `lib/hours.ts` as `withDefaultHours`. Also a fallback — /admin/hours wins.
 - **Phone**: +27 68 419 6554 (calls). WhatsApp bookings stay on
-  +27 62 085 8961 — CONFIRM whether bookings should move to the new number.
+  +27 68 419 6554 — client confirmed calls AND WhatsApp bookings both use it.
 
 ### Still open
-- [ ] **ADDRESS CONFLICT**: the printed menu says "1 Johannes Nkosi Avenue,
-      SPCA Access Rd, Cator Manor, 4091". The site currently shows
-      "2 Johannes Nkosi Avenue, Mayville, Durban, 4091" per instruction.
-      Confirm the correct street number and suburb.
+- Address CONFIRMED by the client: 1 Johannes Nkosi Avenue, SPCA Access Rd,
+      Cato Manor, 4091. (The printed menu spells it "Cator Manor"; the site
+      uses the correct "Cato Manor" so map searches resolve.)
 - [ ] New logo (the flame/script version on the printed menu) — need the
       original file, ideally PNG with a transparent background.
 - [ ] Breakfast: the client sent a breakfast photo, but breakfast is not on

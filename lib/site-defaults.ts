@@ -7,12 +7,15 @@
  * one open discrepancy (street number 1 vs 2).
  */
 
-export const WHATSAPP_NUMBER = "27620858961"; // +27 62 085 8961 — bookings
-export const DEFAULT_PHONE = "+27 68 419 6554"; // client-supplied 2026-08-28
+/** Calls and WhatsApp bookings both use this number (client-confirmed 2026-08-28). */
+export const WHATSAPP_NUMBER = "27684196554";
+export const DEFAULT_PHONE = "+27 68 419 6554";
+/** Street number 1 and the SPCA Access Rd / Cato Manor detail come from the
+ *  client's own printed menu (confirmed 2026-08-28). */
 export const DEFAULT_ADDRESS =
-  "2 Johannes Nkosi Avenue, Mayville, Durban, 4091";
+  "1 Johannes Nkosi Avenue, SPCA Access Rd, Cato Manor, 4091";
 export const DEFAULT_MAP_LINK =
-  "https://www.google.com/maps/search/?api=1&query=Zaba%27s+Shisanyama+2+Johannes+Nkosi+Avenue+Mayville+Durban";
+  "https://www.google.com/maps/search/?api=1&query=Zaba%27s+Shisanyama+1+Johannes+Nkosi+Avenue+Cato+Manor+Durban";
 export const DEFAULT_INSTAGRAM = "https://www.instagram.com/zabas_shisanyama";
 /**
  * Note the double "a". facebook.com/zabashisanyama is a different business
