@@ -47,3 +47,23 @@ into the **staff dashboard → Settings**, the rest are code/env edits.
   +27 76 345 4791 (Restaurant Guru)
 - Hours seen on Restaurant Guru (NOT entered — punch into /admin/hours if right):
   Mon–Thu 9:00–21:00 · Fri 9:00–22:00 · Sat–Sun 9:00–23:00
+
+## Received from the client 2026-08-28 (now live)
+- **Menu**: transcribed from the printed menu into `lib/default-menu.ts` —
+  4 platters (R100/R250/R400/R550), 4 plates at R60, plus sides and add-ons
+  which the printed menu does not price (they render "Ask at the counter").
+  This is a fallback: anything staff enter at /admin/menu replaces it.
+- **Hours**: Mon–Thu 09:00–21:00 · Fri 09:00–22:00 · Sat & Sun 09:00–00:00,
+  in `lib/hours.ts` as `withDefaultHours`. Also a fallback — /admin/hours wins.
+- **Phone**: +27 68 419 6554 (calls). WhatsApp bookings stay on
+  +27 62 085 8961 — CONFIRM whether bookings should move to the new number.
+
+### Still open
+- [ ] **ADDRESS CONFLICT**: the printed menu says "1 Johannes Nkosi Avenue,
+      SPCA Access Rd, Cator Manor, 4091". The site currently shows
+      "2 Johannes Nkosi Avenue, Mayville, Durban, 4091" per instruction.
+      Confirm the correct street number and suburb.
+- [ ] New logo (the flame/script version on the printed menu) — need the
+      original file, ideally PNG with a transparent background.
+- [ ] Breakfast: the client sent a breakfast photo, but breakfast is not on
+      the printed menu. Ask for the items and prices before adding.

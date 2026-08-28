@@ -26,7 +26,8 @@ import {
   waLink,
   withDefault,
 } from "@/lib/site-defaults";
-import { getOpenStatus } from "@/lib/hours";
+import { getOpenStatus, withDefaultHours } from "@/lib/hours";
+import { fallbackMenu } from "@/lib/default-menu";
 
 export const metadata: Metadata = {
   title: "Zaba's Shisanyama — Meat. Fire. Family.",
@@ -50,7 +51,9 @@ export default async function HomePage() {
     ]);
 
   const todaysSpecial = specials[0];
-  const status = getOpenStatus(hours);
+  const displayHours = withDefaultHours(hours);
+  const status = getOpenStatus(displayHours);
+  const stripItems = featured.length ? featured : fallbackMenu().items.filter((i) => i.featured);
 
   return (
     <>
@@ -102,7 +105,7 @@ export default async function HomePage() {
       </Section>
 
       {/* pinned signature strip */}
-      <SignatureStrip items={featured} />
+      <SignatureStrip items={stripItems} />
 
       {/* today's special */}
       {todaysSpecial && (
@@ -159,7 +162,7 @@ export default async function HomePage() {
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
             <SectionHeading eyebrow="Hours" title="When the fire's on" />
-            <HoursWidget hours={hours} />
+            <HoursWidget hours={displayHours} />
           </div>
           <div>
             <SectionHeading eyebrow="Find Us" title="Pull up" />

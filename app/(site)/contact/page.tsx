@@ -7,6 +7,7 @@ import HoursWidget from "@/components/HoursWidget";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { getOpeningHours, getSiteSettings } from "@/lib/queries";
 import SocialLinks from "@/components/SocialLinks";
+import { withDefaultHours } from "@/lib/hours";
 import {
   DEFAULT_ADDRESS,
   DEFAULT_FACEBOOK,
@@ -63,7 +64,7 @@ export default async function ContactPage() {
             </div>
             <div>
               <p className="eyebrow mb-5">Hours</p>
-              <HoursWidget hours={hours} />
+              <HoursWidget hours={withDefaultHours(hours)} />
             </div>
             <div>
               <p className="eyebrow mb-5">Follow the fire</p>

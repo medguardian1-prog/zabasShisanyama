@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getOpeningHours, getSiteSettings } from "@/lib/queries";
-import { dayName, formatTime } from "@/lib/hours";
+import { dayName, formatTime, withDefaultHours } from "@/lib/hours";
 import SocialLinks from "@/components/SocialLinks";
 import {
   DEFAULT_ADDRESS,
@@ -16,10 +16,11 @@ import {
 } from "@/lib/site-defaults";
 
 export default async function SiteFooter() {
-  const [settings, hours] = await Promise.all([
+  const [settings, dbHours] = await Promise.all([
     getSiteSettings(),
     getOpeningHours(),
   ]);
+  const hours = withDefaultHours(dbHours);
 
   const socials = [
     {

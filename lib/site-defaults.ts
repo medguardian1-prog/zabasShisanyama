@@ -7,8 +7,8 @@
  * one open discrepancy (street number 1 vs 2).
  */
 
-export const WHATSAPP_NUMBER = "27620858961"; // +27 62 085 8961
-export const DEFAULT_PHONE = "+27 62 085 8961";
+export const WHATSAPP_NUMBER = "27620858961"; // +27 62 085 8961 — bookings
+export const DEFAULT_PHONE = "+27 68 419 6554"; // client-supplied 2026-08-28
 export const DEFAULT_ADDRESS =
   "2 Johannes Nkosi Avenue, Mayville, Durban, 4091";
 export const DEFAULT_MAP_LINK =

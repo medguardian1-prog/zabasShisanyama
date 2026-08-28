@@ -14,6 +14,47 @@ export function dayName(dayOfWeek: number): string {
   return DAY_NAMES[dayOfWeek] ?? "";
 }
 
+/**
+ * Trading hours supplied by the client 2026-08-28:
+ * Mon–Thu 09:00–21:00 · Fri 09:00–22:00 · Sat & Sun 09:00–00:00.
+ * Indexed 0 = Sunday .. 6 = Saturday. Saturday and Sunday close at midnight,
+ * which getOpenStatus treats as spilling into the next day.
+ */
+const DEFAULT_HOURS: Record<number, { opens: string; closes: string }> = {
+  0: { opens: "09:00", closes: "00:00" }, // Sunday
+  1: { opens: "09:00", closes: "21:00" },
+  2: { opens: "09:00", closes: "21:00" },
+  3: { opens: "09:00", closes: "21:00" },
+  4: { opens: "09:00", closes: "21:00" },
+  5: { opens: "09:00", closes: "22:00" }, // Friday
+  6: { opens: "09:00", closes: "00:00" }, // Saturday
+};
+
+/**
+ * Fills in the client's trading hours wherever the database has no times yet.
+ * Anything staff set in the dashboard always wins.
+ */
+export function withDefaultHours(rows: OpeningHoursRow[]): OpeningHoursRow[] {
+  if (!rows.length) {
+    return Object.entries(DEFAULT_HOURS).map(([day, t]) => ({
+      id: `default-${day}`,
+      dayOfWeek: Number(day),
+      opens: t.opens,
+      closes: t.closes,
+      closed: false,
+      note: null,
+      updatedAt: new Date(0).toISOString(),
+    }));
+  }
+
+  return rows.map((row) => {
+    if (row.closed || (row.opens && row.closes)) return row;
+    const fallback = DEFAULT_HOURS[row.dayOfWeek];
+    if (!fallback) return row;
+    return { ...row, opens: fallback.opens, closes: fallback.closes };
+  });
+}
+
 /** "18:30:00" | "18:30" → "18:30" for display */
 export function formatTime(t: string | null): string {
   if (!t) return "";
