@@ -621,7 +621,13 @@ export async function importPrintedMenu(): Promise<ActionResult> {
     return fail("There are already menu items here — nothing was imported.");
   }
 
-  const { data: existing } = await g.sb.from("categories").select("id, slug");
+  const { data: existing, error: readError } = await g.sb
+    .from("categories")
+    .select("id, slug");
+  if (readError) {
+    return fail(`Couldn't read the categories — ${readError.message}`);
+  }
+
   const bySlug = new Map(
     ((existing as { id: string; slug: string }[]) ?? []).map((c) => [
       c.slug,
@@ -629,24 +635,41 @@ export async function importPrintedMenu(): Promise<ActionResult> {
     ])
   );
 
-  let sort = 0;
+  const now = new Date().toISOString();
+  let sort = bySlug.size;
+
   for (const group of DEFAULT_MENU) {
     let categoryId = bySlug.get(group.slug);
 
     if (!categoryId) {
+      // upsert rather than insert: the seeded categories share some slugs,
+      // and a plain insert would trip the unique constraint.
       const { data: created, error } = await g.sb
         .from("categories")
-        .insert({
-          name: group.name,
-          slug: group.slug,
-          sort_order: sort,
-          visible: true,
-        })
+        .upsert(
+          {
+            name: group.name,
+            slug: group.slug,
+            sort_order: sort,
+            visible: true,
+            created_at: now,
+            updated_at: now,
+          },
+          { onConflict: "slug" }
+        )
         .select("id")
         .single();
-      if (error || !created) return fail("Couldn't create the categories.");
+
+      if (error || !created) {
+        return fail(
+          `Couldn't create the "${group.name}" category — ${
+            error?.message ?? "no row returned"
+          }`
+        );
+      }
       categoryId = created.id as string;
       bySlug.set(group.slug, categoryId);
+      sort += 1;
     }
 
     const rows = group.items.map((item, i) => ({
@@ -661,11 +684,14 @@ export async function importPrintedMenu(): Promise<ActionResult> {
       available: true,
       visible: true,
       sort_order: i,
+      created_at: now,
+      updated_at: now,
     }));
 
     const { error } = await g.sb.from("menu_items").insert(rows);
-    if (error) return fail("Couldn't import the menu items.");
-    sort += 1;
+    if (error) {
+      return fail(`Couldn't import "${group.name}" — ${error.message}`);
+    }
   }
 
   revalidatePublic("menu");
@@ -676,9 +702,12 @@ export async function importTradingHours(): Promise<ActionResult> {
   const g = await guard();
   if ("error" in g) return g.error;
 
-  const { data: rows } = await g.sb
+  const { data: rows, error: readError } = await g.sb
     .from("opening_hours")
     .select("id, day_of_week");
+  if (readError) {
+    return fail(`Couldn't read the hours — ${readError.message}`);
+  }
   if (!rows?.length) return fail("No opening-hours rows to update.");
 
   for (const row of rows as { id: string; day_of_week: number }[]) {
@@ -693,7 +722,7 @@ export async function importTradingHours(): Promise<ActionResult> {
         updated_at: new Date().toISOString(),
       })
       .eq("id", row.id);
-    if (error) return fail("Couldn't save the hours.");
+    if (error) return fail(`Couldn't save the hours — ${error.message}`);
   }
 
   revalidatePublic("hours");
