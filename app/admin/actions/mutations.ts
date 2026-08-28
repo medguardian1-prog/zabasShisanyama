@@ -606,20 +606,14 @@ export async function setEnquiryStatus(
 /* ------------------------------ first-run import ---------------------------- */
 
 /**
- * Copies the printed menu and trading hours (currently shown on the public
- * site as code fallbacks) into the database, so staff can edit them here.
- * Refuses to run if menu items already exist, so it cannot duplicate.
+ * Copies the printed menu into the database so staff can edit it here, and
+ * puts the categories in printed-menu order (Platters first). Safe to run
+ * repeatedly: items are only inserted when there are none, so re-running
+ * just re-syncs the ordering.
  */
 export async function importPrintedMenu(): Promise<ActionResult> {
   const g = await guard();
   if ("error" in g) return g.error;
-
-  const { count } = await g.sb
-    .from("menu_items")
-    .select("id", { count: "exact", head: true });
-  if ((count ?? 0) > 0) {
-    return fail("There are already menu items here — nothing was imported.");
-  }
 
   const { data: existing, error: readError } = await g.sb
     .from("categories")
@@ -636,61 +630,72 @@ export async function importPrintedMenu(): Promise<ActionResult> {
   );
 
   const now = new Date().toISOString();
-  let sort = bySlug.size;
 
-  for (const group of DEFAULT_MENU) {
-    let categoryId = bySlug.get(group.slug);
+  // Categories the printed menu uses lead, in its own order; anything else
+  // already in the table is pushed after them.
+  for (const [index, group] of DEFAULT_MENU.entries()) {
+    const { data: saved, error } = await g.sb
+      .from("categories")
+      .upsert(
+        {
+          name: group.name,
+          slug: group.slug,
+          sort_order: index,
+          visible: true,
+          updated_at: now,
+        },
+        { onConflict: "slug" }
+      )
+      .select("id")
+      .single();
 
-    if (!categoryId) {
-      // upsert rather than insert: the seeded categories share some slugs,
-      // and a plain insert would trip the unique constraint.
-      const { data: created, error } = await g.sb
-        .from("categories")
-        .upsert(
-          {
-            name: group.name,
-            slug: group.slug,
-            sort_order: sort,
-            visible: true,
-            created_at: now,
-            updated_at: now,
-          },
-          { onConflict: "slug" }
-        )
-        .select("id")
-        .single();
-
-      if (error || !created) {
-        return fail(
-          `Couldn't create the "${group.name}" category — ${
-            error?.message ?? "no row returned"
-          }`
-        );
-      }
-      categoryId = created.id as string;
-      bySlug.set(group.slug, categoryId);
-      sort += 1;
+    if (error || !saved) {
+      return fail(
+        `Couldn't set up the "${group.name}" category — ${
+          error?.message ?? "no row returned"
+        }`
+      );
     }
+    bySlug.set(group.slug, saved.id as string);
+  }
 
-    const rows = group.items.map((item, i) => ({
-      category_id: categoryId,
-      name: item.name,
-      slug: `${group.slug}-${i}-${Date.now().toString(36)}`,
-      description: item.description,
-      price: item.price,
-      image: null,
-      tags: [],
-      featured: !!item.featured,
-      available: true,
-      visible: true,
-      sort_order: i,
-      created_at: now,
-      updated_at: now,
-    }));
+  const menuSlugs = new Set(DEFAULT_MENU.map((g) => g.slug));
+  const others = ((existing as { id: string; slug: string }[]) ?? []).filter(
+    (c) => !menuSlugs.has(c.slug)
+  );
+  for (const [i, c] of others.entries()) {
+    await g.sb
+      .from("categories")
+      .update({ sort_order: DEFAULT_MENU.length + i })
+      .eq("id", c.id);
+  }
 
-    const { error } = await g.sb.from("menu_items").insert(rows);
-    if (error) {
-      return fail(`Couldn't import "${group.name}" — ${error.message}`);
+  const { count } = await g.sb
+    .from("menu_items")
+    .select("id", { count: "exact", head: true });
+
+  if ((count ?? 0) === 0) {
+    for (const group of DEFAULT_MENU) {
+      const rows = group.items.map((item, i) => ({
+        category_id: bySlug.get(group.slug),
+        name: item.name,
+        slug: `${group.slug}-${i}-${Date.now().toString(36)}`,
+        description: item.description,
+        price: item.price,
+        image: null,
+        tags: [],
+        featured: !!item.featured,
+        available: true,
+        visible: true,
+        sort_order: i,
+        created_at: now,
+        updated_at: now,
+      }));
+
+      const { error } = await g.sb.from("menu_items").insert(rows);
+      if (error) {
+        return fail(`Couldn't import "${group.name}" — ${error.message}`);
+      }
     }
   }
 

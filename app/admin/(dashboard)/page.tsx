@@ -4,8 +4,13 @@ import {
   adminMenuItems,
   adminSpecials,
 } from "@/app/admin/queries";
-import { adminConnectionCheck, adminOpeningHours } from "@/app/admin/queries";
+import {
+  adminCategories,
+  adminConnectionCheck,
+  adminOpeningHours,
+} from "@/app/admin/queries";
 import FirstRunImport from "@/components/admin/FirstRunImport";
+import { DEFAULT_MENU } from "@/lib/default-menu";
 
 export default async function AdminHomePage() {
   const [connection, items, specials, enquiries, hours] = await Promise.all([
@@ -20,6 +25,18 @@ export default async function AdminHomePage() {
   const needsMenu = connected && items.length === 0;
   const needsHours =
     connected && hours.length > 0 && hours.every((h) => !h.opens && !h.closed);
+
+  // The printed-menu categories should lead, in their own order. If they do
+  // not, offer the import again — re-running only re-syncs the ordering.
+  const categories = await adminCategories();
+  const printedOrder = DEFAULT_MENU.map((g) => g.slug);
+  const actualOrder = categories
+    .map((c) => c.slug)
+    .filter((s) => printedOrder.includes(s));
+  const orderNeedsFix =
+    connected &&
+    items.length > 0 &&
+    actualOrder.join(",") !== printedOrder.filter((s) => actualOrder.includes(s)).join(",");
 
   const activeSpecial = specials.find((s) => s.active);
   const soldOut = items.filter((i) => !i.available).length;
@@ -56,7 +73,11 @@ export default async function AdminHomePage() {
         </div>
       )}
 
-      <FirstRunImport needsMenu={needsMenu} needsHours={needsHours} />
+      <FirstRunImport
+        needsMenu={needsMenu}
+        needsHours={needsHours}
+        orderNeedsFix={orderNeedsFix}
+      />
 
       <dl className="admin-card mt-4 grid grid-cols-3 divide-x divide-hair">
         <Stat label="Special" value={activeSpecial ? activeSpecial.title : "None"} />
