@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import type { OpeningHoursRow, SiteSettings } from "@/lib/types";
 import { dayName } from "@/lib/hours";
 import {
+  importTradingHours,
   saveAnnouncement,
   saveDayHours,
 } from "@/app/admin/actions/mutations";
@@ -19,6 +20,7 @@ export default function HoursManager({
 }) {
   return (
     <div className="mt-4 space-y-6">
+      <ResetToStandard />
       <ul className="space-y-2">
         {hours.map((h) => (
           <DayRow key={h.id} row={h} />
@@ -31,6 +33,36 @@ export default function HoursManager({
         )}
       </ul>
       <AnnouncementEditor settings={settings} />
+    </div>
+  );
+}
+
+/**
+ * Always available: the database was seeded with placeholder times, so there
+ * has to be a way back to Zaba's real trading hours in one tap.
+ */
+function ResetToStandard() {
+  const [pending, startTransition] = useTransition();
+
+  return (
+    <div className="admin-card flex flex-wrap items-center justify-between gap-3 p-3">
+      <p className="text-xs leading-relaxed text-ash">
+        Standard hours: Mon&ndash;Thu 09:00&ndash;21:00, Fri to 22:00,
+        Sat &amp; Sun to midnight.
+      </p>
+      <button
+        type="button"
+        disabled={pending}
+        onClick={() =>
+          startTransition(async () => {
+            const res = await importTradingHours();
+            toast(res.ok ? SAVED : res.error, !res.ok);
+          })
+        }
+        className="btn-quiet px-3 py-2 text-xs"
+      >
+        {pending ? "Setting…" : "Use standard hours"}
+      </button>
     </div>
   );
 }
