@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
@@ -26,6 +26,18 @@ export default function Hero({
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
 
+  // Scroll-linked transforms on a full-screen image cost a repaint every
+  // frame. Worth it on a desktop GPU; on a phone it is the difference
+  // between buttery and stuttering, so touch devices get a static hero.
+  const [parallax, setParallax] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(pointer: fine) and (min-width: 640px)");
+    const apply = () => setParallax(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -44,30 +56,50 @@ export default function Hero({
       {/* full-bleed banner */}
       <motion.div
         className="absolute inset-0"
-        style={reduced ? undefined : { scale: imgScale, y: imgY }}
+        style={reduced || !parallax ? undefined : { scale: imgScale, y: imgY }}
       >
+        {/* Art-directed: the landscape crop loses its composition inside a tall
+            phone viewport, so mobile gets the original portrait framing. */}
         <div className="hero-settle absolute inset-0">
           <Image
-            src="/images/hero.jpg"
+            src="/images/hero-mobile.jpg"
             alt="A wooden board of flame-grilled pork chops with pap, steamed bread, chakalaka and tomato relish at Zaba's Shisanyama"
             fill
             priority
             quality={82}
             sizes="100vw"
-            className="object-cover object-center brightness-[1.06] contrast-[1.08] saturate-[1.12]"
+            className="object-cover object-center brightness-[1.06] contrast-[1.08] saturate-[1.12] sm:hidden"
+          />
+          <Image
+            src="/images/hero.jpg"
+            alt=""
+            aria-hidden="true"
+            fill
+            quality={82}
+            sizes="100vw"
+            className="hidden object-cover object-center brightness-[1.06] contrast-[1.08] saturate-[1.12] sm:block"
           />
         </div>
         {/* Scrims shaped to darken only where the type sits, so the board
             stays bright. Explicit stops beat Tailwind's even thirds here. */}
+        {/* On phones the copy sits over the image, so the vertical scrim does
+            the work and the horizontal one is dropped. */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 hidden sm:block"
           style={{
             background:
               "linear-gradient(to right, #0B0A0A 0%, rgba(11,10,10,0.82) 26%, rgba(11,10,10,0.35) 48%, rgba(11,10,10,0.05) 68%, transparent 100%)",
           }}
         />
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 sm:hidden"
+          style={{
+            background:
+              "linear-gradient(to top, #0B0A0A 0%, rgba(11,10,10,0.92) 22%, rgba(11,10,10,0.55) 45%, rgba(11,10,10,0.15) 68%, transparent 88%)",
+          }}
+        />
+        <div
+          className="absolute inset-0 hidden sm:block"
           style={{
             background:
               "linear-gradient(to top, #0B0A0A 0%, rgba(11,10,10,0.55) 14%, rgba(11,10,10,0.12) 34%, transparent 55%)",
@@ -83,8 +115,10 @@ export default function Hero({
       </motion.div>
 
       <motion.div
-        className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-14 pt-40 sm:px-8 sm:pb-16"
-        style={reduced ? undefined : { y: copyY, opacity: copyOpacity }}
+        className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-10 pt-32 sm:px-8 sm:pb-16 sm:pt-40"
+        style={
+          reduced || !parallax ? undefined : { y: copyY, opacity: copyOpacity }
+        }
       >
         <div
           className="hero-rise mb-6 flex items-center gap-4"
@@ -99,7 +133,7 @@ export default function Hero({
             <span key={line} className="block overflow-hidden pb-[0.05em]">
               <span
                 className={
-                  "hero-mask block text-[clamp(3.25rem,11vw,8rem)] " +
+                  "hero-mask block text-[clamp(3.5rem,13vw,8rem)] " +
                   (i === 1 ? "text-ember" : "")
                 }
                 style={{ animationDelay: `${0.16 + i * 0.07}s` }}
@@ -110,9 +144,9 @@ export default function Hero({
           ))}
         </h1>
 
-        <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+        <div className="mt-6 flex flex-col gap-6 sm:mt-8 sm:gap-8 lg:flex-row lg:items-end lg:justify-between">
           <p
-            className="hero-rise max-w-md text-base leading-relaxed text-bone/75 sm:text-lg"
+            className="hero-rise max-w-md text-[0.9375rem] leading-relaxed text-bone/75 sm:text-lg"
             style={{ animationDelay: "0.22s" }}
           >
             Real meat over real fire. Pick your cut, we throw it on the coals,
@@ -121,13 +155,13 @@ export default function Hero({
           </p>
 
           <div
-            className="hero-rise flex flex-wrap gap-4"
+            className="hero-rise flex flex-wrap gap-3 sm:gap-4"
             style={{ animationDelay: "0.34s" }}
           >
             <Link
               href="/menu"
               data-cursor="Menu"
-              className="bg-ember px-8 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone shadow-[0_16px_50px_-14px_rgba(200,16,46,0.8)] transition-colors duration-300 hover:bg-flame"
+              className="bg-ember px-7 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone shadow-[0_16px_50px_-14px_rgba(200,16,46,0.8)] transition-colors duration-300 hover:bg-flame sm:px-8"
             >
               View the Menu
             </Link>
@@ -136,7 +170,7 @@ export default function Hero({
               target="_blank"
               rel="noopener noreferrer"
               data-cursor="Book"
-              className="border border-bone/50 bg-char/25 px-8 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone backdrop-blur-sm transition-colors duration-300 hover:border-flame hover:text-flame"
+              className="border border-bone/50 bg-char/40 px-7 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:border-flame hover:text-flame sm:px-8 sm:backdrop-blur-sm"
             >
               Book a Table
             </a>
@@ -146,10 +180,25 @@ export default function Hero({
 
       {/* restaurant info bar */}
       <div
-        className="hero-rise relative z-10 border-t border-bone/10 bg-char/45 backdrop-blur-md"
+        className="hero-rise relative z-10 border-t border-bone/10 bg-char/80 sm:bg-char/45 sm:backdrop-blur-md"
         style={{ animationDelay: "0.46s" }}
       >
-        <dl className="mx-auto flex max-w-7xl flex-col divide-y divide-bone/10 px-5 sm:px-8 md:flex-row md:divide-x md:divide-y-0">
+        {/* Phones get one compact line — three stacked rows ate a third of
+            the viewport. The full set returns from md up. */}
+        <div className="mx-auto flex max-w-7xl items-center gap-2.5 px-5 py-3.5 md:hidden">
+          <span
+            aria-hidden="true"
+            className="h-1.5 w-1.5 shrink-0 rounded-full bg-flame"
+          />
+          <p className="truncate text-[0.8125rem] text-bone/85">
+            {statusLabel ?? "Come through"}
+          </p>
+          <span className="ml-auto shrink-0 text-[0.625rem] uppercase tracking-[0.18em] text-gold">
+            Cato Manor
+          </span>
+        </div>
+
+        <dl className="mx-auto hidden max-w-7xl divide-y divide-bone/10 px-5 sm:px-8 md:flex md:flex-row md:divide-x md:divide-y-0">
           <InfoItem label="Right now" value={statusLabel ?? "Come through"} dot />
           <InfoItem label="Find us" value={address ?? "Mayville, Durban"} />
           <InfoItem label="Bookings" value="WhatsApp only" />

@@ -89,3 +89,32 @@ Choices made without asking, with reasons.
 Scores measured on this Windows machine varied between 54 and 92 for identical
 code, and every run logged an `EPERM` temp-dir error, so local runs were not
 trustworthy. Audit the deployed Vercel URL instead.
+
+## Mobile premium pass (2026-08-29)
+- **Art-directed hero.** The desktop hero is the board rotated to landscape;
+  `object-cover` inside a tall phone viewport cropped that to a narrow centre
+  slice and threw the composition away. Mobile now gets `hero-mobile.jpg`,
+  built from the *original portrait* framing of the same photo. Two `<Image>`
+  elements swapped at the `sm` breakpoint — the hidden one is never fetched.
+- **Scroll jank, in order of cost.** All three were fine on a desktop GPU and
+  were the reason mobile did not feel like desktop:
+  1. `mix-blend-mode: overlay` grain on every `.photo-frame` and on the hero —
+     a blend layer repaints everything beneath it each frame. Now gated to
+     `(pointer: fine)`, where it is also the only place it is visible.
+  2. `backdrop-blur` on the fixed header (and the hero info bar) — repaints the
+     whole strip per frame. Phones get a near-opaque bar instead; identical
+     result over a dark site.
+  3. Framer Motion scroll-linked parallax on the full-screen hero image and
+     copy. Gated behind `(pointer: fine) and (min-width: 640px)`.
+- Native momentum scrolling is deliberately left alone on touch — Lenis does
+  not sync touch, and hijacking it reads as laggy rather than premium. The dish
+  strip gets `overscroll-behavior-x: contain` so swiping it does not rubber-band
+  the page behind it.
+- Hero copy on mobile: headline up to `clamp(3.5rem,13vw,8rem)`, reduced top
+  padding, and the three-row info bar collapses to one compact line (it was
+  eating roughly a third of the viewport).
+
+### Gotcha
+`next/image` `quality` values must be listed in `next.config.ts`
+`images.qualities`. An undeclared value builds fine and throws a client-side
+exception at runtime — only a real browser check catches it.

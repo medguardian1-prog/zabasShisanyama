@@ -57,8 +57,11 @@ export default function SiteHeader() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-500",
+        // backdrop-blur on a fixed header repaints the whole strip on every
+        // scroll frame; phones get a near-opaque bar instead, which looks the
+        // same over a dark site and scrolls cleanly.
         scrolled || open
-          ? "border-b border-hair bg-char/90 backdrop-blur-md"
+          ? "border-b border-hair bg-char/95 sm:bg-char/90 sm:backdrop-blur-md"
           : "border-b border-transparent bg-transparent",
         hidden && !open && "-translate-y-full"
       )}
