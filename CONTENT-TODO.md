@@ -78,3 +78,21 @@ into the **staff dashboard → Settings**, the rest are code/env edits.
       hero is the largest image on the site and would benefit most.
 - [ ] Same for the remaining food photos: everything except the logo, breakfast,
       raw-meat and hero shots is still upscaled from ~243px thumbnails.
+
+## Events photography (2026-08-31)
+20 professional photos from the 29 November event, supplied by the client.
+Facts on the /events page are taken only from what is legible in them:
+- **Durban's Summer Dance**, held at Zaba's on **Saturday 29 November 2025**
+  (29 Nov fell on a Saturday in 2025, not 2026 — and the filenames are dated
+  29Nov, so this is a past event and is presented as such, not as upcoming).
+- Poster credits: Inamandla Entertainment, Durban Tourism, Webtickets,
+  Zaba's Legacy; sponsor board adds Red Bull, Martell, Fitch & Leedes.
+- Poster repeats the address as 1 Johannes Nkosi Avenue, SPCA Access Rd,
+  Cator Manor, 4091 — independently confirming the street number.
+
+### HOURS DISCREPANCY — needs one question
+The **Trading Hours sign inside the shop**, photographed at that event, reads:
+Mon–Thurs 09:00–21:00 · Friday 09:00–22:00 · **Sat & Sun 09:00–23:00**.
+The client told us Sat & Sun run to **00:00**. Restaurant Guru also says 23:00.
+The site currently shows 00:00 per the client's instruction. Confirm which is
+right — the sign may simply predate an extension.

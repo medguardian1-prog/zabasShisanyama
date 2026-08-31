@@ -44,3 +44,5 @@ next-env.d.ts
 # derived from image-src/client originals — regenerate with scripts/import-client-photos.mjs
 image-src/client/converted/
 image-src/client/previews/
+
+image-src/client/events/
