@@ -82,7 +82,7 @@ export default function MenuGrid({
                 <div className="mb-8 flex items-center gap-5">
                   <h2
                     id={`cat-${category.id}`}
-                    className="font-display text-2xl uppercase leading-none text-bone sm:text-3xl"
+                    className="display-xl text-3xl text-bone sm:text-4xl"
                   >
                     {category.name}
                   </h2>
@@ -112,7 +112,7 @@ function MenuRow({ item }: { item: MenuItem }) {
       <div className="flex items-baseline gap-4">
         <h3
           className={cn(
-            "font-display text-lg uppercase leading-tight sm:text-xl",
+            "display-xl text-xl sm:text-2xl",
             item.available ? "text-bone" : "text-ash"
           )}
         >
@@ -127,7 +127,7 @@ function MenuRow({ item }: { item: MenuItem }) {
 
         <p
           className={cn(
-            "shrink-0 whitespace-nowrap font-display text-lg tracking-wide sm:text-xl",
+            "shrink-0 whitespace-nowrap display-xl text-xl sm:text-2xl",
             item.available ? "text-ember" : "text-ash line-through"
           )}
         >

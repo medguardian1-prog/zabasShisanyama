@@ -85,7 +85,7 @@ function Tile({
       <div
         data-reveal-image
         className={cn(
-          "photo-frame relative h-full border border-hair transition-colors duration-500 group-hover:border-gold/40",
+          "photo-frame relative h-full rounded-2xl border border-hair transition-colors duration-500 group-hover:border-gold/40",
           aspect
         )}
       >

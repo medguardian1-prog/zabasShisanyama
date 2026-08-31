@@ -137,7 +137,7 @@ export default function SignatureStrip({ items }: { items: MenuItem[] }) {
           <Link
             href="/menu"
             data-cursor="Menu"
-            className="mt-8 inline-block w-fit border border-bone px-6 py-3 text-[0.75rem] uppercase tracking-[0.18em] text-bone transition-colors hover:border-flame hover:text-flame"
+            className="mt-8 inline-block w-fit rounded-full border border-bone px-6 py-3 text-[0.75rem] uppercase tracking-[0.18em] text-bone transition-colors hover:border-flame hover:text-flame"
           >
             Full Menu
           </Link>
@@ -218,7 +218,7 @@ function StripCard({
 }) {
   return (
     <article className="group flex w-[78vw] max-w-sm shrink-0 snap-start flex-col lg:w-[26vw]">
-      <div className="photo-frame relative aspect-[3/4] border border-hair transition-colors duration-500 group-hover:border-gold/40">
+      <div className="photo-frame relative rounded-2xl aspect-[3/4] border border-hair transition-colors duration-500 group-hover:border-gold/40">
         <Image
           src={image}
           alt={alt}
@@ -228,14 +228,14 @@ function StripCard({
           className="object-cover transition-transform duration-700 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.025]"
         />
         <div className="absolute inset-0 z-[2] bg-gradient-to-t from-char/85 via-transparent to-transparent" />
-        <span className="absolute left-0 top-5 z-[3] border-l-2 border-gold bg-char/80 py-1.5 pl-3 pr-4 font-display text-sm tracking-[0.1em] text-gold">
+        <span className="absolute left-0 top-5 z-[3] border-l-2 border-gold bg-char/80 py-1.5 pl-3 pr-4 label-mono text-gold">
           {String(index + 1).padStart(2, "0")}
         </span>
       </div>
       {/* fixed-height caption so every card's title and price line up */}
       <div className="mt-4 flex min-h-[6.5rem] items-start justify-between gap-4">
         <div>
-          <h3 className="font-display text-lg uppercase leading-tight text-bone">
+          <h3 className="display-xl text-xl text-bone">
             {name}
           </h3>
           {detail && (

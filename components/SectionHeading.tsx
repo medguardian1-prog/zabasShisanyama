@@ -26,7 +26,7 @@ export default function SectionHeading({
       <div className="overflow-hidden">
         <h2
           data-mask
-          className="font-display text-3xl uppercase leading-[1.08] sm:text-4xl lg:text-[2.75rem]"
+          className="display-xl text-[2.75rem] sm:text-5xl lg:text-[3.75rem]"
         >
           {title}
         </h2>

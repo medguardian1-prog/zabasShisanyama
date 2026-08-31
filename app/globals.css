@@ -1,20 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  --color-char: #0b0a0a; /* primary background — near-black charcoal */
-  --color-smoke: #171412; /* secondary surface / cards — warm dark grey */
+  --color-char: #09080b; /* primary background — deep near-black */
+  --color-smoke: #100f14; /* secondary surface */
+  --color-slate: #17161d; /* raised surface / cards */
   --color-bone: #f5f1ea; /* text on dark */
-  --color-ash: #a39a90; /* muted / secondary text */
+  --color-ash: #9d97a2; /* muted / secondary text */
   --color-ember: #c8102e; /* primary accent — logo red. CTAs, prices, active states */
   --color-flame: #e8541f; /* hover / gradient partner to ember */
   --color-gold: #c9a227; /* eyebrows, hairline rules, small accents */
-  --color-hair: #2a2523; /* hairline borders */
+  --color-hair: #24222b; /* hairline borders */
 
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 
-  --tracking-eyebrow: 0.22em;
+  --tracking-eyebrow: 0.18em;
   --ease-signature: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Geometry: soft, consistent rounding rather than hard corners. */
+  --radius-card: 1rem;
+  --radius-media: 1.25rem;
+  --radius-input: 0.625rem;
 }
 
 /* ---------------------------------- base ---------------------------------- */
@@ -58,10 +65,26 @@ html.lenis body {
 /* -------------------------------- utilities -------------------------------- */
 
 .eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.6875rem;
   text-transform: uppercase;
   letter-spacing: var(--tracking-eyebrow);
   color: var(--color-gold);
+}
+
+/* Large display type wants negative tracking; small caps want positive. */
+.display-xl {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+
+.label-mono {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .rule {

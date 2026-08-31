@@ -128,12 +128,12 @@ export default function Hero({
           <p className="eyebrow">Mayville, Durban · Flame-grilled daily</p>
         </div>
 
-        <h1 className="font-display uppercase leading-[0.9] tracking-[0.01em] text-bone [text-shadow:0_8px_40px_rgba(0,0,0,0.6)]">
+        <h1 className="display-xl text-bone [text-shadow:0_8px_40px_rgba(0,0,0,0.6)]">
           {LINES.map((line, i) => (
             <span key={line} className="block overflow-hidden pb-[0.05em]">
               <span
                 className={
-                  "hero-mask block text-[clamp(3.5rem,13vw,8rem)] " +
+                  "hero-mask block text-[clamp(3.75rem,14vw,9rem)] " +
                   (i === 1 ? "text-ember" : "")
                 }
                 style={{ animationDelay: `${0.16 + i * 0.07}s` }}
@@ -161,7 +161,7 @@ export default function Hero({
             <Link
               href="/menu"
               data-cursor="Menu"
-              className="bg-ember px-7 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone shadow-[0_16px_50px_-14px_rgba(200,16,46,0.8)] transition-colors duration-300 hover:bg-flame sm:px-8"
+              className="rounded-full bg-ember px-7 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone shadow-[0_16px_50px_-14px_rgba(200,16,46,0.8)] transition-colors duration-300 hover:bg-flame sm:px-8"
             >
               View the Menu
             </Link>
@@ -170,7 +170,7 @@ export default function Hero({
               target="_blank"
               rel="noopener noreferrer"
               data-cursor="Book"
-              className="border border-bone/50 bg-char/40 px-7 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:border-flame hover:text-flame sm:px-8 sm:backdrop-blur-sm"
+              className="rounded-full border border-bone/50 bg-char/40 px-7 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:border-flame hover:text-flame sm:px-8 sm:backdrop-blur-sm"
             >
               Book a Table
             </a>

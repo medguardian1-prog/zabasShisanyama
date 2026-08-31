@@ -22,7 +22,7 @@ export default function DishCard({
   return (
     <article className="group" data-cursor="View">
       {image && (
-        <div className="photo-frame relative aspect-[4/3] border border-hair transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:border-gold/40 group-hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.9)]">
+        <div className="photo-frame relative rounded-2xl aspect-[4/3] border border-hair transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:border-gold/40 group-hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.9)]">
           <Image
             src={image}
             alt={alt}
@@ -38,7 +38,7 @@ export default function DishCard({
           )}
           {/* hover caption overlay — desktop hover only, static caption below stays for touch */}
           <div className="pointer-events-none absolute inset-0 hidden flex-col justify-end bg-gradient-to-t from-char/90 via-char/30 to-transparent p-5 opacity-0 transition-opacity duration-500 [@media(hover:hover)]:flex [@media(hover:hover)]:group-hover:opacity-100">
-            <h3 className="font-display text-lg uppercase text-bone">
+            <h3 className="display-xl text-xl text-bone">
               {item.name}
             </h3>
             {item.description && (
@@ -60,7 +60,7 @@ export default function DishCard({
         )}
       >
         <div className="flex items-baseline justify-between gap-4">
-          <h3 className="font-display text-lg uppercase text-bone">
+          <h3 className="display-xl text-xl text-bone">
             <span className="mr-3 text-[0.6875rem] tracking-[0.22em] text-gold">
               {String(index + 1).padStart(2, "0")}
             </span>

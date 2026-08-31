@@ -13,7 +13,7 @@ export default function Marquee() {
           <div key={half} className="flex shrink-0 items-center">
             {run.map((w, i) => (
               <span key={`${half}-${i}`} className="flex items-center">
-                <span className="font-display text-xl uppercase tracking-[0.06em] text-bone/55 sm:text-2xl">
+                <span className="display-xl text-2xl tracking-[0.06em] text-bone/55 sm:text-2xl">
                   {w}
                 </span>
                 <span className="mx-6 text-gold">✦</span>

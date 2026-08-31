@@ -56,13 +56,12 @@ export default async function SiteFooter() {
             x="0"
             y="78"
             className="font-display"
-            fontSize="96"
-            letterSpacing="1"
+            fontSize="104"
+            letterSpacing="-2"
             fill="var(--color-bone)"
             fillOpacity="0.07"
-            style={{ textTransform: "uppercase" }}
           >
-            ZABA&rsquo;S SHISANYAMA
+            Zaba&rsquo;s Shisanyama
           </text>
         </svg>
         <div className="grid gap-12 md:grid-cols-3">
@@ -76,7 +75,7 @@ export default async function SiteFooter() {
                 sizes="56px"
                 className="h-14 w-14 object-contain"
               />
-              <span className="font-display text-xl uppercase">
+              <span className="display-xl text-2xl">
                 Zaba&rsquo;s Shisanyama
               </span>
             </Link>
@@ -139,7 +138,7 @@ export default async function SiteFooter() {
               href={waLink(WA_BOOKING_DEFAULT, settings?.whatsapp)}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-block bg-ember px-6 py-3 text-[0.75rem] uppercase tracking-[0.18em] text-bone transition-colors hover:bg-flame"
+              className="mt-6 inline-block rounded-full bg-ember px-6 py-3 text-[0.75rem] uppercase tracking-[0.18em] text-bone transition-colors hover:bg-flame"
             >
               Book on WhatsApp
             </a>

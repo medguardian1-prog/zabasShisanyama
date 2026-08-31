@@ -47,7 +47,7 @@ export default function AboutPage() {
       <Section tone="smoke">
         <div className="grid gap-8 md:grid-cols-2">
           <figure>
-            <div data-reveal-image className="photo-frame relative aspect-[4/3] border border-hair">
+            <div data-reveal-image className="photo-frame relative rounded-2xl aspect-[4/3] border border-hair">
               <Image
                 src="/images/food-06.jpg"
                 alt="Hands carving ribs and grilled meat on a shared wooden board"
@@ -61,7 +61,7 @@ export default function AboutPage() {
             </figcaption>
           </figure>
           <figure className="md:mt-16">
-            <div data-reveal-image className="photo-frame relative aspect-[3/4] border border-hair">
+            <div data-reveal-image className="photo-frame relative rounded-2xl aspect-[3/4] border border-hair">
               <Image
                 src="/images/food-01.webp"
                 alt="Friends sharing a pile of flame-grilled chicken and ribs on a wooden board"
@@ -85,7 +85,7 @@ export default function AboutPage() {
           <div className="overflow-hidden">
             <h2
               data-mask
-              className="font-display text-3xl uppercase leading-[1.08] sm:text-4xl"
+              className="display-xl text-[2.75rem] sm:text-5xl"
             >
               The fire&rsquo;s already going
             </h2>
@@ -94,7 +94,7 @@ export default function AboutPage() {
             <Link
               href="/menu"
               data-cursor="Menu"
-              className="inline-block bg-ember px-8 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:bg-flame"
+              className="inline-block rounded-full bg-ember px-8 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:bg-flame"
             >
               View the Menu
             </Link>

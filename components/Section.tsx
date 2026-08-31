@@ -1,10 +1,11 @@
 import { cn } from "@/lib/utils";
 
-type Tone = "char" | "smoke" | "ember";
+type Tone = "char" | "smoke" | "slate" | "ember";
 
 const tones: Record<Tone, string> = {
   char: "bg-char text-bone",
   smoke: "bg-smoke text-bone",
+  slate: "bg-slate text-bone",
   ember: "bg-ember text-bone",
 };
 

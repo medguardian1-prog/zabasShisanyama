@@ -19,7 +19,7 @@ export default function WhatsAppButton({
       rel="noopener noreferrer"
       className={
         className ??
-        "inline-block border border-bone px-8 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:border-flame hover:text-flame"
+        "inline-block rounded-full border border-bone px-8 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:border-flame hover:text-flame"
       }
     >
       {label}

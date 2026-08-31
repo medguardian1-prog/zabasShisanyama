@@ -79,7 +79,7 @@ export default async function HomePage() {
             <div className="overflow-hidden">
               <h2
                 data-mask
-                className="font-display text-3xl uppercase leading-[1.08] sm:text-4xl lg:text-[2.75rem]"
+                className="display-xl text-[2.75rem] sm:text-5xl lg:text-[3.75rem]"
               >
                 This is how we braai
               </h2>
@@ -200,7 +200,7 @@ export default async function HomePage() {
           <div className="overflow-hidden">
             <h2
               data-mask
-              className="font-display text-3xl uppercase leading-[1.08] sm:text-4xl lg:text-[2.75rem]"
+              className="display-xl text-[2.75rem] sm:text-5xl lg:text-[3.75rem]"
             >
               Book your table at the fire
             </h2>
@@ -211,13 +211,13 @@ export default async function HomePage() {
               target="_blank"
               rel="noopener noreferrer"
               data-cursor="Book"
-              className="bg-char px-8 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:bg-smoke"
+              className="rounded-full bg-char px-8 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:bg-smoke"
             >
               Book on WhatsApp
             </a>
             <Link
               href="/contact"
-              className="inline-block border border-bone px-8 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:bg-bone/10"
+              className="inline-block rounded-full border border-bone px-8 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:bg-bone/10"
             >
               Contact Us
             </Link>

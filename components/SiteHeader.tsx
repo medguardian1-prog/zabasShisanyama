@@ -82,7 +82,7 @@ export default function SiteHeader() {
             priority
             className="h-10 w-10 object-contain sm:h-11 sm:w-11"
           />
-          <span className="font-display text-lg uppercase tracking-wide text-bone">
+          <span className="display-xl text-2xl text-bone">
             Zaba&rsquo;s
           </span>
         </Link>
@@ -106,7 +106,7 @@ export default function SiteHeader() {
             href={waLink(WA_BOOKING_DEFAULT)}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-ember px-5 py-2.5 text-[0.75rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:bg-flame"
+            className="rounded-full bg-ember px-5 py-2.5 text-[0.75rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:bg-flame"
           >
             Book a Table
           </a>
@@ -146,7 +146,7 @@ export default function SiteHeader() {
               key={l.href}
               href={l.href}
               className={cn(
-                "border-b border-hair py-4 font-display text-2xl uppercase",
+                "border-b border-hair py-4 display-xl text-3xl",
                 pathname === l.href ? "text-ember" : "text-bone"
               )}
             >
@@ -160,7 +160,7 @@ export default function SiteHeader() {
             href={waLink(WA_BOOKING_DEFAULT)}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 bg-ember px-6 py-4 text-center text-[0.8125rem] uppercase tracking-[0.18em] text-bone"
+            className="mt-6 rounded-full bg-ember px-6 py-4 text-center text-[0.8125rem] uppercase tracking-[0.18em] text-bone"
           >
             Book a Table
           </a>

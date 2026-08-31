@@ -154,3 +154,30 @@ The hero is now built from the boerewors-board version: it is the darkest and
 most fire-lit of the set, so it carries the scrims and the dark theme better
 than the bright studio plates, and it upscales 1.36x rather than the ~2.9x the
 previous WhatsApp-compressed hero needed.
+
+## Design language v2 (2026-08-31)
+Reworked toward the reference the client gave (hottwiree.co.za), whose tokens
+were read directly from the live site rather than guessed:
+
+| | Reference | Zaba's now |
+|---|---|---|
+| Display | Instrument Serif 400, -1.1px tracking | Instrument Serif 400, -0.02em |
+| Body | Inter | Inter |
+| Labels | JetBrains Mono | JetBrains Mono (`.eyebrow`, `.label-mono`) |
+| Background | #08070B | #09080B |
+| Radii | 16px / 4px / pill | 16px media+cards, pill buttons, 12px inputs |
+
+This reverses the original brief's "sharp corners, condensed poster display"
+at the client's explicit request. A high-contrast serif at large sizes with
+negative tracking reads editorial and expensive; Anton read as street-poster.
+Ember/flame/gold and the fire imagery carry the brand heat instead.
+
+Surfaces are now three steps (`char` -> `smoke` -> `slate`) rather than two,
+so cards lift off the page.
+
+### Hero photography
+The hero is a **licensed Unsplash photograph** (dark grilled meat over embers,
+2400x1350 native, no upscaling). Unsplash's licence permits commercial use with
+no attribution. Arbitrary search-result images were declined: they are almost
+always someone's copyright and a liability on a commercial site. Source kept at
+`image-src/stock/HERO-SOURCE-unsplash.jpg`.

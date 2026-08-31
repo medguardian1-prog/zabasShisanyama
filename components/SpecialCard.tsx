@@ -7,7 +7,7 @@ export default function SpecialCard({ special }: { special: Special }) {
   return (
     <article className="grid overflow-hidden border border-hair bg-smoke shadow-[0_32px_80px_-40px_rgba(0,0,0,0.9)] md:grid-cols-2">
       {special.image && (
-        <div data-reveal-image className="photo-frame relative aspect-[4/3] md:aspect-auto md:min-h-[320px]">
+        <div data-reveal-image className="photo-frame relative rounded-2xl aspect-[4/3] md:aspect-auto md:min-h-[320px]">
           <Image
             src={special.image}
             alt={`${special.title} — today's special at Zaba's Shisanyama`}
@@ -24,7 +24,7 @@ export default function SpecialCard({ special }: { special: Special }) {
         </Eyebrow>
         <h3
           data-reveal
-          className="font-display text-2xl uppercase leading-[1.12] text-bone sm:text-3xl"
+          className="display-xl text-3xl text-bone sm:text-4xl"
         >
           {special.title}
         </h3>
@@ -33,7 +33,7 @@ export default function SpecialCard({ special }: { special: Special }) {
             {special.description}
           </p>
         )}
-        <p data-reveal className="mt-6 font-display text-xl text-ember">
+        <p data-reveal className="mt-6 display-xl text-2xl text-ember">
           {formatPrice(special.price)}
         </p>
       </div>

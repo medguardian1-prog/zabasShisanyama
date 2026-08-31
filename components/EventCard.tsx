@@ -5,7 +5,7 @@ import { formatEventDate } from "@/lib/format";
 export default function EventCard({ event }: { event: SiteEvent }) {
   return (
     <article className="group border border-hair bg-smoke transition-all duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-gold/40 hover:shadow-[0_28px_70px_-30px_rgba(0,0,0,0.9)]">
-      <div className="photo-frame relative aspect-[16/10]">
+      <div className="photo-frame relative rounded-2xl aspect-[16/10]">
         <Image
           src={event.image || "/images/event.jpg"}
           alt={
@@ -22,7 +22,7 @@ export default function EventCard({ event }: { event: SiteEvent }) {
       </div>
       <div className="p-6 sm:p-8">
         <p className="eyebrow mb-3">{formatEventDate(event.eventDate)}</p>
-        <h3 className="font-display text-xl uppercase leading-[1.12] text-bone sm:text-2xl">
+        <h3 className="display-xl text-2xl text-bone sm:text-3xl">
           {event.title}
         </h3>
         {event.description && (

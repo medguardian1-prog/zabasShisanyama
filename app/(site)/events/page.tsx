@@ -39,7 +39,7 @@ export default async function EventsPage() {
                 live music, match days and holiday specials.
               </p>
             </div>
-            <div data-reveal-image className="photo-frame relative aspect-[16/10] border border-hair">
+            <div data-reveal-image className="photo-frame relative rounded-2xl aspect-[16/10] border border-hair">
               <Image
                 src="/images/event.jpg"
                 alt="A performer on stage in front of the crowd at a Zaba's night event"
