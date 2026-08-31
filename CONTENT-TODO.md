@@ -19,8 +19,11 @@ into the **staff dashboard → Settings**, the rest are code/env edits.
 - [ ] `NEXT_PUBLIC_SITE_URL` — the production URL
 
 ## About page (`app/(site)/about/page.tsx`)
-- [ ] The Zaba's-specific story paragraph is a literal `TODO` — who started it,
-      when, and where. The surrounding shisanyama-culture copy is generic and true.
+- [ ] The Zaba's-specific story is a marked placeholder panel ("TODO — client
+      copy") in the story section — who started it, when, and where. Replace
+      the whole `<aside>` with a normal `<p data-reveal>` when the copy lands.
+      The surrounding shisanyama-culture copy is generic and true, and every
+      photo caption describes only what is visible in its own frame.
 
 ## Data to enter via the dashboard
 - [ ] Menu items with real names, prices and photos (per category:

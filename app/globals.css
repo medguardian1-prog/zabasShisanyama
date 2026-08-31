@@ -189,6 +189,19 @@ html.lenis body {
   pointer-events: none;
 }
 
+/* ------------------------------ editorial type ------------------------------ */
+
+/* Drop cap on a lead paragraph. Sized in `em` so it scales with the paragraph
+   and stays locked to two lines of body copy at every breakpoint. */
+.dropcap::first-letter {
+  float: left;
+  margin: 0.08em 0.1em 0 0;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 3.2em;
+  line-height: 0.76;
+  color: var(--color-ember);
+}
+
 /* ------------------------------ marquee ticker ------------------------------ */
 
 @keyframes marquee {
