@@ -134,3 +134,10 @@ exception at runtime — only a real browser check catches it.
 - `image-src/client/converted/` and `previews/` are gitignored (derived);
   the HEIC originals are committed so crops can be redone without going back
   to the client.
+
+### Breakfast crop
+`public/images/breakfast.jpg` is cropped to the bottom two-thirds of the source
+before resizing. The original frame gave a third of its height to sauce bottles
+and a bread basket, so the food itself was rendered at far fewer pixels and read
+as soft. Cropping to the plate fills the frame and looks materially sharper from
+the same (WhatsApp-compressed, 1179x2096) source.
