@@ -141,3 +141,16 @@ before resizing. The original frame gave a third of its height to sauce bottles
 and a bread basket, so the food itself was rendered at far fewer pixels and read
 as soft. Cropping to the plate fills the frame and looks materially sharper from
 the same (WhatsApp-compressed, 1179x2096) source.
+
+## Enhanced photography (2026-08-31)
+Four of the original ~243px thumbnails (`food-02`, `food-05`, `food-06`,
+`food-07`) were replaced with AI-upscaled versions supplied by the user, at
+1254px and 1122x1402. These are enhancements of Zaba's own photos, not
+invented images, and are a stopgap until the client sends those dishes as
+originals — AI upscaling does invent fine detail, so replace them when real
+files arrive. Sources kept in `image-src/client/enhanced/`.
+
+The hero is now built from the boerewors-board version: it is the darkest and
+most fire-lit of the set, so it carries the scrims and the dark theme better
+than the bright studio plates, and it upscales 1.36x rather than the ~2.9x the
+previous WhatsApp-compressed hero needed.

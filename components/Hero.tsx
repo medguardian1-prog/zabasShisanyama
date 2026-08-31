@@ -63,7 +63,7 @@ export default function Hero({
         <div className="hero-settle absolute inset-0">
           <Image
             src="/images/hero-mobile.jpg"
-            alt="A wooden board of flame-grilled pork chops with pap, steamed bread, chakalaka and tomato relish at Zaba's Shisanyama"
+            alt="Flame-grilled boerewors, roast meat and pap on a wooden board at Zaba's Shisanyama"
             fill
             priority
             quality={82}
