@@ -85,6 +85,22 @@ export default function RevealManager() {
 
       const mm = gsap.matchMedia();
 
+      /**
+       * Hand a finished photo back to CSS.
+       *
+       * The hidden states are CSS rules gated on `:not([data-revealed])`, so
+       * stamping the attribute is what actually releases them — only then is
+       * it safe to drop the inline styles GSAP was animating. Clearing them
+       * while the rules still matched used to snap the photo back to its
+       * starting scale and leave it there, permanently over-zoomed.
+       */
+      const settle = (el: HTMLElement, img: Element | null) => {
+        el.setAttribute("data-revealed", "");
+        gsap.set(el, { clearProps: "opacity,transform,clipPath,willChange" });
+        // Dropping the inline transform is what lets the CSS hover zoom win.
+        if (img) gsap.set(img, { clearProps: "transform,willChange" });
+      };
+
       // Fine pointers: the curtain. Animating clip-path over a CSS-filtered
       // photo forces a full re-raster of that image every frame — affordable
       // on a desktop GPU, and the settle-scale rides along with it.
@@ -95,6 +111,7 @@ export default function RevealManager() {
             const img = el.querySelector("img");
             const tl = gsap.timeline({
               scrollTrigger: { trigger: el, start: "top 85%" },
+              onComplete: () => settle(el, img),
             });
             tl.to(el, {
               clipPath: "inset(0% 0% 0% 0%)",
@@ -104,36 +121,52 @@ export default function RevealManager() {
             if (img) {
               tl.to(
                 img,
-                {
-                  scale: 1,
-                  duration: 1.6,
-                  ease: "power3.out",
-                  onComplete: () => {
-                    // restore CSS hover zoom after the reveal settles
-                    gsap.set(img, { clearProps: "transform" });
-                  },
-                },
+                { scale: 1, duration: 1.6, ease: "power3.out" },
                 "<0.05"
               );
             }
           });
       });
 
-      // Touch: same beat, a fraction of the cost. Opacity composites on the
-      // GPU without touching the rasterised image, and the transform is
-      // dropped once it lands so nothing keeps a layer alive mid-scroll.
+      /**
+       * Touch: rise, fade and settle — the same three beats as the curtain,
+       * built only from opacity and transform.
+       *
+       * Those two are the properties a compositor can animate without going
+       * back to the rasteriser, so this costs a fraction of the clip-path
+       * version while still reading as a deliberate reveal. `will-change`
+       * promotes the photo for the duration so the settle-scale is a layer
+       * transform rather than a re-raster at every step, and it is dropped
+       * the moment the tween lands — a layer left alive on every photo is its
+       * own scrolling cost.
+       */
       mm.add("(pointer: coarse)", () => {
         document
           .querySelectorAll<HTMLElement>("[data-reveal-image]")
           .forEach((el) => {
-            gsap.to(el, {
+            const img = el.querySelector("img");
+            const tl = gsap.timeline({
+              scrollTrigger: { trigger: el, start: "top 88%" },
+              // Promote on the way in, not at setup. The gallery holds twelve
+              // of these; hinting them all at first paint would pin twelve
+              // full-width GPU layers for the life of the page, which costs
+              // more than the repaint it avoids. Only what is mid-reveal
+              // needs a layer, and settle() hands it straight back.
+              onStart: () => {
+                gsap.set(el, { willChange: "opacity, transform" });
+                if (img) gsap.set(img, { willChange: "transform" });
+              },
+              onComplete: () => settle(el, img),
+            });
+            tl.to(el, {
               opacity: 1,
               y: 0,
-              duration: 0.75,
-              ease: "power2.out",
-              scrollTrigger: { trigger: el, start: "top 90%" },
-              onComplete: () => gsap.set(el, { clearProps: "transform" }),
+              duration: 0.9,
+              ease: "power3.out",
             });
+            if (img) {
+              tl.to(img, { scale: 1, duration: 1.4, ease: "power2.out" }, "<");
+            }
           });
       });
 

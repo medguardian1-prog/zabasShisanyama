@@ -149,6 +149,26 @@ html.lenis body {
   }
 }
 
+/* Touch gets the grain too — without it the photos read flat and cheap next
+   to the desktop rendering, which is half of what makes this imagery work.
+   The expensive part was never the texture, it was `mix-blend-mode`: a
+   blended layer cannot be isolated, so it repaints what sits beneath it. A
+   plain tiled overlay is one static paint that then just composites, so the
+   speckle survives and the scroll cost does not. Lighter, because unblended
+   noise veils the blacks instead of biting into them. */
+@media (pointer: coarse) {
+  .photo-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.13;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+  }
+}
+
 @media (pointer: fine) {
   .grain::before {
     content: "";
@@ -158,6 +178,23 @@ html.lenis body {
     z-index: 3;
     opacity: 0.28;
     mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+}
+
+/* Same trade as the photo grain above: keep the texture on the hero, drop the
+   blend. This is the largest overlay on the site, so it stays the lightest —
+   it is one static tiled paint, and the hero does not move on touch (the
+   parallax is desktop-only), so it composites once and stays put. */
+@media (pointer: coarse) {
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+    opacity: 0.1;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
     background-size: 200px 200px;
   }
@@ -239,24 +276,35 @@ html.lenis body {
   }
 }
 
-/* The curtain animates clip-path over a CSS-filtered photo, which re-rasterises
-   that image on every frame — the single biggest scroll cost on a phone. Fine
-   pointers get the curtain; touch gets a plain fade. These two hidden states
-   must stay in lockstep with the matching matchMedia blocks in RevealManager:
-   a state hidden here with no animation there is a photo that never appears. */
+/* Photo reveals. Both branches must stay in lockstep with the matching
+   matchMedia blocks in RevealManager: a state hidden here with no animation
+   there is a photo that never appears.
+
+   Every rule is scoped to :not([data-revealed]). RevealManager stamps that
+   attribute when a photo finishes, which is what releases the element back to
+   CSS — without it, clearing the inline styles GSAP animated just re-applies
+   the starting state and strands the photo mid-reveal.
+
+   Fine pointers get the clip-path curtain. It re-rasterises a filtered photo
+   on every frame, which a desktop GPU absorbs and a phone does not, so touch
+   builds the same three beats — rise, fade, settle — out of opacity and
+   transform only. Those the compositor can animate on its own. */
 @media (prefers-reduced-motion: no-preference) and (pointer: fine) {
-  html.gsap-ready [data-reveal-image] {
+  html.gsap-ready [data-reveal-image]:not([data-revealed]) {
     clip-path: inset(0 0 100% 0);
   }
-  html.gsap-ready [data-reveal-image] img {
+  html.gsap-ready [data-reveal-image]:not([data-revealed]) img {
     transform: scale(1.14);
   }
 }
 
 @media (prefers-reduced-motion: no-preference) and (pointer: coarse) {
-  html.gsap-ready [data-reveal-image] {
+  html.gsap-ready [data-reveal-image]:not([data-revealed]) {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(28px);
+  }
+  html.gsap-ready [data-reveal-image]:not([data-revealed]) img {
+    transform: scale(1.1);
   }
 }
 
