@@ -224,11 +224,26 @@ html.lenis body {
   html.gsap-ready [data-mask] {
     transform: translateY(112%);
   }
+}
+
+/* The curtain animates clip-path over a CSS-filtered photo, which re-rasterises
+   that image on every frame — the single biggest scroll cost on a phone. Fine
+   pointers get the curtain; touch gets a plain fade. These two hidden states
+   must stay in lockstep with the matching matchMedia blocks in RevealManager:
+   a state hidden here with no animation there is a photo that never appears. */
+@media (prefers-reduced-motion: no-preference) and (pointer: fine) {
   html.gsap-ready [data-reveal-image] {
     clip-path: inset(0 0 100% 0);
   }
   html.gsap-ready [data-reveal-image] img {
     transform: scale(1.14);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (pointer: coarse) {
+  html.gsap-ready [data-reveal-image] {
+    opacity: 0;
+    transform: translateY(16px);
   }
 }
 

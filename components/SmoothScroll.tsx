@@ -10,6 +10,12 @@ import { usePathname } from "next/navigation";
  * Lenis and GSAP are imported dynamically inside the effect so they stay out
  * of the initial bundle; the page is fully usable (native scroll) until they
  * arrive.
+ *
+ * Touch devices skip Lenis entirely. Its `syncTouch` default is false, so it
+ * never drives the scroll on a phone anyway — it only observes it, costing a
+ * listener and a tick every frame for no visual gain. Native momentum is
+ * already the smoother option there, and ScrollTrigger falls back to its own
+ * scroll listener without it.
  */
 export default function SmoothScroll({
   children,
@@ -19,7 +25,10 @@ export default function SmoothScroll({
   const pathname = usePathname();
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      !window.matchMedia("(pointer: fine)").matches
+    ) {
       return;
     }
 
