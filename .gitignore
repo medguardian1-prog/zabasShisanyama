@@ -40,3 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 !.env.example
+
+# derived from image-src/client originals — regenerate with scripts/import-client-photos.mjs
+image-src/client/converted/
+image-src/client/previews/

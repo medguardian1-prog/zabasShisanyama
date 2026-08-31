@@ -7,13 +7,18 @@ import type { MenuItem } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
 import Eyebrow from "@/components/Eyebrow";
 
-/** Local fallbacks when no featured items carry uploaded photos yet. */
+/**
+ * Used when a featured item has no uploaded photo of its own. Ordered to
+ * match the printed menu: braai boards for the four platters, then the
+ * client's plated shots for the two plates.
+ */
 const FALLBACK_IMAGES = [
   "/images/food-07.jpg",
   "/images/food-02.jpg",
-  "/images/food-03.jpg",
-  "/images/food-04.jpg",
   "/images/food-05.jpg",
+  "/images/food-06.jpg",
+  "/images/plate-beef.jpg",
+  "/images/plate-chicken.jpg",
 ];
 
 /**

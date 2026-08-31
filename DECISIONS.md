@@ -118,3 +118,19 @@ trustworthy. Audit the deployed Vercel URL instead.
 `next/image` `quality` values must be listed in `next.config.ts`
 `images.qualities`. An undeclared value builds fine and throws a client-side
 exception at runtime — only a real browser check catches it.
+
+## Client photography (2026-08-31)
+- Ten iPhone HEIC originals (3213x5712, ~18MP) supplied via SwissTransfer.
+- **sharp cannot decode them.** libvips 8.18.6's bundled libheif fails with
+  "bad seek to <filesize+32>" on all ten. They are not damaged: the ISOBMFF
+  boxes sum exactly to the file size, and the WhatsApp and SwissTransfer
+  copies are byte-identical, so two independent transfers produced the same
+  bytes. It is a decoder limitation, not corruption.
+- `scripts/import-client-photos.mjs` therefore decodes HEIC with
+  **heic-convert** (pure JS/WASM) and hands the result to sharp for resizing.
+  Drop new originals in `image-src/client/` and re-run it.
+- Web crops use `fit: cover, position: attention` — a straight centre crop of a
+  9:16 frame to 3:4 cut the food out; attention keeps it.
+- `image-src/client/converted/` and `previews/` are gitignored (derived);
+  the HEIC originals are committed so crops can be redone without going back
+  to the client.

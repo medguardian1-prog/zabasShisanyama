@@ -2,17 +2,25 @@ import Image from "next/image";
 import type { GalleryImage } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-/** Local set used until staff upload their own photos. */
+/**
+ * Local set used until staff upload their own photos. Leads with the client's
+ * own plated shots — they are the only full-resolution photography we have.
+ */
 export const LOCAL_GALLERY: Pick<GalleryImage, "image" | "alt" | "caption">[] = [
+  {
+    image: "/images/plate-beef.jpg",
+    alt: "Beef stew with pap, chakalaka, coleslaw, butternut and tomato salsa on a white plate",
+    caption: "Beef & pap",
+  },
   {
     image: "/images/food-07.jpg",
     alt: "Flame-grilled lamb chops with steamed pap and chilli relish on a wooden board",
     caption: "Chops & pap",
   },
   {
-    image: "/images/food-02.jpg",
-    alt: "Boerewors coils, roast meat and pap on a wooden serving board",
-    caption: "The full board",
+    image: "/images/plate-chicken.jpg",
+    alt: "A grilled chicken portion with creamy samp, beetroot and a tray of fresh sides",
+    caption: "Chicken & samp",
   },
   {
     image: "/images/food-08.jpg",
@@ -20,9 +28,19 @@ export const LOCAL_GALLERY: Pick<GalleryImage, "image" | "alt" | "caption">[] = 
     caption: "Pick your cut",
   },
   {
+    image: "/images/plate-stew-bread.jpg",
+    alt: "Beef stew served with thick slices of steamed bread, beetroot and fresh sides",
+    caption: "Stew & bread",
+  },
+  {
     image: "/images/food-05.jpg",
     alt: "A braai board of steak, wings and boerewors on a red slatted table",
     caption: "Order 22, up",
+  },
+  {
+    image: "/images/plate-samp.jpg",
+    alt: "A plated chicken and samp meal with fresh juice by the window at Zaba's",
+    caption: "Pull up a chair",
   },
   {
     image: "/images/breakfast.jpg",
@@ -30,29 +48,24 @@ export const LOCAL_GALLERY: Pick<GalleryImage, "image" | "alt" | "caption">[] = 
     caption: "Breakfast too",
   },
   {
+    image: "/images/plate-rice.jpg",
+    alt: "Beef stew with rice and a tray of chakalaka, coleslaw, butternut and salsa",
+    caption: "Rice & stew",
+  },
+  {
     image: "/images/food-06.jpg",
     alt: "Hands carving ribs and grilled meat on a shared board",
     caption: "Shared, always",
   },
   {
-    image: "/images/food-03.jpg",
-    alt: "A takeaway tray of grilled wings, bread and fresh sides with the Zaba's tag",
-    caption: "To go",
-  },
-  {
-    image: "/images/food-01.webp",
-    alt: "Friends sharing a long board piled with flame-grilled chicken wings",
-    caption: "Come hungry",
+    image: "/images/plate-curry.jpg",
+    alt: "A rich beef curry with savoury rice and four fresh side dishes",
+    caption: "Curry & rice",
   },
   {
     image: "/images/alcohol.webp",
     alt: "Shelves of spirits and drinks behind the bar at Zaba's",
     caption: "The bar",
-  },
-  {
-    image: "/images/food-04.jpg",
-    alt: "A plated chicken stew with rice, chakalaka and fresh sides",
-    caption: "Plated up",
   },
 ];
 
