@@ -76,7 +76,7 @@ export default async function EventsPage() {
             <div className="overflow-hidden">
               <h1
                 data-mask
-                className="display-xl text-[2.75rem] text-bone sm:text-6xl lg:text-7xl"
+                className="display-xl pb-2 text-[2.75rem] text-bone sm:pb-3 sm:text-6xl lg:text-7xl"
               >
                 Nights at Zaba&rsquo;s
               </h1>
@@ -257,7 +257,10 @@ export default async function EventsPage() {
               Behind it
             </Eyebrow>
             <div className="overflow-hidden">
-              <h2 data-mask className="display-xl text-[2.5rem] text-bone sm:text-5xl">
+              <h2
+                data-mask
+                className="display-xl pb-2 text-[2.5rem] text-bone sm:pb-3 sm:text-5xl"
+              >
                 The same fire, all night
               </h2>
             </div>

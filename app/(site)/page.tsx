@@ -79,7 +79,7 @@ export default async function HomePage() {
             <div className="overflow-hidden">
               <h2
                 data-mask
-                className="display-xl text-[2.75rem] sm:text-5xl lg:text-[3.75rem]"
+                className="display-xl pb-2 text-[2.75rem] sm:pb-3 sm:text-5xl lg:text-[3.75rem]"
               >
                 This is how we braai
               </h2>
@@ -200,7 +200,7 @@ export default async function HomePage() {
           <div className="overflow-hidden">
             <h2
               data-mask
-              className="display-xl text-[2.75rem] sm:text-5xl lg:text-[3.75rem]"
+              className="display-xl pb-2 text-[2.75rem] sm:pb-3 sm:text-5xl lg:text-[3.75rem]"
             >
               Book your table at the fire
             </h2>
