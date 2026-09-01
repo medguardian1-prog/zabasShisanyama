@@ -3,12 +3,47 @@
 Everything the client must supply. Fill these in one pass — most go straight
 into the **staff dashboard → Settings**, the rest are code/env edits.
 
-## Site settings (fill in at /admin/settings — currently `TODO` in the database)
-- [ ] Phone number
-- [ ] WhatsApp number (with country code, e.g. 27…)
-- [ ] Street address
-- [ ] Google Maps link
-- [ ] Instagram / Facebook / TikTok links (leave blank to hide)
+> **Audited 2026-09-01 against the live site.** Checked by observation, not
+> assumption: menu content read back off the public page; gallery and event
+> presence proved by whether any image comes from Supabase storage rather than
+> `/images/` (nothing uploaded = still the built-in starter set); hours
+> compared against `DEFAULT_HOURS` character for character; env vars proved by
+> a successful service-role write and anon read-back.
+>
+> **What could not be checked from outside:** anything where the database
+> value and the code fallback render identically — the /admin/settings fields,
+> and whether hours were entered as the same times the fallback already uses.
+> Those are marked as such rather than guessed at. Running
+> `vercel env pull .env.local --environment=production` would let the database
+> be queried directly and settle them.
+
+## Site settings (/admin/settings)
+
+**The live site shows the right values for all of these.** Whether that is
+because staff filled them in or because the code fallbacks in
+`lib/site-defaults.ts` are doing the work cannot be told apart from outside —
+`withDefault()` returns the fallback whenever the database value is empty or
+literally `TODO`, and every value on the live site matches the fallback
+exactly. Open /admin/settings to see which it is; if the fields are blank or
+say TODO, fill them in so staff own the values rather than the code.
+
+- [ ] Phone number — live shows `+27 68 419 6554`
+- [ ] WhatsApp number — live uses `wa.me/27684196554`
+- [ ] Street address — live shows `1 Johannes Nkosi Avenue, SPCA Access Rd,
+      Cato Manor, 4091`
+- [ ] Google Maps link — live link resolves to that address
+- [ ] Instagram / Facebook / TikTok — all three live and pointing at
+      `zabas_shisanyama`, `zabashisanyamaa` (double a) and `@zabasshisanyama`
+
+## Inconsistency found 2026-09-01 — needs a decision
+- [ ] **The homepage hero says "Mayville, Durban"; everywhere else says "Cato
+      Manor".** `components/Hero.tsx` carries `Mayville, Durban · Flame-grilled
+      daily` in the eyebrow and `Mayville, Durban` as the "Find us" fallback,
+      while the confirmed address, the About page and the Events page all say
+      Cato Manor. Mayville looks like a leftover from the superseded 2026-08-27
+      research below. They are adjacent Durban suburbs so both could be
+      defensible — but the site should not say both. Confirm which the client
+      uses and I will make it consistent.
 
 ## Environment variables
 
@@ -41,23 +76,51 @@ that `metadataBase` falls back to when `NEXT_PUBLIC_SITE_URL` is unset.
       photo caption describes only what is visible in its own frame.
 
 ## Data to enter via the dashboard
-- [ ] Menu items with real names, prices and photos (per category:
-      from-the-grill, platters, kotas, sides, drinks)
-- [ ] Mark 3–6 items as **featured** to fill the homepage "From the Fire" strip
-      (until then it shows the starter photo set without prices)
-- [ ] Opening hours per day (seeded rows exist; times are unset)
-- [ ] First special, gallery photos, upcoming events
+*Audited against the live site 2026-09-01 — method in the note at the top.*
+
+- [x] **Menu items** — 28 in the database across Platters (4), Plates (4),
+      Breakfast (1), Sides (6), Add-ons (3) and Drinks (10). Names and prices
+      all present.
+- [ ] **Per-item photos** — still none. The first import wrote `image: null`
+      for all 17 original rows; only Breakfast carries one. Nothing shows this
+      today (the menu page is deliberately image-free and the homepage strip
+      has its own fallback photos), so this is polish, not a fault.
+- [x] **3–6 featured items** — 6 are featured and the homepage "From the Fire"
+      strip is rendering them with real prices.
+- [ ] **Opening hours** — still the code fallback. The live site shows exactly
+      `DEFAULT_HOURS` (Sun 09:00–00:00 · Mon–Thu 09:00–21:00 · Fri 09:00–22:00
+      · Sat 09:00–00:00), so nothing has been entered at /admin/hours. See the
+      unresolved 23:00-vs-00:00 question at the end of this file first.
+- [ ] **Gallery photos** — still the built-in starter set: 12 local files,
+      none from Supabase storage, so nothing has been uploaded.
+- [ ] **First special** — none active; the homepage has no special section.
+- [ ] **Upcoming events** — none; /events has no "Coming up" section, only the
+      past Summer Dance write-up.
 
 ## Nice to have
 - [ ] A wider landscape hero-quality photo shot in low light would upgrade the
-      homepage hero (currently `food-05.jpg` with a heavy scrim).
+      homepage hero. (Corrected 2026-09-01: this said the hero was `food-05.jpg`
+      with a heavy scrim — it has not been since the licensed-hero change. The
+      hero is now `hero.jpg` / `hero-mobile.jpg`, art-directed per breakpoint.)
 
-## Researched online 2026-08-27 (now live as code fallbacks — confirm with Zaba's)
-- WhatsApp / bookings: **+27 62 085 8961** (client-supplied, authoritative)
-- Address: **2 Johannes Nkosi Avenue, Mayville, Durban, 4091** — CONFIRMED by
-  the client 2026-08-27 (online sources disagreed; number 2 is correct).
+## Researched online 2026-08-27 — SUPERSEDED, kept for history
+
+> **Do not use the phone or address in this section.** Both were overtaken by
+> what the client supplied on 2026-08-28 (see "Received from the client"
+> below), which is what the code actually uses. This section previously
+> contradicted that one with both entries marked CONFIRMED; the 2026-08-28
+> record wins because it came off the client's own printed menu and was later
+> corroborated a third time by the event poster.
+
+- ~~WhatsApp / bookings: **+27 62 085 8961**~~ — superseded by
+  **+27 68 419 6554**, which is what `lib/site-defaults.ts` uses and what the
+  live site dials.
+- ~~Address: **2 Johannes Nkosi Avenue, Mayville, Durban, 4091**~~ — superseded
+  by **1 Johannes Nkosi Avenue, SPCA Access Rd, Cato Manor, 4091**. Street
+  number 1, not 2. This is also where the stray "Mayville" in the hero comes
+  from — see the inconsistency noted at the top.
 - Socials: instagram.com/zabas_shisanyama · facebook.com/zabashisanyamaa ·
-  tiktok.com/@zabasshisanyama
+  tiktok.com/@zabasshisanyama — these three stand, and are live.
   NOTE: the Facebook page is **zabashisanyamaa** (double a). The single-a
   handle is a different business, Zaba's Pub and Grill — client-confirmed.
 - Other phone numbers seen online (NOT used on the site — verify before adding):
@@ -76,7 +139,7 @@ that `metadataBase` falls back to when `NEXT_PUBLIC_SITE_URL` is unset.
 - **Phone**: +27 68 419 6554 (calls). WhatsApp bookings stay on
   +27 68 419 6554 — client confirmed calls AND WhatsApp bookings both use it.
 
-### Still open
+### Resolved (nothing outstanding in this group)
 - Address CONFIRMED by the client: 1 Johannes Nkosi Avenue, SPCA Access Rd,
       Cato Manor, 4091. (The printed menu spells it "Cator Manor"; the site
       uses the correct "Cato Manor" so map searches resolve.)
