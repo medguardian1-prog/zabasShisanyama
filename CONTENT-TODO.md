@@ -69,8 +69,34 @@ into the **staff dashboard → Settings**, the rest are code/env edits.
       solid black; the black is cut to transparency in the import step so it
       sits cleanly on every surface. Source kept at image-src/upscaled/logo-source.jpg.
 - Breakfast + raw-meat photos RECEIVED and added to the gallery.
-- [ ] Breakfast is shown as a photo only — it is not on the printed menu.
-      Still need the breakfast items and prices before listing it.
+- Breakfast RECEIVED and live (see below) — this is no longer photo-only.
+
+## Breakfast & drinks menu, received 2026-09-01 (now live)
+Transcribed from a photograph of the client's printed breakfast sheet into
+`lib/default-menu.ts`. Like the rest of that file it is a fallback — anything
+staff enter at /admin/menu replaces it.
+
+- **Breakfast — R55.** One priced item; the sheet lists its components rather
+  than pricing them, so they are transcribed into the description verbatim
+  ("X2 eggs (optional), X2 bacon, X1 sausage & fries, X2 slices of bread
+  (optional). Served with mushrooms & beans."). Uses `breakfast.jpg`.
+- **Drinks.** Cappy 300ml R16 · Liquifruit 300ml R16 · Zaba's Mango & Orange
+  Juice (Large) R22 · Coffee R13/R20 · Tea (Rooibos / Five Roses) R12 · Hot
+  Chocolate R15/R25 · Cappuccino R15/R25.
+
+### Judgement calls to confirm with Zaba's
+- [ ] **Sizes are split into separate rows.** The sheet prices coffee, hot
+      chocolate and cappuccino as "small / medium". An item carries one price
+      in the schema, so each size is its own row ("Coffee (Small)", "Coffee
+      (Medium)"). Keeps every price editable in the dashboard instead of
+      buried in prose — but it does make the drinks list ten rows long.
+- [ ] **Three spellings corrected** from the printed sheet: "OPTINAL" →
+      optional, "ROOOIBOS" → Rooibos, "CUPPUCCINO" → Cappuccino. Brand
+      spellings left exactly as printed (Cappy, Liquifruit).
+- [ ] The sheet gives no size for Cappy/Liquifruit beyond 300ml, and no
+      "large" coffee — confirm nothing is missing from the photographed page.
+- Address corroborated: this sheet repeats 1 Johannes Nkosi Avenue, SPCA
+  Access Rd, 4091 (spelling it "Cator Manor" again — see above).
 
 ## Hero image (2026-08-28)
 - New hero: the pork-chop board shot, rotated 90 deg to landscape. Source kept

@@ -38,6 +38,26 @@ export default async function AdminHomePage() {
     items.length > 0 &&
     actualOrder.join(",") !== printedOrder.filter((s) => actualOrder.includes(s)).join(",");
 
+  // How much of the printed menu is not in the database yet. This is what
+  // catches a new page of the menu (breakfast, drinks) after the first import
+  // has already run — matched by name within a category, the same way the
+  // import itself decides what to add, so the count and the button agree.
+  const categoryIdBySlug = new Map(categories.map((c) => [c.slug, c.id]));
+  const presentItems = new Set(
+    items.map((i) => `${i.categoryId}::${i.name.trim().toLowerCase()}`)
+  );
+  const missingCount = DEFAULT_MENU.reduce((total, group) => {
+    const categoryId = categoryIdBySlug.get(group.slug);
+    if (!categoryId) return total + group.items.length;
+    return (
+      total +
+      group.items.filter(
+        (item) =>
+          !presentItems.has(`${categoryId}::${item.name.trim().toLowerCase()}`)
+      ).length
+    );
+  }, 0);
+
   const activeSpecial = specials.find((s) => s.active);
   const soldOut = items.filter((i) => !i.available).length;
   const newEnquiries = enquiries.filter((e) => e.status === "new").length;
@@ -77,6 +97,7 @@ export default async function AdminHomePage() {
         needsMenu={needsMenu}
         needsHours={needsHours}
         orderNeedsFix={orderNeedsFix}
+        missingCount={connected && items.length > 0 ? missingCount : 0}
       />
 
       <dl className="admin-card mt-4 grid grid-cols-3 divide-x divide-hair">

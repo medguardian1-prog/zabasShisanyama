@@ -8,10 +8,13 @@ import { DEFAULT_MENU } from "@/lib/default-menu";
 import { DEFAULT_HOURS as CLIENT_HOURS } from "@/lib/hours";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
-export type ActionResult = { ok: true } | { ok: false; error: string };
+export type ActionResult =
+  | { ok: true; message?: string }
+  | { ok: false; error: string };
 
 const fail = (error: string): ActionResult => ({ ok: false, error });
 const OK: ActionResult = { ok: true };
+const done = (message: string): ActionResult => ({ ok: true, message });
 
 /** Every admin mutation re-verifies the session — middleware is not the only gate. */
 async function guard(): Promise<
@@ -670,37 +673,86 @@ export async function importPrintedMenu(): Promise<ActionResult> {
       .eq("id", c.id);
   }
 
-  const { count } = await g.sb
+  // Add what is missing, touch nothing that already exists.
+  //
+  // This used to insert only when the whole table was empty, which meant a
+  // second run — the one that matters when a new page of the printed menu
+  // arrives — silently created the categories and none of their items. Now
+  // each printed item is matched against the rows already in its category by
+  // name, and only the absent ones are inserted. Anything staff have edited,
+  // renamed, repriced or hidden is left exactly as it is; re-running is safe.
+  const { data: existingItems, error: itemsError } = await g.sb
     .from("menu_items")
-    .select("id", { count: "exact", head: true });
+    .select("category_id, name, sort_order");
+  if (itemsError) {
+    return fail(`Couldn't read the current menu — ${itemsError.message}`);
+  }
 
-  if ((count ?? 0) === 0) {
-    for (const group of DEFAULT_MENU) {
-      const rows = group.items.map((item, i) => ({
-        category_id: bySlug.get(group.slug),
+  const rows = (existingItems as
+    | { category_id: string; name: string; sort_order: number }[]
+    | null) ?? [];
+
+  const key = (categoryId: string, name: string) =>
+    `${categoryId}::${name.trim().toLowerCase()}`;
+  const present = new Set(rows.map((r) => key(r.category_id, r.name)));
+
+  // New items land after whatever is already in their category.
+  const nextSort = new Map<string, number>();
+  for (const r of rows) {
+    const highest = nextSort.get(r.category_id) ?? -1;
+    if (r.sort_order > highest) nextSort.set(r.category_id, r.sort_order);
+  }
+
+  let added = 0;
+
+  for (const group of DEFAULT_MENU) {
+    const categoryId = bySlug.get(group.slug);
+    if (!categoryId) continue;
+
+    const missing = group.items.filter(
+      (item) => !present.has(key(categoryId, item.name))
+    );
+    if (!missing.length) continue;
+
+    let sort = (nextSort.get(categoryId) ?? -1) + 1;
+    const stamp = Date.now().toString(36);
+
+    const { error } = await g.sb.from("menu_items").insert(
+      missing.map((item, i) => ({
+        category_id: categoryId,
         name: item.name,
-        slug: `${group.slug}-${i}-${Date.now().toString(36)}`,
+        slug: `${group.slug}-${sort + i}-${stamp}`,
         description: item.description,
         price: item.price,
-        image: null,
+        image: item.image ?? null,
         tags: [],
         featured: !!item.featured,
         available: true,
         visible: true,
-        sort_order: i,
+        sort_order: sort + i,
         created_at: now,
         updated_at: now,
-      }));
-
-      const { error } = await g.sb.from("menu_items").insert(rows);
-      if (error) {
-        return fail(`Couldn't import "${group.name}" — ${error.message}`);
-      }
+      }))
+    );
+    if (error) {
+      return fail(`Couldn't import "${group.name}" — ${error.message}`);
     }
+
+    sort += missing.length;
+    nextSort.set(categoryId, sort - 1);
+    added += missing.length;
   }
 
   revalidatePublic("menu");
-  return OK;
+
+  if (added === 0) {
+    return done("Everything on the printed menu is already here.");
+  }
+  return done(
+    added === 1
+      ? "Added 1 item from the printed menu."
+      : `Added ${added} items from the printed menu.`
+  );
 }
 
 export async function importTradingHours(): Promise<ActionResult> {

@@ -85,6 +85,24 @@ export const DEFAULT_MENU: FallbackGroup[] = [
     ],
   },
   {
+    /**
+     * From the client's printed breakfast menu (photographed 2026-09-01).
+     * One priced item; the sheet lists its components rather than pricing
+     * them separately, so they are transcribed into the description.
+     */
+    name: "Breakfast",
+    slug: "breakfast",
+    items: [
+      {
+        name: "Breakfast",
+        description:
+          "X2 eggs (optional), X2 bacon, X1 sausage & fries, X2 slices of bread (optional). Served with mushrooms & beans.",
+        price: 5500,
+        image: "/images/breakfast.jpg",
+      },
+    ],
+  },
+  {
     name: "Sides",
     slug: "sides",
     items: [
@@ -103,6 +121,32 @@ export const DEFAULT_MENU: FallbackGroup[] = [
       { name: "Creamy Samp", description: null, price: null },
       { name: "Isigwaqane", description: null, price: null },
       { name: "Steam Bread (Ujeqe)", description: null, price: null },
+    ],
+  },
+  {
+    /**
+     * From the client's printed breakfast menu (photographed 2026-09-01).
+     * Where the sheet prices a drink by size, each size is its own row: the
+     * schema carries one price per item, and splitting them keeps every
+     * price editable in the dashboard instead of buried in prose.
+     */
+    name: "Drinks",
+    slug: "drinks",
+    items: [
+      { name: "Cappy 300ml", description: null, price: 1600 },
+      { name: "Liquifruit 300ml", description: null, price: 1600 },
+      {
+        name: "Zaba's Mango & Orange Juice (Large)",
+        description: null,
+        price: 2200,
+      },
+      { name: "Coffee (Small)", description: null, price: 1300 },
+      { name: "Coffee (Medium)", description: null, price: 2000 },
+      { name: "Tea (Rooibos / Five Roses)", description: null, price: 1200 },
+      { name: "Hot Chocolate (Small)", description: null, price: 1500 },
+      { name: "Hot Chocolate (Medium)", description: null, price: 2500 },
+      { name: "Cappuccino (Small)", description: null, price: 1500 },
+      { name: "Cappuccino (Medium)", description: null, price: 2500 },
     ],
   },
 ];
