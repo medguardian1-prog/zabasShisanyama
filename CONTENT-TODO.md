@@ -10,13 +10,28 @@ into the **staff dashboard → Settings**, the rest are code/env edits.
 - [ ] Google Maps link
 - [ ] Instagram / Facebook / TikTok links (leave blank to hide)
 
-## Environment variables (`.env.local` locally, Vercel project settings in prod)
-- [ ] `NEXT_PUBLIC_SUPABASE_URL`
-- [ ] `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- [ ] `SUPABASE_SERVICE_ROLE_KEY`
-- [ ] `ADMIN_PASSWORD_HASH` — generate with `node scripts/hash-password.mjs '<the staff password>'`
-- [ ] `ADMIN_SESSION_SECRET` — any long random string
-- [ ] `NEXT_PUBLIC_SITE_URL` — the production URL
+## Environment variables
+
+**Production (Vercel): all set and confirmed working 2026-09-01.**
+
+- [x] `NEXT_PUBLIC_SUPABASE_URL`
+- [x] `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- [x] `SUPABASE_SERVICE_ROLE_KEY`
+- [x] `ADMIN_PASSWORD_HASH` — generate with `node scripts/hash-password.mjs '<the staff password>'`
+- [x] `ADMIN_SESSION_SECRET` — any long random string
+- [x] `NEXT_PUBLIC_SITE_URL` — the production URL
+
+Evidenced rather than assumed: the staff dashboard imported 11 menu items
+(service-role write) and the public menu reads them back (anon read), staff
+login issues a working session, and `og:image` on the live site resolves to
+`https://zabas-shisanyama.vercel.app/...` rather than the `localhost:3000`
+that `metadataBase` falls back to when `NEXT_PUBLIC_SITE_URL` is unset.
+
+- [ ] **Local `.env.local` is still `TODO` placeholders.** Harmless — the site
+      falls back to the printed menu and hours when the keys are absent — but
+      it means local dev never exercises the database, so anything touching
+      `lib/queries.ts`, `app/admin/` or the import can only be tested against
+      production. Fix with `vercel env pull .env.local --environment=production`.
 
 ## About page (`app/(site)/about/page.tsx`)
 - [ ] The Zaba's-specific story is a marked placeholder panel ("TODO — client
