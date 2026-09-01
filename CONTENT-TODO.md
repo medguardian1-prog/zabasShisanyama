@@ -31,19 +31,20 @@ say TODO, fill them in so staff own the values rather than the code.
 - [ ] WhatsApp number — live uses `wa.me/27684196554`
 - [ ] Street address — live shows `1 Johannes Nkosi Avenue, SPCA Access Rd,
       Cato Manor, 4091`
-- [ ] Google Maps link — live link resolves to that address
+- [ ] Google Maps link — **searches Mayville, not Cato Manor, on purpose.**
+      Client-confirmed 2026-09-01: "1 Mayville is right". Same street number,
+      adjacent suburb. The displayed address follows the client's printed
+      menu (Cato Manor); the map search follows what Google actually drops a
+      pin on. If this is ever set at /admin/settings, keep that divergence.
 - [ ] Instagram / Facebook / TikTok — all three live and pointing at
       `zabas_shisanyama`, `zabashisanyamaa` (double a) and `@zabasshisanyama`
 
-## Inconsistency found 2026-09-01 — needs a decision
-- [ ] **The homepage hero says "Mayville, Durban"; everywhere else says "Cato
-      Manor".** `components/Hero.tsx` carries `Mayville, Durban · Flame-grilled
-      daily` in the eyebrow and `Mayville, Durban` as the "Find us" fallback,
-      while the confirmed address, the About page and the Events page all say
-      Cato Manor. Mayville looks like a leftover from the superseded 2026-08-27
-      research below. They are adjacent Durban suburbs so both could be
-      defensible — but the site should not say both. Confirm which the client
-      uses and I will make it consistent.
+## Inconsistency found 2026-09-01 — RESOLVED
+- [x] **The homepage hero said "Mayville, Durban" while everywhere else said
+      "Cato Manor".** A leftover from the superseded 2026-08-27 research below.
+      Client confirmed the hero was the wrong one; `components/Hero.tsx` now
+      says **Cato Manor, Durban** in both the eyebrow and the "Find us"
+      fallback, so the whole site agrees.
 
 ## Environment variables
 
@@ -197,9 +198,12 @@ Facts on the /events page are taken only from what is legible in them:
 - Poster repeats the address as 1 Johannes Nkosi Avenue, SPCA Access Rd,
   Cator Manor, 4091 — independently confirming the street number.
 
-### HOURS DISCREPANCY — needs one question
-The **Trading Hours sign inside the shop**, photographed at that event, reads:
-Mon–Thurs 09:00–21:00 · Friday 09:00–22:00 · **Sat & Sun 09:00–23:00**.
-The client told us Sat & Sun run to **00:00**. Restaurant Guru also says 23:00.
-The site currently shows 00:00 per the client's instruction. Confirm which is
-right — the sign may simply predate an extension.
+### HOURS DISCREPANCY — RESOLVED 2026-09-01
+The **Trading Hours sign inside the shop**, photographed at that event, reads
+Mon–Thurs 09:00–21:00 · Friday 09:00–22:00 · **Sat & Sun 09:00–23:00**, and
+Restaurant Guru agreed with the sign.
+
+**Client confirmed 2026-09-01: Sat & Sun run to 00:00.** The sign predates the
+extension. No code change was needed — `DEFAULT_HOURS` in `lib/hours.ts`
+already carried 00:00 for both days, and that is what the live site shows.
+Anything typed into /admin/hours overrides it, so enter 00:00 there too.

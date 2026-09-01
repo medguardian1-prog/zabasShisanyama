@@ -14,8 +14,15 @@ export const DEFAULT_PHONE = "+27 68 419 6554";
  *  client's own printed menu (confirmed 2026-08-28). */
 export const DEFAULT_ADDRESS =
   "1 Johannes Nkosi Avenue, SPCA Access Rd, Cato Manor, 4091";
+/**
+ * The map search deliberately says Mayville where the printed address says
+ * Cato Manor (client-confirmed 2026-09-01: "1 Mayville is right"). Same
+ * street number, adjacent suburbs — the displayed address follows the
+ * client's printed menu, the map follows what Google actually drops a pin
+ * on. Do not "fix" this to match the address string above.
+ */
 export const DEFAULT_MAP_LINK =
-  "https://www.google.com/maps/search/?api=1&query=Zaba%27s+Shisanyama+1+Johannes+Nkosi+Avenue+Cato+Manor+Durban";
+  "https://www.google.com/maps/search/?api=1&query=Zaba%27s+Shisanyama+1+Johannes+Nkosi+Avenue+Mayville+Durban";
 export const DEFAULT_INSTAGRAM = "https://www.instagram.com/zabas_shisanyama";
 /**
  * Note the double "a". facebook.com/zabashisanyama is a different business

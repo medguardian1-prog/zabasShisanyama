@@ -125,7 +125,7 @@ export default function Hero({
           style={{ animationDelay: "0.1s" }}
         >
           <span className="h-px w-12 bg-gold" aria-hidden="true" />
-          <p className="eyebrow">Mayville, Durban · Flame-grilled daily</p>
+          <p className="eyebrow">Cato Manor, Durban · Flame-grilled daily</p>
         </div>
 
         <h1 className="display-xl text-bone [text-shadow:0_8px_40px_rgba(0,0,0,0.6)]">
@@ -200,7 +200,7 @@ export default function Hero({
 
         <dl className="mx-auto hidden max-w-7xl divide-y divide-bone/10 px-5 sm:px-8 md:flex md:flex-row md:divide-x md:divide-y-0">
           <InfoItem label="Right now" value={statusLabel ?? "Come through"} dot />
-          <InfoItem label="Find us" value={address ?? "Mayville, Durban"} />
+          <InfoItem label="Find us" value={address ?? "Cato Manor, Durban"} />
           <InfoItem label="Bookings" value="WhatsApp only" />
         </dl>
       </div>
