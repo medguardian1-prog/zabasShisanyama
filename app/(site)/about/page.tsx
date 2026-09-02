@@ -16,7 +16,7 @@ import {
 export const metadata: Metadata = {
   title: "Our Story",
   description:
-    "Shisanyama culture at Zaba's — real wood fire, shared boards, and the community around the braai in Cato Manor, Durban.",
+    "Zaba's Shisanyama was opened in 2017 by Zama Douglas Nyathi, who grew up in uMkhumbane. Real wood fire, shared boards, and the community around the braai in Cato Manor, Durban.",
   openGraph: {
     title: "Our Story · Zaba's Shisanyama",
     images: ["/images/logo.png"],
@@ -194,19 +194,34 @@ export default async function AboutPage() {
               loud. That is the point.
             </p>
 
-            {/* The Zaba's-specific history — founding year, founder,
-                neighbourhood — is client-supplied. Tracked in
-                CONTENT-TODO.md. Delete this block the day the copy lands. */}
-            <aside
-              data-reveal
-              className="mt-10 rounded-2xl border border-dashed border-hair bg-char/50 px-5 py-6 sm:px-7"
-            >
-              <p className="label-mono text-ash/70">TODO — client copy</p>
-              <p className="mt-3 text-sm leading-relaxed text-ash sm:text-base">
-                The Zaba&rsquo;s chapter belongs here: who started it, when,
-                and where it all began.
+            {/* Supplied by Zaba's 2026-09-01. Every fact here comes from that
+                copy — the founder's name, the year, uMkhumbane, the ice creams
+                and sweets, the single crate of beer. Nothing is inferred. */}
+            <div data-reveal className="mt-12 border-t border-hair pt-10">
+              <p className="label-mono text-gold">The founder</p>
+              <h3 className="display-xl mt-3 pb-2 text-[1.875rem] text-bone sm:text-[2.25rem]">
+                Zama Douglas Nyathi
+              </h3>
+              <p className="mt-1 text-[0.8125rem] uppercase tracking-[0.22em] text-ash">
+                Opened Zaba&rsquo;s in 2017
               </p>
-            </aside>
+
+              <p className="mt-7 text-[1.0625rem] leading-[1.75] text-ash sm:text-lg sm:leading-[1.8]">
+                Mr Nyathi grew up in the uMkhumbane community, and he will tell
+                you that success is worth taking slowly. The appetite for
+                building something of his own started early: as a young boy he
+                sold ice creams and sweets, covering his own lunch and helping
+                to support the family.
+              </p>
+
+              <p className="mt-5 text-[1.0625rem] leading-[1.75] text-ash sm:text-lg sm:leading-[1.8]">
+                The first business was a tavern, opened on the strength of a
+                single crate of beer and grown until it carried a full range of
+                drinks. That success is what led here — to a shisanyama in
+                2017, a place to relax, catch up with people, put the music on,
+                and eat tender meat straight off the coals.
+              </p>
+            </div>
           </div>
         </div>
       </Section>

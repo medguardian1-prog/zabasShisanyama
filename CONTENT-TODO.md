@@ -70,11 +70,14 @@ that `metadataBase` falls back to when `NEXT_PUBLIC_SITE_URL` is unset.
       production. Fix with `vercel env pull .env.local --environment=production`.
 
 ## About page (`app/(site)/about/page.tsx`)
-- [ ] The Zaba's-specific story is a marked placeholder panel ("TODO — client
-      copy") in the story section — who started it, when, and where. Replace
-      the whole `<aside>` with a normal `<p data-reveal>` when the copy lands.
-      The surrounding shisanyama-culture copy is generic and true, and every
-      photo caption describes only what is visible in its own frame.
+- [x] **The founding story is in, supplied by Zaba's 2026-09-01.** The TODO
+      placeholder panel is gone, replaced by a founder block: **Zama Douglas
+      Nyathi**, who grew up in the uMkhumbane community and opened Zaba's in
+      **2017**. Every fact on the page traces to that copy — the ice creams
+      and sweets sold as a boy, the tavern started on a single crate of beer
+      and grown to a full range of drinks, and the shisanyama that followed.
+      Lightly reworded into the site's voice; nothing added, nothing inferred.
+      The page metadata now names the founder and the year too.
 
 ## Data to enter via the dashboard
 *Audited against the live site 2026-09-01 — method in the note at the top.*
