@@ -21,7 +21,10 @@ import Eyebrow from "@/components/Eyebrow";
  * Keys are lowercased and trimmed at lookup, so a staff member renaming an
  * item to "Platter For 2" still matches.
  */
-const DISH_PHOTOS: Record<string, { src: string; alt: string }> = {
+const DISH_PHOTOS: Record<
+  string,
+  { src: string; alt: string; detail?: string }
+> = {
   "platter for 1": {
     src: "/images/food-05.jpg",
     alt: "Grilled pork chops and ribs with a dish of phuthu, tomato salsa and chakalaka on a wooden board",
@@ -41,10 +44,12 @@ const DISH_PHOTOS: Record<string, { src: string; alt: string }> = {
   "phuthu & beef": {
     src: "/images/plate-beef.jpg",
     alt: "Beef stew with pap, chakalaka, coleslaw, butternut and tomato salsa on a white plate",
+    detail: "Beef with pap, chakalaka and fresh salads.",
   },
   "phuthu & chicken": {
     src: "/images/plate-chicken.jpg",
     alt: "A grilled chicken portion with creamy samp, beetroot and a tray of fresh sides",
+    detail: "Grilled chicken with creamy samp and fresh salads.",
   },
 };
 
@@ -83,7 +88,7 @@ function photoFor(
   name: string,
   uploaded: string | null,
   index: number
-): { src: string; alt: string } {
+): { src: string; alt: string; detail?: string } {
   if (uploaded && !uploaded.startsWith("/images/")) {
     // Staff chose this photo themselves; we cannot describe what is in it.
     return { src: uploaded, alt: `${name} at Zaba's Shisanyama` };
@@ -262,7 +267,7 @@ export default function SignatureStrip({ items }: { items: MenuItem[] }) {
                   key={item.id}
                   index={i}
                   name={item.name}
-                  detail={item.description}
+                  detail={item.description || photo.detail || null}
                   image={photo.src}
                   alt={photo.alt}
                 />

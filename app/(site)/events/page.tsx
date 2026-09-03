@@ -54,7 +54,7 @@ const SPACES = [
     image: "/images/venue-lounge.jpg",
     alt: "White couches and a rug in a private lounge area at Zaba's",
     title: "Private corner",
-    note: "A quieter set-up for a booking.",
+    note: "A quieter set-up off the main floor.",
   },
 ];
 
@@ -310,17 +310,26 @@ export default async function EventsPage() {
             </div>
             <div className="flex flex-col justify-center p-8 sm:p-12" data-reveal-group>
               <Eyebrow data-reveal className="mb-4">
-                Book the space
+                Work with us
               </Eyebrow>
               <h2 data-reveal className="display-xl text-3xl text-bone sm:text-4xl">
-                Having something of your own?
+                Bring us your event
               </h2>
+              {/* Two strands on purpose: the venue hosts other people's
+                  functions, and it also partners with promoters and artists on
+                  events of its own (client, 2026-09-03). Both start the same
+                  way -- a WhatsApp message -- so each gets its own prefilled
+                  text rather than one vague opener. */}
               <p data-reveal className="mt-4 text-sm leading-relaxed text-ash sm:text-base">
-                Birthdays, big groups, private functions — message us on
-                WhatsApp and we&rsquo;ll sort the space, the meat and the
-                sound.
+                Birthdays, big groups and private functions — we&rsquo;ll sort
+                the space, the meat and the sound.
               </p>
-              <div data-reveal className="mt-8">
+              <p data-reveal className="mt-3 text-sm leading-relaxed text-ash sm:text-base">
+                We also collaborate. If you&rsquo;re a promoter, DJ, artist or
+                brand putting something together, we&rsquo;re open to partnering
+                on it — come talk to us about what you have in mind.
+              </p>
+              <div data-reveal className="mt-8 flex flex-wrap gap-3">
                 <a
                   href={waLink(
                     "Hi Zaba's! I'd like to ask about hosting an event.",
@@ -328,10 +337,22 @@ export default async function EventsPage() {
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
-                  data-cursor="Book"
+                  data-cursor="Chat"
                   className="inline-flex rounded-full bg-ember px-8 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:bg-flame"
                 >
-                  Enquire on WhatsApp
+                  Host an event
+                </a>
+                <a
+                  href={waLink(
+                    "Hi Zaba's! I'd like to talk about collaborating on an event.",
+                    settings?.whatsapp
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor="Chat"
+                  className="inline-flex rounded-full border border-bone px-8 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:border-flame hover:text-flame"
+                >
+                  Collaborate
                 </a>
               </div>
             </div>

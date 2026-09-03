@@ -1,9 +1,9 @@
-import { waLink, WA_BOOKING_DEFAULT } from "@/lib/site-defaults";
+import { waLink, WA_ENQUIRY_DEFAULT } from "@/lib/site-defaults";
 
 /** WhatsApp deep link. Uses site_settings.whatsapp when set, else the client's number. */
 export default function WhatsAppButton({
   number,
-  message = WA_BOOKING_DEFAULT,
+  message = WA_ENQUIRY_DEFAULT,
   label = "WhatsApp Us",
   className,
 }: {

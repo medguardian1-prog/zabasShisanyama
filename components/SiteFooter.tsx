@@ -10,7 +10,7 @@ import {
   DEFAULT_MAP_LINK,
   DEFAULT_PHONE,
   DEFAULT_TIKTOK,
-  WA_BOOKING_DEFAULT,
+  WA_ENQUIRY_DEFAULT,
   waLink,
   withDefault,
 } from "@/lib/site-defaults";
@@ -135,12 +135,12 @@ export default async function SiteFooter() {
               </li>
             </ul>
             <a
-              href={waLink(WA_BOOKING_DEFAULT, settings?.whatsapp)}
+              href={waLink(WA_ENQUIRY_DEFAULT, settings?.whatsapp)}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 inline-block rounded-full bg-ember px-6 py-3 text-[0.75rem] uppercase tracking-[0.18em] text-bone transition-colors hover:bg-flame"
             >
-              Book on WhatsApp
+              WhatsApp Us
             </a>
           </div>
         </div>

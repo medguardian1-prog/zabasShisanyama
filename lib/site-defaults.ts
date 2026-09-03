@@ -7,7 +7,7 @@
  * one open discrepancy (street number 1 vs 2).
  */
 
-/** Calls and WhatsApp bookings both use this number (client-confirmed 2026-08-28). */
+/** Calls and WhatsApp enquiries both use this number (client-confirmed 2026-08-28). */
 export const WHATSAPP_NUMBER = "27684196554";
 export const DEFAULT_PHONE = "+27 68 419 6554";
 /** Street number 1 and the SPCA Access Rd / Cato Manor detail come from the
@@ -56,5 +56,10 @@ export function waLink(
   return `https://wa.me/${whatsappDigits(setting)}?text=${encodeURIComponent(message)}`;
 }
 
-export const WA_BOOKING_DEFAULT =
-  "Hi Zaba's! I'd like to book a table.";
+/**
+ * The venue stopped taking table bookings and pre-orders (client, 2026-09-03),
+ * so every WhatsApp button on the site now opens a general enquiry instead.
+ * Do not reintroduce a booking message without checking with the client --
+ * promising a booking the venue will not honour is worse than no button.
+ */
+export const WA_ENQUIRY_DEFAULT = "Hi Zaba's! I have a question.";

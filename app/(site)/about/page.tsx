@@ -8,7 +8,7 @@ import { getSiteSettings } from "@/lib/queries";
 import {
   DEFAULT_ADDRESS,
   DEFAULT_MAP_LINK,
-  WA_BOOKING_DEFAULT,
+  WA_ENQUIRY_DEFAULT,
   waLink,
   withDefault,
 } from "@/lib/site-defaults";
@@ -379,13 +379,13 @@ export default async function AboutPage() {
                 View the Menu
               </Link>
               <a
-                href={waLink(WA_BOOKING_DEFAULT, settings?.whatsapp)}
+                href={waLink(WA_ENQUIRY_DEFAULT, settings?.whatsapp)}
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cursor="Book"
                 className="rounded-full border border-bone/40 px-7 py-4 text-center text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:border-flame hover:text-flame sm:px-8"
               >
-                Book a Table
+                WhatsApp Us
               </a>
             </div>
           </div>

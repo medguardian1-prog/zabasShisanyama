@@ -217,7 +217,7 @@ export const ADMIN_HELP = {
       },
     ],
     cannot: [
-      "It cannot sell tickets or take bookings for an event.",
+      "It cannot sell tickets or reserve places for an event.",
       "It cannot hide an event automatically once the date has passed — you switch it off.",
       "It cannot post to Instagram or Facebook for you.",
       "It cannot repeat a weekly event automatically; add each one.",
@@ -228,12 +228,12 @@ export const ADMIN_HELP = {
     purpose:
       "Your phone number, WhatsApp number, address and social links, in one place.",
     showsUpOn:
-      "Everywhere — the footer, the contact page, and every 'Book a table' and WhatsApp button on the site.",
+      "Everywhere — the footer, the contact page, and every 'WhatsApp Us' button on the site.",
     how: [
       {
         do: "WhatsApp number",
         detail:
-          "This is the single most important field. Every booking button on the site opens a WhatsApp chat to this number. Enter it with the country code and no spaces, like 27821234567. Get this wrong and bookings go nowhere.",
+          "This is the single most important field. Every WhatsApp button on the site opens a chat to this number. Enter it with the country code and no spaces, like 27821234567. Get this wrong and customers reach nobody.",
       },
       {
         do: "Phone and address",
@@ -248,7 +248,7 @@ export const ADMIN_HELP = {
       {
         do: "Check it after saving",
         detail:
-          "Open the site and press a 'Book a table' button. It should open WhatsApp to the right number.",
+          "Open the site and press a 'WhatsApp Us' button. It should open WhatsApp to the right number.",
       },
     ],
     cannot: [

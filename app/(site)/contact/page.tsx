@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Section from "@/components/Section";
 import SectionHeading from "@/components/SectionHeading";
-import BookingForm from "@/components/BookingForm";
+import EnquiryForm from "@/components/EnquiryForm";
 import HoursWidget from "@/components/HoursWidget";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { getOpeningHours, getSiteSettings } from "@/lib/queries";
@@ -18,11 +18,11 @@ import {
 } from "@/lib/site-defaults";
 
 export const metadata: Metadata = {
-  title: "Contact & Bookings",
+  title: "Contact",
   description:
-    "Book a table at Zaba's Shisanyama on WhatsApp, place a large order, or get in touch.",
+    "Get in touch with Zaba's Shisanyama in Cato Manor, Durban. WhatsApp us with any question, or find our hours and directions.",
   openGraph: {
-    title: "Contact & Bookings · Zaba's Shisanyama",
+    title: "Contact · Zaba's Shisanyama",
     images: ["/images/logo.png"],
   },
 };
@@ -39,12 +39,12 @@ export default async function ContactPage() {
     <div className="pt-16 sm:pt-20">
       <Section tone="char">
         <SectionHeading
-          eyebrow="Contact & Bookings"
-          title="Save yourself a seat at the fire"
+          eyebrow="Contact"
+          title="Come talk to us"
         />
         <div className="grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <BookingForm whatsappSetting={settings?.whatsapp} />
+            <EnquiryForm whatsappSetting={settings?.whatsapp} />
           </div>
           <aside className="space-y-10 lg:col-span-4 lg:col-start-9">
             <div>

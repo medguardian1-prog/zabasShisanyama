@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { waLink, WA_BOOKING_DEFAULT } from "@/lib/site-defaults";
+import { waLink, WA_ENQUIRY_DEFAULT } from "@/lib/site-defaults";
 
 const LINES = ["Meat.", "Fire.", "Family."];
 
@@ -166,13 +166,13 @@ export default function Hero({
               View the Menu
             </Link>
             <a
-              href={waLink(WA_BOOKING_DEFAULT, whatsappSetting)}
+              href={waLink(WA_ENQUIRY_DEFAULT, whatsappSetting)}
               target="_blank"
               rel="noopener noreferrer"
-              data-cursor="Book"
+              data-cursor="Chat"
               className="rounded-full border border-bone/50 bg-char/40 px-7 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:border-flame hover:text-flame sm:px-8 sm:backdrop-blur-sm"
             >
-              Book a Table
+              WhatsApp Us
             </a>
           </div>
         </div>
@@ -201,7 +201,7 @@ export default function Hero({
         <dl className="mx-auto hidden max-w-7xl divide-y divide-bone/10 px-5 sm:px-8 md:flex md:flex-row md:divide-x md:divide-y-0">
           <InfoItem label="Right now" value={statusLabel ?? "Come through"} dot />
           <InfoItem label="Find us" value={address ?? "Cato Manor, Durban"} />
-          <InfoItem label="Bookings" value="WhatsApp only" />
+          <InfoItem label="Enquiries" value="WhatsApp" />
         </dl>
       </div>
 

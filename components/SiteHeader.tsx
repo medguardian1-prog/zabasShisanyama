@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { waLink, WA_BOOKING_DEFAULT } from "@/lib/site-defaults";
+import { waLink, WA_ENQUIRY_DEFAULT } from "@/lib/site-defaults";
 
 const links = [
   { href: "/menu", label: "Menu" },
@@ -103,12 +103,12 @@ export default function SiteHeader() {
             </Link>
           ))}
           <a
-            href={waLink(WA_BOOKING_DEFAULT)}
+            href={waLink(WA_ENQUIRY_DEFAULT)}
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-full bg-ember px-5 py-2.5 text-[0.75rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:bg-flame"
           >
-            Book a Table
+            WhatsApp Us
           </a>
         </nav>
 
@@ -157,12 +157,12 @@ export default function SiteHeader() {
             </Link>
           ))}
           <a
-            href={waLink(WA_BOOKING_DEFAULT)}
+            href={waLink(WA_ENQUIRY_DEFAULT)}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-6 rounded-full bg-ember px-6 py-4 text-center text-[0.8125rem] uppercase tracking-[0.18em] text-bone"
           >
-            Book a Table
+            WhatsApp Us
           </a>
         </nav>
       )}

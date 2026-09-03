@@ -22,7 +22,7 @@ import {
   DEFAULT_ADDRESS,
   DEFAULT_MAP_LINK,
   DEFAULT_PHONE,
-  WA_BOOKING_DEFAULT,
+  WA_ENQUIRY_DEFAULT,
   waLink,
   withDefault,
 } from "@/lib/site-defaults";
@@ -32,7 +32,7 @@ import { fallbackMenu } from "@/lib/default-menu";
 export const metadata: Metadata = {
   title: "Zaba's Shisanyama — Meat. Fire. Family.",
   description:
-    "Flame-grilled meat, cold drinks and township energy at Zaba's Shisanyama. View the menu, see what's on, and book a table.",
+    "Flame-grilled meat, cold drinks and township energy at Zaba's Shisanyama in Cato Manor, Durban. View the menu, see what's on, and come through.",
   openGraph: {
     title: "Zaba's Shisanyama — Meat. Fire. Family.",
     images: ["/images/logo.png"],
@@ -191,29 +191,29 @@ export default async function HomePage() {
         </div>
       </Section>
 
-      {/* booking CTA */}
+      {/* enquiry CTA */}
       <Section tone="ember">
         <div className="text-center" data-reveal-group>
           <p className="eyebrow mb-4 !text-bone/70" data-reveal>
-            Weekends fill up fast
+            Come through
           </p>
           <div className="overflow-hidden">
             <h2
               data-mask
               className="display-xl pb-2 text-[2.75rem] sm:pb-3 sm:text-5xl lg:text-[3.75rem]"
             >
-              Book your table at the fire
+              Pull up a chair at the fire
             </h2>
           </div>
           <div className="mt-10 flex flex-wrap justify-center gap-4" data-reveal>
             <a
-              href={waLink(WA_BOOKING_DEFAULT, settings?.whatsapp)}
+              href={waLink(WA_ENQUIRY_DEFAULT, settings?.whatsapp)}
               target="_blank"
               rel="noopener noreferrer"
-              data-cursor="Book"
+              data-cursor="Chat"
               className="rounded-full bg-char px-8 py-4 text-[0.8125rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:bg-smoke"
             >
-              Book on WhatsApp
+              WhatsApp Us
             </a>
             <Link
               href="/contact"

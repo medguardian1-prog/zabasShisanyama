@@ -33,6 +33,9 @@ const OUT = "public/images";
  * out               destination filename in public/images
  * width, height     stored dimensions (cover-cropped from the source)
  * position          which part of the frame to keep when cropping
+ * crop              optional region of the SOURCE, as fractions, applied
+ *                   before the cover resize -- for when the whole frame says
+ *                   the wrong thing about the dish
  */
 const JOBS = [
   {
@@ -41,7 +44,7 @@ const JOBS = [
     width: 1254,
     height: 1254,
     position: "center",
-    note: "Platter for 1 / signature strip lead / gallery. Also the hero source.",
+    note: "Platter for 6 / signature strip / gallery.",
   },
   {
     source: "04-platter-wors.webp",
@@ -49,7 +52,7 @@ const JOBS = [
     width: 1254,
     height: 1254,
     position: "center",
-    note: "Platter for 2 / signature strip / about 'It comes out on a board'.",
+    note: "Platter for 4 / signature strip / about 'It comes out on a board'.",
   },
   {
     source: "02-chops-phuthu.webp",
@@ -57,7 +60,13 @@ const JOBS = [
     width: 1122,
     height: 1402,
     position: "center",
-    note: "Platter for 4. Replaces the takeaway-tray shot with the receipt and '22' ticket. Natively portrait, so it keeps the existing 4:5 slot.",
+    // Tightened 2026-09-03 at the client's request. The full frame shows a
+    // tray stacked with chops, which set the wrong expectation for a
+    // one-person platter -- customers were going to read it as far more food
+    // than they get. This crop keeps four chops plus the phuthu, salsa and
+    // chakalaka the description actually promises, and drops the rest.
+    crop: { left: 0.16, top: 0.22, width: 0.72, height: 0.68 },
+    note: "Platter for 1. Replaces the takeaway-tray shot with the receipt and '22' ticket. Natively portrait, so it keeps the existing 4:5 slot.",
   },
   {
     source: "03-wings.webp",
@@ -66,7 +75,7 @@ const JOBS = [
     height: 1254,
     // Wings sit left of frame; a centred square crop would clip them.
     position: "left",
-    note: "Platter for 6. Replaces the hands-carving-on-a-cluttered-table shot.",
+    note: "Platter for 2. Replaces the hands-carving-on-a-cluttered-table shot.",
   },
 ];
 
@@ -81,7 +90,19 @@ async function run(job, { sharpen }) {
     return false;
   }
 
-  let img = sharp(src).resize({
+  let img = sharp(src);
+
+  if (job.crop) {
+    const m = await sharp(src).metadata();
+    img = img.extract({
+      left: Math.round(m.width * job.crop.left),
+      top: Math.round(m.height * job.crop.top),
+      width: Math.round(m.width * job.crop.width),
+      height: Math.round(m.height * job.crop.height),
+    });
+  }
+
+  img = img.resize({
     width: job.width,
     height: job.height,
     fit: "cover",

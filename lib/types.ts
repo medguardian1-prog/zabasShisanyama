@@ -80,21 +80,6 @@ export interface SiteEvent {
   updatedAt: string;
 }
 
-export type EnquiryType = "booking" | "contact" | "large-order";
-export type EnquiryStatus = "new" | "handled" | "archived";
-
-export interface Enquiry {
-  id: string;
-  type: EnquiryType;
-  name: string;
-  phone: string | null;
-  email: string | null;
-  message: string | null;
-  eventDate: string | null;
-  partySize: number | null;
-  status: EnquiryStatus;
-  createdAt: string;
-}
 
 export interface SiteSettings {
   id: boolean;
@@ -186,19 +171,6 @@ export interface SiteEventRow {
   updated_at: string;
 }
 
-export interface EnquiryRow {
-  id: string;
-  type: EnquiryType;
-  name: string;
-  phone: string | null;
-  email: string | null;
-  message: string | null;
-  event_date: string | null;
-  party_size: number | null;
-  status: EnquiryStatus;
-  created_at: string;
-}
-
 export interface SiteSettingsRow {
   id: boolean;
   phone: string | null;
@@ -287,19 +259,6 @@ export const mapSiteEvent = (r: SiteEventRow): SiteEvent => ({
   sortOrder: r.sort_order,
   createdAt: r.created_at,
   updatedAt: r.updated_at,
-});
-
-export const mapEnquiry = (r: EnquiryRow): Enquiry => ({
-  id: r.id,
-  type: r.type,
-  name: r.name,
-  phone: r.phone,
-  email: r.email,
-  message: r.message,
-  eventDate: r.event_date,
-  partySize: r.party_size,
-  status: r.status,
-  createdAt: r.created_at,
 });
 
 export const mapSiteSettings = (r: SiteSettingsRow): SiteSettings => ({
