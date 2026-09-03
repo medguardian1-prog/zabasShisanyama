@@ -138,7 +138,7 @@ export default async function SiteFooter() {
               href={waLink(WA_ENQUIRY_DEFAULT, settings?.whatsapp)}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-block rounded-full bg-ember px-6 py-3 text-[0.75rem] uppercase tracking-[0.18em] text-bone transition-colors hover:bg-flame"
+              className="mt-6 inline-flex min-h-[44px] items-center rounded-full bg-ember px-6 py-3 text-[0.75rem] uppercase tracking-[0.18em] text-bone transition-colors hover:bg-flame"
             >
               WhatsApp Us
             </a>
