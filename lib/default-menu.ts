@@ -33,7 +33,7 @@ export const DEFAULT_MENU: FallbackGroup[] = [
         description:
           "Beef or pork chops, papa or jeqe, 1 wing, chakalaka or Chester wors, and 2 salads.",
         price: 10000,
-        image: "/images/food-07.jpg",
+        image: "/images/food-05.jpg",
         featured: true,
       },
       {
@@ -41,7 +41,7 @@ export const DEFAULT_MENU: FallbackGroup[] = [
         description:
           "Beef, pork chops, chakalaka or Chester wors, papa or jeqe, 2 salads, 2 wings and a 1.5L Coke.",
         price: 25000,
-        image: "/images/food-02.jpg",
+        image: "/images/food-06.jpg",
         featured: true,
       },
       {
@@ -49,7 +49,7 @@ export const DEFAULT_MENU: FallbackGroup[] = [
         description:
           "Beef, pork chops, chakalaka or Chester wors, papa or jeqe, 2 salads, 4 wings and a 1.5L Coke.",
         price: 40000,
-        image: "/images/food-05.jpg",
+        image: "/images/food-02.jpg",
         featured: true,
       },
       {
@@ -57,7 +57,7 @@ export const DEFAULT_MENU: FallbackGroup[] = [
         description:
           "Beef, pork chops or lamb, chakalaka or Chester wors, papa or jeqe, 3 salads, 6 wings and a 2L Coke.",
         price: 55000,
-        image: "/images/food-06.jpg",
+        image: "/images/food-07.jpg",
         featured: true,
       },
     ],
