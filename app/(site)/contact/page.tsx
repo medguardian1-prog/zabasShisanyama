@@ -53,7 +53,7 @@ export default async function ContactPage() {
                 <p>
                   <a
                     href={`tel:${phone.replace(/\s/g, "")}`}
-                    className="tap-target text-bone transition-colors hover:text-flame"
+                    className="inline-flex min-h-[44px] items-center text-bone transition-colors hover:text-flame"
                   >
                     {phone}
                   </a>
@@ -93,7 +93,7 @@ export default async function ContactPage() {
                 href={withDefault(settings?.mapLink, DEFAULT_MAP_LINK)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="tap-target mt-3 inline-block text-sm text-bone underline decoration-gold underline-offset-4 transition-colors hover:text-flame"
+                className="inline-flex min-h-[44px] items-center mt-3 text-sm text-bone underline decoration-gold underline-offset-4 transition-colors hover:text-flame"
               >
                 Open in Maps
               </a>

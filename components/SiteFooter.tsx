@@ -118,7 +118,7 @@ export default async function SiteFooter() {
               <li>
                 <a
                   href={`tel:${phone.replace(/\s/g, "")}`}
-                  className="tap-target transition-colors hover:text-flame"
+                  className="inline-flex min-h-[44px] items-center transition-colors hover:text-flame"
                 >
                   {phone}
                 </a>
@@ -128,7 +128,7 @@ export default async function SiteFooter() {
                   href={mapLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="tap-target text-bone underline decoration-gold underline-offset-4 transition-colors hover:text-flame"
+                  className="inline-flex min-h-[44px] items-center text-bone underline decoration-gold underline-offset-4 transition-colors hover:text-flame"
                 >
                   Open in Maps
                 </a>
@@ -154,7 +154,7 @@ export default async function SiteFooter() {
           </p>
           <Link
             href="/admin"
-            className="tap-target text-[0.6875rem] text-ash transition-colors hover:text-bone"
+            className="inline-flex min-h-[44px] items-center text-[0.6875rem] text-ash transition-colors hover:text-bone"
           >
             Staff
           </Link>

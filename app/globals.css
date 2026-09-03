@@ -104,7 +104,21 @@ html.lenis body {
 /* ------------------------------- tap targets -------------------------------- */
 /* Inline text links sit at ~18px tall, well under the 44px touch guideline.
    On touch devices only, extend the hit area with a pseudo-element so the
-   link is comfortably tappable without shifting any layout.               */
+   link is comfortably tappable without shifting any layout.
+
+   KNOWN LIMIT (measured on the live site, 2026-09-03): this only works where
+   nothing paints over the expanded area. Inside a spaced list -- the footer's
+   "Find Us" <ul>, for example -- each following <li> is later in DOM order
+   and covers its neighbour's ::after, so the hit area silently collapses back
+   to the text box. elementFromPoint showed 17px there against 41px for the
+   same markup outside a list, which is why those links now carry a real
+   `inline-flex min-h-[44px] items-center` instead.
+
+   So: use .tap-target for a standalone inline link. For a link in a list, or
+   anywhere siblings stack, give it real height and verify by hit-testing
+   rather than by reading getBoundingClientRect -- the rect never includes the
+   pseudo-element, so it under-reports working links and over-reports broken
+   ones.                                                                    */
 
 @media (pointer: coarse) {
   .tap-target {
