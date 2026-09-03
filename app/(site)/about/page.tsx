@@ -359,7 +359,7 @@ export default async function AboutPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cursor="Map"
-                className="tap-target transition-colors duration-300 hover:text-flame"
+                className="inline-block py-3.5 -my-3.5 transition-colors duration-300 hover:text-flame"
               >
                 {address}
               </a>

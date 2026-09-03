@@ -96,7 +96,7 @@ export default async function HomePage() {
             <Link
               href="/about"
               data-reveal
-              className="tap-target mt-6 inline-block text-[0.75rem] uppercase tracking-[0.18em] text-gold underline decoration-gold/40 underline-offset-4 transition-colors hover:text-flame"
+              className="inline-flex min-h-[44px] items-center mt-6 text-[0.75rem] uppercase tracking-[0.18em] text-gold underline decoration-gold/40 underline-offset-4 transition-colors hover:text-flame"
             >
               Our story
             </Link>
@@ -121,7 +121,7 @@ export default async function HomePage() {
           <Link
             href="/gallery"
             data-cursor="View"
-            className="tap-target mb-14 text-[0.75rem] uppercase tracking-[0.18em] text-ash transition-colors hover:text-flame sm:mb-16"
+            className="inline-flex min-h-[44px] items-center mb-14 text-[0.75rem] uppercase tracking-[0.18em] text-ash transition-colors hover:text-flame sm:mb-16"
           >
             Full gallery →
           </Link>
@@ -136,7 +136,7 @@ export default async function HomePage() {
           <Link
             href="/events"
             data-cursor="View"
-            className="tap-target mb-14 text-[0.75rem] uppercase tracking-[0.18em] text-ash transition-colors hover:text-flame sm:mb-16"
+            className="inline-flex min-h-[44px] items-center mb-14 text-[0.75rem] uppercase tracking-[0.18em] text-ash transition-colors hover:text-flame sm:mb-16"
           >
             All events →
           </Link>
@@ -173,7 +173,7 @@ export default async function HomePage() {
                   href={withDefault(settings?.mapLink, DEFAULT_MAP_LINK)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="tap-target text-bone underline decoration-gold underline-offset-4 transition-colors hover:text-flame"
+                  className="inline-flex min-h-[44px] items-center text-bone underline decoration-gold underline-offset-4 transition-colors hover:text-flame"
                 >
                   Open in Maps
                 </a>
@@ -181,7 +181,7 @@ export default async function HomePage() {
               <p data-reveal>
                 <a
                   href={`tel:${withDefault(settings?.phone, DEFAULT_PHONE).replace(/\s/g, "")}`}
-                  className="tap-target transition-colors hover:text-flame"
+                  className="inline-flex min-h-[44px] items-center transition-colors hover:text-flame"
                 >
                   {withDefault(settings?.phone, DEFAULT_PHONE)}
                 </a>

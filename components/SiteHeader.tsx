@@ -160,7 +160,7 @@ export default function SiteHeader() {
             href={waLink(WA_ENQUIRY_DEFAULT)}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 rounded-full bg-ember px-6 py-4 text-center text-[0.8125rem] uppercase tracking-[0.18em] text-bone"
+            className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-full bg-ember px-6 py-4 text-center text-[0.8125rem] uppercase tracking-[0.18em] text-bone"
           >
             WhatsApp Us
           </a>
