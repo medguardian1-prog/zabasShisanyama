@@ -42,7 +42,7 @@ const STEPS = [
     title: "It comes out on a board",
     note: "Coils of wors, roast meat and thick slabs of pap, straight onto the wood.",
     image: "/images/food-02.jpg",
-    alt: "Coiled boerewors, roast meat and thick slabs of pap laid out on a wooden board",
+    alt: "A coil of boerewors, beef ribs, chops and grilled chicken wings laid out on a wooden board, with pap and salads alongside",
   },
   {
     n: "03",

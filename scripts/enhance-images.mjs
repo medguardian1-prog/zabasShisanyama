@@ -21,7 +21,20 @@ const SCALE = HAS_UPSCALED ? 1 : 2.5;
 const WEBP_TARGETS = new Set(["food-01", "alcohol"]);
 // Client-supplied originals (already full resolution) and the logo source are
 // handled separately, so the bulk loop skips them.
-const SKIP = new Set(["logo-source", "breakfast", "food-08"]);
+//
+// food-02 and food-07 are also skipped: as of 2026-09-03 both are owned by
+// scripts/import-client-photos-2026-09.mjs, which builds them from the second
+// batch of client photography in image-src/client-new/. The stale Upscayl
+// sources are still sitting in image-src/upscaled/, so without this guard a
+// re-run here would silently revert the homepage strip, gallery and about page
+// to the old low-resolution shots.
+const SKIP = new Set([
+  "logo-source",
+  "breakfast",
+  "food-08",
+  "food-02",
+  "food-07",
+]);
 
 /**
  * Per-image colour correction. Upscayl pushed a few shots into a neon
@@ -85,17 +98,13 @@ for (const file of readdirSync(SRC)) {
 }
 
 /**
- * Dedicated full-bleed hero asset. The banner is displayed far larger than
- * any source photo, so upscale + unsharp once here rather than letting the
- * browser do it crudely at paint time.
+ * Hero assets moved out of this script on 2026-09-03.
+ *
+ * Both hero.jpg (desktop) and hero-mobile.jpg (phone) are now built by
+ * scripts/import-client-photos-2026-09.mjs from the second batch of client
+ * photography. hero-mobile.jpg was never generated here at all -- it had been
+ * cropped by hand, which is why it drifted out of sync with hero.jpg.
+ *
+ * Do not reinstate a hero step here without deleting the one there, or the two
+ * scripts will fight over the same output.
  */
-const HERO_SOURCE = join(SRC, HAS_UPSCALED ? "food-07.png" : "food-07.jpg");
-if (existsSync(HERO_SOURCE)) {
-  await sharp(HERO_SOURCE)
-    .resize({ width: 1700, kernel: sharp.kernel.lanczos3 })
-    .sharpen({ sigma: 1.4, m1: 0.5, m2: 0.35 })
-    .jpeg({ quality: 80, mozjpeg: true })
-    .toFile(join(OUT, "hero.jpg"));
-  const m = await sharp(join(OUT, "hero.jpg")).metadata();
-  console.log(`hero.jpg: ${m.width}x${m.height}`);
-}

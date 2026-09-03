@@ -46,3 +46,6 @@ image-src/client/converted/
 image-src/client/previews/
 
 image-src/client/events/
+
+# local safety copy of the images replaced on 2026-09-03; delete once signed off
+.backup-images-20260903/

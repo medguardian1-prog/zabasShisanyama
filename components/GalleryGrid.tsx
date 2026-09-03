@@ -9,18 +9,18 @@ import { cn } from "@/lib/utils";
 export const LOCAL_GALLERY: Pick<GalleryImage, "image" | "alt" | "caption">[] = [
   {
     image: "/images/plate-beef.jpg",
-    alt: "Beef stew with pap, chakalaka, coleslaw, butternut and tomato salsa on a white plate",
-    caption: "Beef & pap",
+    alt: "Grilled pork chops and ribs on a wooden board with a dish of phuthu, tomato salsa, chakalaka and thick-sliced bread",
+    caption: "Chops & phuthu",
   },
   {
     image: "/images/food-07.jpg",
-    alt: "Flame-grilled lamb chops with steamed pap and chilli relish on a wooden board",
-    caption: "Chops & pap",
+    alt: "A loaded braai board of beef ribs, chops and grilled chicken wings with pap, three salads and thick-sliced bread",
+    caption: "The full board",
   },
   {
     image: "/images/plate-chicken.jpg",
-    alt: "A grilled chicken portion with creamy samp, beetroot and a tray of fresh sides",
-    caption: "Chicken & samp",
+    alt: "Flame-grilled chicken wings and beef ribs on a wooden board with pap and a tray of fresh salads",
+    caption: "Wings & ribs",
   },
   {
     image: "/images/food-08.jpg",
