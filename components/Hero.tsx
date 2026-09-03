@@ -63,7 +63,7 @@ export default function Hero({
         <div className="hero-settle absolute inset-0">
           <Image
             src="/images/hero-mobile.jpg"
-            alt="Flame-grilled pork chops and ribs on a wooden board with phuthu, tomato salsa and chakalaka at Zaba's Shisanyama"
+            alt="Flame-grilled boerewors, roast meat and pap on a wooden board at Zaba's Shisanyama"
             fill
             priority
             quality={82}
@@ -91,16 +91,11 @@ export default function Hero({
               "linear-gradient(to right, #0B0A0A 0%, rgba(11,10,10,0.82) 26%, rgba(11,10,10,0.35) 48%, rgba(11,10,10,0.05) 68%, transparent 100%)",
           }}
         />
-        {/* Mid-band opacity raised 2026-09-03. The previous stops (0.55 / 0.15)
-            were tuned against a much darker photo; the replacement shot is
-            roughly twice as bright, which left the gold eyebrow and the body
-            copy sitting on lit tomato salsa and pale wood. The top ~15% is
-            deliberately left clear so the board still reads above the type. */}
         <div
           className="absolute inset-0 sm:hidden"
           style={{
             background:
-              "linear-gradient(to top, #0B0A0A 0%, rgba(11,10,10,0.94) 22%, rgba(11,10,10,0.78) 45%, rgba(11,10,10,0.38) 68%, transparent 90%)",
+              "linear-gradient(to top, #0B0A0A 0%, rgba(11,10,10,0.92) 22%, rgba(11,10,10,0.55) 45%, rgba(11,10,10,0.15) 68%, transparent 88%)",
           }}
         />
         <div

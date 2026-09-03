@@ -64,31 +64,9 @@ const JOBS = [
   },
 ];
 
-// The hero is displayed far larger than any source photo, so it is upscaled
-// and sharpened once here rather than by the browser at paint time.
-const HERO_JOBS = [
-  {
-    source: "01-platter-wide.webp",
-    out: "hero.jpg",
-    width: 1700,
-    height: 1045,
-    position: "center",
-    note: "Desktop banner (~1.63:1).",
-  },
-  {
-    source: "02-chops-phuthu.webp",
-    out: "hero-mobile.jpg",
-    width: 1200,
-    height: 1800,
-    position: "center",
-    // The phone scrim runs `to top`, so the TOP of this frame is the one part
-    // that stays fully transparent. The source opens on a dark wooden plank,
-    // which landed in exactly that window and read as a black band above the
-    // headline. Drop it so the bread and chops sit under the clear area.
-    extractTopPct: 0.12,
-    note: "Phone banner. Uses the portrait shot: cropping the landscape one to 2:3 would have meant a 1.9x upscale of a narrow slice.",
-  },
-];
+// This batch deliberately does NOT touch hero.jpg or hero-mobile.jpg. The
+// photos were supplied to replace the four content shots only; the hero keeps
+// its existing image and stays owned by scripts/enhance-images.mjs.
 
 async function run(job, { sharpen }) {
   const src = join(SRC, job.source);
@@ -97,22 +75,7 @@ async function run(job, { sharpen }) {
     return false;
   }
 
-  let img = sharp(src);
-
-  // Optional pre-crop, applied before the cover resize, for when a specific
-  // band of the source needs to be excluded rather than merely de-centred.
-  if (job.extractTopPct) {
-    const meta = await sharp(src).metadata();
-    const top = Math.round(meta.height * job.extractTopPct);
-    img = img.extract({
-      left: 0,
-      top,
-      width: meta.width,
-      height: meta.height - top,
-    });
-  }
-
-  img = img.resize({
+  let img = sharp(src).resize({
     width: job.width,
     height: job.height,
     fit: "cover",
@@ -136,9 +99,4 @@ for (const job of JOBS) {
   await run(job, { sharpen: { sigma: 1.1, m1: 0.4, m2: 0.3 } });
 }
 
-console.log("\nHero variants:");
-for (const job of HERO_JOBS) {
-  await run(job, { sharpen: { sigma: 1.4, m1: 0.5, m2: 0.35 } });
-}
-
-console.log("\nDone. Backups of the previous files are in .backup-images-20260903/");
+console.log("\nDone. hero.jpg and hero-mobile.jpg are deliberately untouched.");
