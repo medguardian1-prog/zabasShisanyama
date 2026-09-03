@@ -70,7 +70,7 @@ export default function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:h-20 sm:px-8">
         <Link
           href="/"
-          className="flex items-center gap-3"
+          className="flex min-h-[44px] items-center gap-3"
           aria-label="Zaba's Shisanyama — home"
         >
           <Image
@@ -106,7 +106,7 @@ export default function SiteHeader() {
             href={waLink(WA_ENQUIRY_DEFAULT)}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full bg-ember px-5 py-2.5 text-[0.75rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:bg-flame"
+            className="inline-flex min-h-[44px] items-center rounded-full bg-ember px-5 py-2.5 text-[0.75rem] uppercase tracking-[0.18em] text-bone transition-colors duration-300 hover:bg-flame"
           >
             WhatsApp Us
           </a>
