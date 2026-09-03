@@ -23,7 +23,7 @@ import Eyebrow from "@/components/Eyebrow";
  */
 const DISH_PHOTOS: Record<
   string,
-  { src: string; alt: string; detail?: string }
+  { src: string; alt: string; detail?: string; displayName?: string }
 > = {
   "platter for 1": {
     src: "/images/food-05.jpg",
@@ -47,22 +47,18 @@ const DISH_PHOTOS: Record<
     detail: "Beef with pap, chakalaka and fresh salads.",
   },
   /**
-   * The caption deliberately names no starch.
+   * Titled from the photograph, not the menu row.
    *
-   * The only two chicken plates we have (plate-chicken, plate-samp) both show
-   * creamy SAMP, and the menu has no samp dish -- Plates are Phuthu & Beef,
-   * Phuthu & Chicken, Rice & Beef Curry and Biryani. So a caption saying
-   * "creamy samp" contradicts the card's own title, and one saying "phuthu"
-   * contradicts the photograph. Naming only what is unarguably in the frame
-   * is the honest option until the client sends a photo of this dish.
-   *
-   * The alt text still says samp: it describes the image for someone who
-   * cannot see it, which is a different job from selling the dish.
+   * The menu item is called "Phuthu & Chicken", but the photograph is of samp
+   * and chicken -- confirmed by the client. This strip is a photo taster with
+   * no prices, so the card is labelled for what is actually in the picture;
+   * the Full Menu link carries the priced menu wording.
    */
   "phuthu & chicken": {
     src: "/images/plate-chicken.jpg",
+    displayName: "Samp & Chicken",
     alt: "A grilled chicken portion with creamy samp, beetroot and a tray of fresh sides",
-    detail: "Grilled chicken with beetroot, chakalaka and fresh salads.",
+    detail: "Grilled chicken with creamy samp, beetroot and fresh salads.",
   },
 };
 
@@ -101,7 +97,7 @@ function photoFor(
   name: string,
   uploaded: string | null,
   index: number
-): { src: string; alt: string; detail?: string } {
+): { src: string; alt: string; detail?: string; displayName?: string } {
   if (uploaded && !uploaded.startsWith("/images/")) {
     // Staff chose this photo themselves; we cannot describe what is in it.
     return { src: uploaded, alt: `${name} at Zaba's Shisanyama` };
@@ -279,7 +275,7 @@ export default function SignatureStrip({ items }: { items: MenuItem[] }) {
                 <StripCard
                   key={item.id}
                   index={i}
-                  name={item.name}
+                  name={photo.displayName || item.name}
                   detail={item.description || photo.detail || null}
                   image={photo.src}
                   alt={photo.alt}
