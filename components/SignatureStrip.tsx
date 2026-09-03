@@ -46,10 +46,23 @@ const DISH_PHOTOS: Record<
     alt: "Beef stew with pap, chakalaka, coleslaw, butternut and tomato salsa on a white plate",
     detail: "Beef with pap, chakalaka and fresh salads.",
   },
+  /**
+   * The caption deliberately names no starch.
+   *
+   * The only two chicken plates we have (plate-chicken, plate-samp) both show
+   * creamy SAMP, and the menu has no samp dish -- Plates are Phuthu & Beef,
+   * Phuthu & Chicken, Rice & Beef Curry and Biryani. So a caption saying
+   * "creamy samp" contradicts the card's own title, and one saying "phuthu"
+   * contradicts the photograph. Naming only what is unarguably in the frame
+   * is the honest option until the client sends a photo of this dish.
+   *
+   * The alt text still says samp: it describes the image for someone who
+   * cannot see it, which is a different job from selling the dish.
+   */
   "phuthu & chicken": {
     src: "/images/plate-chicken.jpg",
     alt: "A grilled chicken portion with creamy samp, beetroot and a tray of fresh sides",
-    detail: "Grilled chicken with creamy samp and fresh salads.",
+    detail: "Grilled chicken with beetroot, chakalaka and fresh salads.",
   },
 };
 
