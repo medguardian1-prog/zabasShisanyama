@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Section from "@/components/Section";
 import SectionHeading from "@/components/SectionHeading";
 import BookingForm from "@/components/BookingForm";
-import ContactForm from "@/components/ContactForm";
 import HoursWidget from "@/components/HoursWidget";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { getOpeningHours, getSiteSettings } from "@/lib/queries";
@@ -103,19 +102,11 @@ export default async function ContactPage() {
         </div>
       </Section>
 
-      <Section tone="smoke">
-        <div className="max-w-2xl">
-          <SectionHeading
-            eyebrow="Something else?"
-            title="Send us a message"
-          />
-          <p className="-mt-8 mb-10 text-sm leading-relaxed text-ash sm:text-base">
-            Not a booking — feedback, questions, anything. This one comes
-            through to our inbox and we&rsquo;ll get back to you.
-          </p>
-          <ContactForm />
-        </div>
-      </Section>
+      {/* The "Send us a message" form was removed on 2026-09-03 together with
+          the staff Inbox. It wrote into an `enquiries` table that no longer has
+          a screen to read it, so every message would have gone into a black
+          hole. Contact now funnels to WhatsApp and the phone number above,
+          which is where the restaurant actually answers. */}
     </div>
   );
 }

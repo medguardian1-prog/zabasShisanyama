@@ -1,3 +1,5 @@
+import ScreenHelp from "@/components/admin/ScreenHelp";
+import { ADMIN_HELP } from "@/lib/admin-help";
 import { adminEvents } from "@/app/admin/queries";
 import EventsManager from "./EventsManager";
 
@@ -6,11 +8,16 @@ export default async function AdminEventsPage() {
 
   return (
     <div>
-      <h1 className="text-base font-semibold text-bone">Events</h1>
-      <p className="mt-1 text-xs leading-relaxed text-ash">
-        What&rsquo;s on at Zaba&rsquo;s — shows on the homepage and the events
-        page.
-      </p>
+      <ScreenHelp
+        title="Events"
+        blurb={
+          <>
+            What&rsquo;s on at Zaba&rsquo;s — shows on the homepage and the
+            events page.
+          </>
+        }
+        help={ADMIN_HELP.events}
+      />
       <EventsManager events={events} />
     </div>
   );

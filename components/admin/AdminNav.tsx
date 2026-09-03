@@ -62,11 +62,6 @@ const links = [
     icon: <Icon d="M4 6.5h16v13H4zM4 10.5h16M8 4v4M16 4v4" />,
   },
   {
-    href: "/admin/enquiries",
-    label: "Inbox",
-    icon: <Icon d="M3 13h5l2 3h4l2-3h5M5 6h14l2 7v5H3v-5z" />,
-  },
-  {
     href: "/admin/settings",
     label: "Settings",
     icon: (

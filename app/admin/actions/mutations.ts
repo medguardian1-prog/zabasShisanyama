@@ -589,23 +589,6 @@ export async function deleteEvent(id: string): Promise<ActionResult> {
   return OK;
 }
 
-/* --------------------------------- enquiries -------------------------------- */
-
-export async function setEnquiryStatus(
-  id: string,
-  status: "new" | "handled" | "archived"
-): Promise<ActionResult> {
-  const g = await guard();
-  if ("error" in g) return g.error;
-  if (!idSchema.safeParse(id).success) return fail("Bad request.");
-  if (!["new", "handled", "archived"].includes(status)) return fail("Bad request.");
-
-  const { error } = await g.sb.from("enquiries").update({ status }).eq("id", id);
-  if (error) return fail("Couldn't update — please try again.");
-  revalidatePath("/admin", "layout");
-  return OK;
-}
-
 /* ------------------------------ first-run import ---------------------------- */
 
 /**

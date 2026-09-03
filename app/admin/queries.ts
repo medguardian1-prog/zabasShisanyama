@@ -3,7 +3,6 @@ import "server-only";
 import { getAdminClient } from "@/lib/supabase/admin";
 import {
   mapCategory,
-  mapEnquiry,
   mapGalleryImage,
   mapMenuItem,
   mapOpeningHours,
@@ -12,8 +11,6 @@ import {
   mapSpecial,
   type Category,
   type CategoryRow,
-  type Enquiry,
-  type EnquiryRow,
   type GalleryImage,
   type GalleryImageRow,
   type MenuItem,
@@ -104,15 +101,6 @@ export async function adminEvents(): Promise<SiteEvent[]> {
   return ((data as SiteEventRow[]) ?? []).map(mapSiteEvent);
 }
 
-export async function adminEnquiries(): Promise<Enquiry[]> {
-  const sb = getAdminClient();
-  if (!sb) return [];
-  const { data } = await sb
-    .from("enquiries")
-    .select("*")
-    .order("created_at", { ascending: false });
-  return ((data as EnquiryRow[]) ?? []).map(mapEnquiry);
-}
 
 export async function adminSiteSettings(): Promise<SiteSettings | null> {
   const sb = getAdminClient();

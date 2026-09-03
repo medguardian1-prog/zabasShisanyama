@@ -1,23 +1,20 @@
 import Link from "next/link";
-import {
-  adminEnquiries,
-  adminMenuItems,
-  adminSpecials,
-} from "@/app/admin/queries";
+import { adminMenuItems, adminSpecials } from "@/app/admin/queries";
 import {
   adminCategories,
   adminConnectionCheck,
   adminOpeningHours,
 } from "@/app/admin/queries";
 import FirstRunImport from "@/components/admin/FirstRunImport";
+import ScreenHelp from "@/components/admin/ScreenHelp";
+import { ADMIN_HELP } from "@/lib/admin-help";
 import { DEFAULT_MENU } from "@/lib/default-menu";
 
 export default async function AdminHomePage() {
-  const [connection, items, specials, enquiries, hours] = await Promise.all([
+  const [connection, items, specials, hours] = await Promise.all([
     adminConnectionCheck(),
     adminMenuItems(),
     adminSpecials(),
-    adminEnquiries(),
     adminOpeningHours(),
   ]);
 
@@ -36,7 +33,8 @@ export default async function AdminHomePage() {
   const orderNeedsFix =
     connected &&
     items.length > 0 &&
-    actualOrder.join(",") !== printedOrder.filter((s) => actualOrder.includes(s)).join(",");
+    actualOrder.join(",") !==
+      printedOrder.filter((s) => actualOrder.includes(s)).join(",");
 
   // How much of the printed menu is not in the database yet. This is what
   // catches a new page of the menu (breakfast, drinks) after the first import
@@ -44,7 +42,7 @@ export default async function AdminHomePage() {
   // import itself decides what to add, so the count and the button agree.
   const categoryIdBySlug = new Map(categories.map((c) => [c.slug, c.id]));
   const presentItems = new Set(
-    items.map((i) => `${i.categoryId}::${i.name.trim().toLowerCase()}`)
+    items.map((i) => `${i.categoryId}::${i.name.trim().toLowerCase()}`),
   );
   const missingCount = DEFAULT_MENU.reduce((total, group) => {
     const categoryId = categoryIdBySlug.get(group.slug);
@@ -53,14 +51,13 @@ export default async function AdminHomePage() {
       total +
       group.items.filter(
         (item) =>
-          !presentItems.has(`${categoryId}::${item.name.trim().toLowerCase()}`)
+          !presentItems.has(`${categoryId}::${item.name.trim().toLowerCase()}`),
       ).length
     );
   }, 0);
 
   const activeSpecial = specials.find((s) => s.active);
   const soldOut = items.filter((i) => !i.available).length;
-  const newEnquiries = enquiries.filter((e) => e.status === "new").length;
 
   const today = new Intl.DateTimeFormat("en-ZA", {
     weekday: "long",
@@ -71,10 +68,11 @@ export default async function AdminHomePage() {
 
   return (
     <div>
-      <div className="flex items-baseline justify-between gap-4">
-        <h1 className="text-base font-semibold text-bone">Today at a glance</h1>
-        <p className="text-xs text-ash">{today}</p>
-      </div>
+      <ScreenHelp
+        title="Today at a glance"
+        blurb={today}
+        help={ADMIN_HELP.today}
+      />
 
       {!connected && (
         <div className="admin-card mt-4 border-ember/50 p-4">
@@ -100,10 +98,12 @@ export default async function AdminHomePage() {
         missingCount={connected && items.length > 0 ? missingCount : 0}
       />
 
-      <dl className="admin-card mt-4 grid grid-cols-3 divide-x divide-hair">
-        <Stat label="Special" value={activeSpecial ? activeSpecial.title : "None"} />
+      <dl className="admin-card mt-4 grid grid-cols-2 divide-x divide-hair">
+        <Stat
+          label="Special"
+          value={activeSpecial ? activeSpecial.title : "None"}
+        />
         <Stat label="Sold out" value={String(soldOut)} alert={soldOut > 0} />
-        <Stat label="Enquiries" value={String(newEnquiries)} alert={newEnquiries > 0} />
       </dl>
 
       <h2 className="mt-6 text-[0.6875rem] uppercase tracking-[0.14em] text-ash">

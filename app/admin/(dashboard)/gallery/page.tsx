@@ -1,3 +1,5 @@
+import ScreenHelp from "@/components/admin/ScreenHelp";
+import { ADMIN_HELP } from "@/lib/admin-help";
 import { adminGalleryImages } from "@/app/admin/queries";
 import GalleryManager from "./GalleryManager";
 
@@ -6,11 +8,16 @@ export default async function AdminGalleryPage() {
 
   return (
     <div>
-      <h1 className="text-base font-semibold text-bone">Gallery</h1>
-      <p className="mt-1 text-xs leading-relaxed text-ash">
-        Photos are squeezed down automatically before upload — snap straight
-        from your phone.
-      </p>
+      <ScreenHelp
+        title="Gallery"
+        blurb={
+          <>
+            Photos are squeezed down automatically before upload — snap straight
+            from your phone.
+          </>
+        }
+        help={ADMIN_HELP.gallery}
+      />
       <GalleryManager images={images} />
     </div>
   );

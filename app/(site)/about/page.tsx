@@ -46,13 +46,14 @@ const STEPS = [
   },
   {
     n: "03",
-    title: "Everybody reaches in",
-    note: "Hands, not cutlery. You carve as you go and nobody leaves hungry.",
-    // Was food-06 (hands carving a shared board), which the copy above was
-    // written for. That file now holds a wings platter, so this points at
-    // food-01 instead -- the communal table shot, which still earns the line.
-    image: "/images/food-01.webp",
-    alt: "People sitting around a table sharing grilled wings and ribs in the daylight",
+    title: "Pull up a chair",
+    note: "Tables under the roof, something cold from the bar, and nobody rushing you out.",
+    // Card 03 closes the arc: choose it, cook it, then stay. It previously ran
+    // a close-up of hands grabbing at a board -- a dark, motion-blurred phone
+    // shot that was the weakest image on the site. venue-tables is one of the
+    // sharp venue photos and is otherwise only used on /events.
+    image: "/images/venue-tables.jpg",
+    alt: "Tables and chairs set out under the red roof at Zaba's, with the bar behind them",
   },
 ];
 

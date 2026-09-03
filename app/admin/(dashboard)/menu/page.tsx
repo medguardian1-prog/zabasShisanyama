@@ -1,3 +1,5 @@
+import ScreenHelp from "@/components/admin/ScreenHelp";
+import { ADMIN_HELP } from "@/lib/admin-help";
 import { adminCategories, adminMenuItems } from "@/app/admin/queries";
 import MenuManager from "./MenuManager";
 
@@ -9,11 +11,16 @@ export default async function AdminMenuPage() {
 
   return (
     <div>
-      <h1 className="text-base font-semibold text-bone">Menu</h1>
-      <p className="mt-1 text-xs leading-relaxed text-ash">
-        Tap the toggle to mark something sold out. Changes go live straight
-        away.
-      </p>
+      <ScreenHelp
+        title="Menu"
+        blurb={
+          <>
+            Tap the toggle to mark something sold out. Changes go live straight
+            away.
+          </>
+        }
+        help={ADMIN_HELP.menu}
+      />
       <MenuManager categories={categories} items={items} />
     </div>
   );

@@ -1,3 +1,5 @@
+import ScreenHelp from "@/components/admin/ScreenHelp";
+import { ADMIN_HELP } from "@/lib/admin-help";
 import { adminSiteSettings } from "@/app/admin/queries";
 import SettingsForm from "./SettingsForm";
 
@@ -6,10 +8,11 @@ export default async function AdminSettingsPage() {
 
   return (
     <div>
-      <h1 className="text-base font-semibold text-bone">Settings</h1>
-      <p className="mt-1 text-xs leading-relaxed text-ash">
-        Contact details and social links shown across the site.
-      </p>
+      <ScreenHelp
+        title="Settings"
+        blurb={<>Contact details and social links shown across the site.</>}
+        help={ADMIN_HELP.settings}
+      />
       <SettingsForm settings={settings} />
     </div>
   );

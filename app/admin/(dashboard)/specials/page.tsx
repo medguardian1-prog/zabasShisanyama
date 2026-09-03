@@ -1,3 +1,5 @@
+import ScreenHelp from "@/components/admin/ScreenHelp";
+import { ADMIN_HELP } from "@/lib/admin-help";
 import { adminSpecials } from "@/app/admin/queries";
 import SpecialsManager from "./SpecialsManager";
 
@@ -6,11 +8,16 @@ export default async function AdminSpecialsPage() {
 
   return (
     <div>
-      <h1 className="text-base font-semibold text-bone">Specials</h1>
-      <p className="mt-1 text-xs leading-relaxed text-ash">
-        &ldquo;Set as today&rsquo;s special&rdquo; switches the others off
-        automatically.
-      </p>
+      <ScreenHelp
+        title="Specials"
+        blurb={
+          <>
+            &ldquo;Set as today&rsquo;s special&rdquo; switches the others off
+            automatically.
+          </>
+        }
+        help={ADMIN_HELP.specials}
+      />
       <SpecialsManager specials={specials} />
     </div>
   );
