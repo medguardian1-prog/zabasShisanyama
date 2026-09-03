@@ -48,8 +48,11 @@ const STEPS = [
     n: "03",
     title: "Everybody reaches in",
     note: "Hands, not cutlery. You carve as you go and nobody leaves hungry.",
-    image: "/images/food-06.jpg",
-    alt: "Several hands carving and taking grilled meat from a shared wooden board",
+    // Was food-06 (hands carving a shared board), which the copy above was
+    // written for. That file now holds a wings platter, so this points at
+    // food-01 instead -- the communal table shot, which still earns the line.
+    image: "/images/food-01.webp",
+    alt: "People sitting around a table sharing grilled wings and ribs in the daylight",
   },
 ];
 

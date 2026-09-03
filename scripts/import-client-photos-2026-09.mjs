@@ -2,7 +2,13 @@
 /**
  * Second batch of client photography (supplied 2026-09-03), replacing the four
  * low-resolution shots that were still live on the homepage strip, gallery,
- * about page and menu.
+ * about page and menu: food-07, food-02, food-05 and food-06.
+ *
+ * Those four are the ones the homepage strip renders first, because
+ * SignatureStrip's FALLBACK_IMAGES list is consumed positionally by featured
+ * menu items. Identifying them by card *label* instead leads you to
+ * plate-beef / plate-chicken, which are different files and were fine as they
+ * were -- the client's own full-resolution plated shots. Do not touch those.
  *
  * Sources live in image-src/client-new/ and keep their original framing; this
  * script does the cropping so the framing decisions stay in version control
@@ -47,20 +53,20 @@ const JOBS = [
   },
   {
     source: "02-chops-phuthu.webp",
-    out: "plate-beef.jpg",
-    width: 1200,
-    height: 1600,
+    out: "food-05.jpg",
+    width: 1122,
+    height: 1402,
     position: "center",
-    note: "Phuthu & Beef. Natively portrait, so it keeps the 3:4 slot.",
+    note: "Platter for 4. Replaces the takeaway-tray shot with the receipt and '22' ticket. Natively portrait, so it keeps the existing 4:5 slot.",
   },
   {
     source: "03-wings.webp",
-    out: "plate-chicken.jpg",
+    out: "food-06.jpg",
     width: 1254,
     height: 1254,
     // Wings sit left of frame; a centred square crop would clip them.
     position: "left",
-    note: "Phuthu & Chicken. Landscape source, so stored square rather than 3:4.",
+    note: "Platter for 6. Replaces the hands-carving-on-a-cluttered-table shot.",
   },
 ];
 

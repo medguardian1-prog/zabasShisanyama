@@ -9,18 +9,18 @@ import { cn } from "@/lib/utils";
 export const LOCAL_GALLERY: Pick<GalleryImage, "image" | "alt" | "caption">[] = [
   {
     image: "/images/plate-beef.jpg",
-    alt: "Grilled pork chops and ribs on a wooden board with a dish of phuthu, tomato salsa, chakalaka and thick-sliced bread",
-    caption: "Chops & phuthu",
+    alt: "Beef stew with pap, chakalaka, coleslaw, butternut and tomato salsa on a white plate",
+    caption: "Beef & pap",
   },
   {
     image: "/images/food-07.jpg",
-    alt: "A loaded braai board of beef ribs, chops and grilled chicken wings with pap, three salads and thick-sliced bread",
-    caption: "The full board",
+    alt: "Flame-grilled lamb chops with steamed pap and chilli relish on a wooden board",
+    caption: "Chops & pap",
   },
   {
     image: "/images/plate-chicken.jpg",
-    alt: "Flame-grilled chicken wings and beef ribs on a wooden board with pap and a tray of fresh salads",
-    caption: "Wings & ribs",
+    alt: "A grilled chicken portion with creamy samp, beetroot and a tray of fresh sides",
+    caption: "Chicken & samp",
   },
   {
     image: "/images/food-08.jpg",
@@ -34,8 +34,8 @@ export const LOCAL_GALLERY: Pick<GalleryImage, "image" | "alt" | "caption">[] = 
   },
   {
     image: "/images/food-05.jpg",
-    alt: "A braai board of steak, wings and boerewors on a red slatted table",
-    caption: "Order 22, up",
+    alt: "Grilled pork chops and ribs on a wooden board with a dish of phuthu, tomato salsa, chakalaka and thick-sliced bread",
+    caption: "Chops & phuthu",
   },
   {
     image: "/images/plate-samp.jpg",
@@ -54,8 +54,8 @@ export const LOCAL_GALLERY: Pick<GalleryImage, "image" | "alt" | "caption">[] = 
   },
   {
     image: "/images/food-06.jpg",
-    alt: "Hands carving ribs and grilled meat on a shared board",
-    caption: "Shared, always",
+    alt: "Flame-grilled chicken wings and beef ribs on a wooden board with pap and a tray of fresh salads",
+    caption: "Wings & ribs",
   },
   {
     image: "/images/plate-curry.jpg",

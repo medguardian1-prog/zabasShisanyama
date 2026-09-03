@@ -11,13 +11,13 @@ Choices made without asking, with reasons.
 | File | What it shows | Orientation | Role |
 |---|---|---|---|
 | `logo.jpg` | Zaba's bottle-cap logo, red/black/white | square | Header, footer, favicon, OG image. Never in content grids. |
-| `food-05.jpg` | Mixed-grill board (steak, wings, boerewors) on a red slatted table, order ticket "22" | portrait | **Hero** — moodiest, most atmospheric shot; heavy bottom scrim handles the busy top of frame. |
+| `food-05.jpg` | Pork chops and ribs with phuthu, salsa and chakalaka (client, 2026-09-03) | portrait | Signature strip, gallery, Platter for 4. |
 | `food-07.jpg` | Braai board — beef ribs, chops, chicken wings, pap, three salads, bread (client, 2026-09-03) | square | Signature strip lead, gallery, Platter for 1. **Not** the hero: `hero.jpg` still comes from the older `image-src/upscaled/food-07.png`. |
 | `food-02.jpg` | Boerewors coil, ribs, chops and wings on a board (client, 2026-09-03) | square | Signature strip, Platter for 2, About "It comes out on a board". |
 | `food-03.jpg` | Branded takeaway tray — wings, bread, sides | portrait | Kotas/takeaway fallback, gallery ("To go"). |
 | `food-04.jpg` | Plated chicken stew, rice, sides (branded) | square | Sides/plates fallback, signature strip. |
 | `food-01.webp` | People sharing wings/ribs at a table, daylight | portrait | Gallery + About — communal energy, too busy for hero. |
-| `food-06.jpg` | Hands carving ribs/meat on a shared board | square | Gallery + About — the "shared, always" shot. |
+| `food-06.jpg` | Chicken wings and beef ribs with pap and salads (client, 2026-09-03) | square | Signature strip, gallery, Platter for 6. |
 | `event.jpg` | Performer on stage at night, crowd | landscape | Events page + events fallback image. |
 | `alcohol.webp` | Bar shelves of spirits | landscape | Drinks category fallback + gallery ("The bar"). |
 
@@ -191,8 +191,8 @@ shots that were still live. This retires the AI-upscaled stopgap noted above for
 |---|---|---|
 | `01-platter-wide.webp` | `food-07.jpg` | Homepage strip, gallery, Platter for 1 |
 | `04-platter-wors.webp` | `food-02.jpg` | Homepage strip, Platter for 2, About "It comes out on a board" |
-| `02-chops-phuthu.webp` | `plate-beef.jpg` | Homepage strip, gallery, Phuthu & Beef |
-| `03-wings.webp` | `plate-chicken.jpg` | Homepage strip, gallery, Phuthu & Chicken |
+| `02-chops-phuthu.webp` | `food-05.jpg` | Homepage strip, gallery, Platter for 4 |
+| `03-wings.webp` | `food-06.jpg` | Homepage strip, gallery, Platter for 6 |
 
 Built by `scripts/import-client-photos-2026-09.mjs`. Notes on the decisions:
 
@@ -200,22 +200,37 @@ Built by `scripts/import-client-photos-2026-09.mjs`. Notes on the decisions:
   paths* (`/images/food-07.jpg`) into `menu_items.image`, and the live site was
   confirmed to be serving exactly those paths. Swapping files in place therefore
   updated all six call sites with no data migration and no risk of a dead path.
-- **`plate-chicken.jpg` changed from 3:4 portrait to square.** Its new source is
-  landscape; forcing 3:4 would have meant upscaling a 714px slice by 1.68x. Every
-  consumer renders `fill` + `object-cover` inside its own CSS aspect box, so the
-  stored aspect does not drive layout. Nothing wider than 1:1 is stored, because
-  the tallest box in use is `aspect-[3/4]`.
+- **Identify the four by file, not by card label.** `SignatureStrip`'s
+  `FALLBACK_IMAGES` list is consumed *positionally* by featured menu items, so
+  the card captions do not correspond to the filenames in `default-menu.ts`. The
+  four the client rejected are the first four in that list: `food-07`, `food-02`,
+  `food-05`, `food-06`. Matching by label instead leads you to `plate-beef` and
+  `plate-chicken`, which are different files and are the client's own
+  full-resolution plated shots. Those two were replaced in error and restored.
+- **Nothing is stored wider than 1:1.** Every consumer renders `fill` +
+  `object-cover` inside its own CSS aspect box, so the stored aspect does not
+  drive layout, but the tallest box in use is `aspect-[3/4]` and a landscape file
+  would be gutted by it. `food-06` is therefore square rather than 3:4: its
+  source is landscape, and forcing 3:4 would have upscaled a 714px slice by 1.68x.
+- **The About page's "Everybody reaches in" card moved to `food-01.webp`.** Its
+  copy ("Hands, not cutlery") was written for the hands-carving photo that used
+  to live at `food-06`. `food-01` is the communal-table shot and still earns the
+  line.
 - **The hero is deliberately unchanged.** These photos were supplied to replace
   the four content shots only. `hero.jpg` and `hero-mobile.jpg` keep their
   previous image, and `Hero.tsx` is untouched.
   This leaves a naming trap worth knowing about: `public/images/food-07.jpg` is
   now the new client photo, but `hero.jpg` is still generated from the *older*
   `image-src/upscaled/food-07.png`. Same filename, two different pictures.
-- **`enhance-images.mjs` no longer owns `food-02` or `food-07`.** The stale
-  Upscayl sources are still in `image-src/upscaled/`, so without a guard a
-  re-run there would silently revert the homepage strip, gallery and about page
-  to the old low-resolution shots. Its hero block is left as it was, because the
-  hero still legitimately derives from that older source.
+- **`enhance-images.mjs` no longer owns `food-02`, `food-05`, `food-06` or
+  `food-07`.** The stale Upscayl sources are still in `image-src/upscaled/`, so
+  without a guard a re-run there would silently revert the homepage strip,
+  gallery and about page to the low-resolution shots the client rejected.
+- **That script's hero block is disabled.** It resized by width only, so it
+  inherited the source aspect and wrote a 1700x1707 near-square over a hero that
+  is committed at 2000x1230 landscape. It had not reproduced the live banner for
+  some time, and running the script silently squared off the homepage. `hero.jpg`
+  and `hero-mobile.jpg` are now committed assets that nothing regenerates.
 - Alt text was rewritten on all four — the previous copy described the old
   photos ("creamy samp, beetroot", "chilli relish") and would have been both
   wrong and an accessibility failure.
