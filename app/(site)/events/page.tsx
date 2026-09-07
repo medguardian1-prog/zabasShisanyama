@@ -301,7 +301,7 @@ export default async function EventsPage() {
             <div className="photo-frame relative aspect-[16/10] lg:aspect-auto lg:min-h-[22rem]">
               <Image
                 src="/images/venue-bar.jpg"
-                alt="The main bar and seating area at Zaba's under the red roof"
+                alt="The stocked back bar at Zaba's — whisky, cognac, gin and vodka on orange shelves around a Monkey Shoulder display"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 quality={80}
