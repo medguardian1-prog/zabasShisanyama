@@ -63,8 +63,8 @@ export const LOCAL_GALLERY: Pick<GalleryImage, "image" | "alt" | "caption">[] = 
     caption: "Curry & rice",
   },
   {
-    image: "/images/alcohol.webp",
-    alt: "Shelves of spirits and drinks behind the bar at Zaba's",
+    image: "/images/venue-bar.jpg",
+    alt: "The stocked back bar at Zaba's — whisky, cognac, gin and vodka on orange shelves around a Monkey Shoulder display",
     caption: "The bar",
   },
 ];
